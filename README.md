@@ -62,6 +62,8 @@ Standalone real-world implementations organized by category. Each folder has its
 | Project | Description |
 |---|---|
 | [jev_flappy_bird](./agents/jev_flappy_bird) | Flappy Bird controlled by a System-1 LLM — no training, no Q-learning, just natural language |
+| [tlc_ai_doc_process_project](https://github.com/iamdgarcia/tlc_ai_doc_process_project) | Document extraction API: PDF/image → LLM → structured data + SQL agent with tool calling |
+| [google-realtime-voice-agent](https://github.com/iamdgarcia/google-realtime-voice-agent) | Real-time voice agent using Google's API — WebSocket, adapters, latency profiling |
 
 ### 🔍 [rag/](./rag)
 
@@ -74,6 +76,14 @@ Standalone real-world implementations organized by category. Each folder has its
 | Project | Description |
 |---|---|
 | [system_one_models_tutorial](./llm/system_one_models_tutorial) | Working with System One model endpoints and fast inference |
+| [tokenpilot](https://github.com/iamdgarcia/tokenpilot) | Cache-efficient context management for LLM agents — zero-dependency Python (arxiv paper) |
+| [digitalocean-kimi-k3-python](https://github.com/iamdgarcia/digitalocean-kimi-k3-python) | Minimal Python examples for Kimi K3 on DigitalOcean Serverless Inference |
+
+### 🛠️ [tools/](./tools)
+
+| Project | Description |
+|---|---|
+| [litellm-novita-gateway](https://github.com/iamdgarcia/litellm-novita-gateway) | Self-hosted LiteLLM gateway with Redis cache and Novita AI — one-click Railway deploy |
 
 ---
 

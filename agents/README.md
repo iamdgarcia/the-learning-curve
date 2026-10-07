@@ -9,6 +9,8 @@ For **deployable agent templates** with one-click Netlify deploy buttons, see th
 | Project | Description |
 |---|---|
 | [jev_flappy_bird](./jev_flappy_bird) | Flappy Bird controlled by a System-1 language model (Laya) — no training, no Q-learning, just natural language state descriptions |
+| [tlc_ai_doc_process_project](https://github.com/iamdgarcia/tlc_ai_doc_process_project) | Document extraction API: PDF/image → LLM → structured data + SQL agent with tool calling |
+| [google-realtime-voice-agent](https://github.com/iamdgarcia/google-realtime-voice-agent) | Real-time voice agent using Google's API — WebSocket, adapters, latency profiling |
 
 ## Contributing
 
