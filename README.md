@@ -49,7 +49,8 @@ Deploy a working AI agent in under 60 seconds. Each blueprint is a self-containe
 | Course | Description | Language | Link |
 |---|---|---|---|
 | **Agentic AI for Beginners** | From chat to autonomous agents — 5 modules, theory + code | EN / ES | [Start →](https://github.com/iamdgarcia/tlc_agents_training) |
-| **AI Architect Academy** | From software engineer to AI architect — 6 semesters | ES | [Start →](./ai_architect_course) |
+| **Scale AI with MLOps** | Production ML systems: MLOps, deployment, monitoring | EN | [Get it →](https://iamdgarcia.gumroad.com/l/scale-ai-with-mlops) |
+| **The Learning Curve on YouTube** | Video tutorials, walkthroughs and deep-dives | EN / ES | [Watch →](https://www.youtube.com/@TheLearningCurveAI) |
 
 ---
 
