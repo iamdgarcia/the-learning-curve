@@ -55,13 +55,25 @@ Deploy a working AI agent in under 60 seconds. Each blueprint is a self-containe
 
 ## 🔬 Projects
 
-Standalone real-world implementations you can study, fork, and adapt.
+Standalone real-world implementations organized by category. Each folder has its own README with setup instructions.
 
-| Project | Description | Stack |
-|---|---|---|
-| [Nemotron Banking ASR](./nemotron-banking-es-asr) | Fine-tuned speech recognition for Spanish banking | NVIDIA Nemotron, NeMo |
-| [RAG Production System](./rag-production-system) | Production-ready RAG with observability | Python, LangChain |
-| [System One Models Tutorial](./system_one_models_tutorial) | Working with System One model endpoints | Python |
+### 🤖 [agents/](./agents)
+
+| Project | Description |
+|---|---|
+| [jev_flappy_bird](./agents/jev_flappy_bird) | Flappy Bird controlled by a System-1 LLM — no training, no Q-learning, just natural language |
+
+### 🔍 [rag/](./rag)
+
+| Project | Description |
+|---|---|
+| [rag-production-system](./rag/rag-production-system) | Production-ready RAG pipeline with observability and evaluation |
+
+### 🧠 [llm/](./llm)
+
+| Project | Description |
+|---|---|
+| [system_one_models_tutorial](./llm/system_one_models_tutorial) | Working with System One model endpoints and fast inference |
 
 ---
 

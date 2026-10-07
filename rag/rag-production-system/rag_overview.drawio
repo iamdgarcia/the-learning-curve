@@ -1,0 +1,148 @@
+<mxfile host="65bd71144e">
+    <diagram name="RAG Overview" id="rag-overview">
+        <mxGraphModel dx="1562" dy="1002" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="93" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+                    <mxGeometry x="463" y="955" width="72" height="72" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="&lt;font style=&quot;font-size: 22px;&quot;&gt;&lt;b&gt;RAG: Retrieval-Augmented Generation&lt;/b&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="50" y="20" width="1380" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="Cómo los LLMs acceden a conocimiento externo actualizado sin necesidad de reentrenamiento" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=13;fontColor=#555555;" parent="1" vertex="1">
+                    <mxGeometry x="50" y="65" width="1380" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;opacity=50;arcSize=3;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="110" width="800" height="220" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="&lt;b&gt;FASE 1: INDEXACIÓN&lt;/b&gt; — proceso offline (una vez, o cuando los documentos cambian)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#23527c;" parent="1" vertex="1">
+                    <mxGeometry x="55" y="113" width="650" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="&lt;b&gt;Fuentes de Datos&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#666&quot;&gt;PDFs, webs, bases de&lt;br&gt;datos, correos, APIs&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="65" y="158" width="145" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="&lt;b&gt;Fragmentación&lt;/b&gt;&lt;br&gt;(Chunking)&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#666&quot;&gt;Divide en fragmentos&lt;br&gt;pequeños y coherentes&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="270" y="153" width="145" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="&lt;b&gt;Modelo de Embeddings&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#666&quot;&gt;Texto → vectores&lt;br&gt;numéricos densos&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="475" y="158" width="145" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="40" value="&lt;b&gt;Base de Datos Vectorial&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#666&quot;&gt;Almacena vectores e&lt;br&gt;índice de búsqueda&lt;br&gt;(ChromaDB, Pinecone...)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="685" y="150" width="145" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#6c8ebf;strokeWidth=2;" parent="1" source="20" target="21" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#6c8ebf;strokeWidth=2;" parent="1" source="21" target="22" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="32" value="indexar" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#82b366;strokeWidth=2;fontStyle=2;fontSize=9;" parent="1" source="22" target="40" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="50" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#d79b00;opacity=50;arcSize=3;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="395" width="1340" height="250" as="geometry"/>
+                </mxCell>
+                <mxCell id="51" value="&lt;b&gt;FASE 2: INFERENCIA&lt;/b&gt; — tiempo real, para cada consulta del usuario" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#7d4e00;" parent="1" vertex="1">
+                    <mxGeometry x="55" y="398" width="600" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="60" value="&lt;b&gt;Usuario&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="67" y="460" width="95" height="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="61" value="&lt;b&gt;Consulta&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#666&quot;&gt;&lt;i&gt;&quot;¿Síntomas del COVID?&quot;&lt;/i&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="222" y="453" width="130" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="62" value="&lt;b&gt;Embedding&lt;br&gt;de la Consulta&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#666&quot;&gt;[0.12, -0.54, 0.89...]&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="412" y="450" width="130" height="85" as="geometry"/>
+                </mxCell>
+                <mxCell id="63" value="&lt;b&gt;Búsqueda Vectorial&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#666&quot;&gt;Similitud coseno&lt;br&gt;Top-K resultados&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="607" y="453" width="140" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="64" value="&lt;b&gt;Contexto Relevante&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#666&quot;&gt;Fragmentos más&lt;br&gt;similares a la query&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="812" y="453" width="140" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="65" value="&lt;b&gt;LLM&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#666&quot;&gt;Genera respuesta&lt;br&gt;basada en contexto&lt;br&gt;(GPT-4, Claude...)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;align=center;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="1017" y="443" width="140" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="66" value="&lt;b&gt;Respuesta&lt;br&gt;Fundamentada&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#666&quot;&gt;Precisa y trazable&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="1227" y="453" width="130" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="70" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#d79b00;strokeWidth=2;" parent="1" source="60" target="61" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="71" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#d79b00;strokeWidth=2;" parent="1" source="61" target="62" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="72" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#d79b00;strokeWidth=2;" parent="1" source="62" target="63" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="73" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#d79b00;strokeWidth=2;" parent="1" source="63" target="64" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="74" value="construir prompt" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#9673a6;strokeWidth=2;fontStyle=2;fontSize=9;" parent="1" source="64" target="65" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="75" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#82b366;strokeWidth=2;" parent="1" source="65" target="66" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="76" value="recuperar" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#82b366;strokeWidth=2;dashed=1;fontStyle=2;fontSize=9;" parent="1" source="40" target="63" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="80" value="&lt;b&gt;Conceptos clave:&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontStyle=1;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="665" width="200" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="81" value="&lt;b&gt;¿Por qué RAG?&lt;/b&gt;&lt;br&gt;&lt;br&gt;• Los LLMs tienen fecha de corte de conocimiento&lt;br&gt;• RAG permite acceder a información actualizada&lt;br&gt;• Reduce alucinaciones al anclar respuestas en documentos reales&lt;br&gt;• Más económico que reentrenar el modelo" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#bdbdbd;fontSize=10;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="693" width="320" height="115" as="geometry"/>
+                </mxCell>
+                <mxCell id="82" value="&lt;b&gt;Embedding&lt;/b&gt;&lt;br&gt;&lt;br&gt;Representación numérica del significado semántico de un texto. Textos con significado similar tienen vectores cercanos en el espacio de alta dimensión (ej: 1536 dimensiones en text-embedding-ada-002)." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#bdbdbd;fontSize=10;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;" parent="1" vertex="1">
+                    <mxGeometry x="377" y="693" width="310" height="115" as="geometry"/>
+                </mxCell>
+                <mxCell id="83" value="&lt;b&gt;Similitud Coseno&lt;/b&gt;&lt;br&gt;&lt;br&gt;Mide el ángulo entre dos vectores (0 = muy diferentes, 1 = idénticos). Permite encontrar los fragmentos más relevantes para cada consulta sin importar la longitud del texto." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#bdbdbd;fontSize=10;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;" parent="1" vertex="1">
+                    <mxGeometry x="704" y="693" width="310" height="115" as="geometry"/>
+                </mxCell>
+                <mxCell id="84" value="&lt;b&gt;Prompt con Contexto&lt;/b&gt;&lt;br&gt;&lt;br&gt;El LLM recibe: [contexto recuperado] + [pregunta del usuario]. Instrucción típica: &lt;i&gt;&quot;Responde SÓLO basándote en el contexto. Si no lo sabes, dilo.&quot;&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#bdbdbd;fontSize=10;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;" parent="1" vertex="1">
+                    <mxGeometry x="1031" y="693" width="320" height="115" as="geometry"/>
+                </mxCell>
+                <mxCell id="85" value="" style="endArrow=none;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="465" y="1164" as="sourcePoint"/>
+                        <mxPoint x="465" y="913" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="86" value="" style="endArrow=none;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="334" y="1033" as="sourcePoint"/>
+                        <mxPoint x="635" y="1033" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="87" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+                    <mxGeometry x="475" y="997" width="18" height="18" as="geometry"/>
+                </mxCell>
+                <mxCell id="88" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+                    <mxGeometry x="493" y="972" width="18" height="18" as="geometry"/>
+                </mxCell>
+                <mxCell id="89" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+                    <mxGeometry x="565" y="990" width="18" height="18" as="geometry"/>
+                </mxCell>
+                <mxCell id="90" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+                    <mxGeometry x="555" y="929" width="18" height="18" as="geometry"/>
+                </mxCell>
+                <mxCell id="91" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+                    <mxGeometry x="505" y="929" width="18" height="18" as="geometry"/>
+                </mxCell>
+                <mxCell id="92" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+                    <mxGeometry x="507" y="997" width="16" height="16" as="geometry"/>
+                </mxCell>
+                <mxCell id="94" value="&amp;lt;System&amp;gt; Eres un asistente conversacional. Responde de manera educada&lt;div&gt;&lt;font style=&quot;color: rgb(255, 179, 102);&quot;&gt;&amp;lt;User&amp;gt; Síntomas del covid&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(255, 179, 102);&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(204, 0, 0);&quot;&gt;&amp;lt;Contexto&amp;gt; Los síntomas del covid son...&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(255, 179, 102);&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(255, 179, 102);&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&amp;lt;AI&amp;gt; Respuesta:&amp;nbsp;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="815" y="895" width="338" height="218" as="geometry"/>
+                </mxCell>
+                <mxCell id="95" value="" style="endArrow=classic;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="88">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="639" y="996.5" as="sourcePoint"/>
+                        <mxPoint x="857" y="1011.5" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

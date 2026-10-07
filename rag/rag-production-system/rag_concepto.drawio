@@ -1,0 +1,85 @@
+<mxfile host="65bd71144e">
+    <diagram name="Para qué sirve RAG" id="rag-concepto">
+        <mxGraphModel dx="1802" dy="1002" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="&lt;font style=&quot;font-size: 22px;&quot;&gt;&lt;b&gt;¿Para qué sirve RAG?&lt;/b&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="50" y="15" width="1310" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="RAG es la forma que tenemos de dar información extra a los modelos de lenguaje, justo cuando la necesitan" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=13;fontColor=#444444;fontStyle=2;" parent="1" vertex="1">
+                    <mxGeometry x="50" y="60" width="1310" height="28" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fde8e8;strokeColor=#cc3333;opacity=60;arcSize=3;" parent="1" vertex="1">
+                    <mxGeometry x="30" y="100" width="638" height="275" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="&lt;b&gt;&lt;font style=&quot;font-size: 13px;&quot; color=&quot;#cc0000&quot;&gt;❌  Sin RAG&lt;/font&gt;&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="45" y="105" width="200" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="&lt;b&gt;Usuario&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="52" y="197" width="90" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="&lt;b&gt;LLM&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#555&quot;&gt;Solo conoce lo que&lt;br&gt;aprendió durante&lt;br&gt;el entrenamiento&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#888&quot; style=&quot;font-size: 9px;&quot;&gt;(datos públicos, hasta cierta fecha)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="215" y="168" width="190" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="&lt;b&gt;Respuesta con limitaciones&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#cc0000&quot;&gt;❌ Puede estar desactualizada&lt;br&gt;❌ No conoce tus documentos&lt;br&gt;❌ No tiene tus datos privados&lt;br&gt;❌ Puede inventar información&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff0f0;strokeColor=#cc3333;fontSize=10;align=left;spacingLeft=8;spacingTop=6;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="468" y="158" width="178" height="135" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" value="pregunta" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#b85450;strokeWidth=2;fontStyle=2;fontSize=9;" parent="1" source="20" target="21" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#cc3333;strokeWidth=2;" parent="1" source="21" target="22" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="40" value="&lt;b&gt;&lt;font style=&quot;font-size: 16px;&quot; color=&quot;#555&quot;&gt;vs&lt;/font&gt;&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="667" y="218" width="60" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="50" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e8;strokeColor=#33aa33;opacity=60;arcSize=3;" parent="1" vertex="1">
+                    <mxGeometry x="727" y="100" width="643" height="275" as="geometry"/>
+                </mxCell>
+                <mxCell id="51" value="&lt;b&gt;&lt;font style=&quot;font-size: 13px;&quot; color=&quot;#007700&quot;&gt;✅  Con RAG&lt;/font&gt;&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="742" y="105" width="200" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="60" value="&lt;b&gt;Tu información&lt;/b&gt;&lt;br&gt;&lt;br&gt;📄  Documentos PDF&lt;br&gt;🗃  Bases de datos&lt;br&gt;🌐  Webs actualizadas&lt;br&gt;📧  Wiki / Correos&lt;br&gt;📑  Informes internos" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=left;spacingLeft=10;spacingTop=6;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="742" y="133" width="168" height="155" as="geometry"/>
+                </mxCell>
+                <mxCell id="61" value="&lt;b&gt;RAG&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#555&quot;&gt;Recupera solo lo&lt;br&gt;que es relevante&lt;br&gt;para la consulta&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0e6ff;strokeColor=#9966cc;fontSize=10;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="975" y="185" width="120" height="95" as="geometry"/>
+                </mxCell>
+                <mxCell id="62" value="&lt;b&gt;LLM&lt;/b&gt;&lt;br&gt;+ contexto relevante&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#007700&quot;&gt;✅ Información actualizada&lt;br&gt;✅ Usa tus documentos&lt;br&gt;✅ Respuestas precisas&lt;br&gt;✅ Trazable y verificable&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=left;spacingLeft=8;spacingTop=6;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="1163" y="155" width="185" height="145" as="geometry"/>
+                </mxCell>
+                <mxCell id="63" value="&lt;b&gt;Usuario&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="985" y="317" width="90" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="70" value="documentos relevantes" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#d6b656;strokeWidth=2;fontStyle=2;fontSize=9;" parent="1" source="60" target="61" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="71" value="pregunta" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#b85450;strokeWidth=2;fontStyle=2;fontSize=9;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="63" target="61" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="72" value="contexto + consulta" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#82b366;strokeWidth=2;fontStyle=2;fontSize=9;" parent="1" source="61" target="62" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="80" value="&lt;b&gt;¿Dónde se aplica?&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontStyle=1;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="30" y="395" width="250" height="28" as="geometry"/>
+                </mxCell>
+                <mxCell id="90" value="&lt;b&gt;🏢 Atención al Cliente&lt;/b&gt;&lt;br&gt;&lt;br&gt;Chatbots que conocen tus productos, políticas de empresa y manuales internos." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#bdbdbd;fontSize=10;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;" parent="1" vertex="1">
+                    <mxGeometry x="30" y="430" width="240" height="115" as="geometry"/>
+                </mxCell>
+                <mxCell id="91" value="&lt;b&gt;🏥 Salud y Medicina&lt;/b&gt;&lt;br&gt;&lt;br&gt;Asistentes que consultan guías clínicas, historial médico y estudios recientes." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#bdbdbd;fontSize=10;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;" parent="1" vertex="1">
+                    <mxGeometry x="288" y="430" width="240" height="115" as="geometry"/>
+                </mxCell>
+                <mxCell id="92" value="&lt;b&gt;⚖️ Legal y Compliance&lt;/b&gt;&lt;br&gt;&lt;br&gt;Búsqueda inteligente en contratos, leyes, regulaciones y jurisprudencia." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#bdbdbd;fontSize=10;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;" parent="1" vertex="1">
+                    <mxGeometry x="546" y="430" width="240" height="115" as="geometry"/>
+                </mxCell>
+                <mxCell id="93" value="&lt;b&gt;📚 Educación&lt;/b&gt;&lt;br&gt;&lt;br&gt;Tutores inteligentes que responden basándose en los materiales de cada curso." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#bdbdbd;fontSize=10;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;" parent="1" vertex="1">
+                    <mxGeometry x="804" y="430" width="240" height="115" as="geometry"/>
+                </mxCell>
+                <mxCell id="94" value="&lt;b&gt;💰 Finanzas&lt;/b&gt;&lt;br&gt;&lt;br&gt;Análisis de informes, noticias de mercado y datos financieros en tiempo real." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#bdbdbd;fontSize=10;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;" parent="1" vertex="1">
+                    <mxGeometry x="1062" y="430" width="240" height="115" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

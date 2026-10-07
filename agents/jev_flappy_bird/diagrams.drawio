@@ -1,0 +1,562 @@
+<mxfile host="65bd71144e">
+    <diagram id="p1" name="1. Arquitectura General">
+        <mxGraphModel dx="1533" dy="730" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=20;fontStyle=1;" value="Arquitectura General — Flappy Bird + Laya (System-1)" vertex="1">
+                    <mxGeometry height="40" width="1010" x="80" y="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=13;fontStyle=2;" value="El pájaro se controla con lenguaje natural. Ninguna regla codificada — solo texto → modelo → acción." vertex="1">
+                    <mxGeometry height="25" width="1010" x="80" y="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;arcSize=10;" value="&lt;b&gt;FlappyBird-v0&lt;/b&gt;&lt;br&gt;Gymnasium Environment&lt;hr/&gt;• 288 × 512 px&lt;br&gt;• ~60 fps&lt;br&gt;• Render pygame" vertex="1">
+                    <mxGeometry height="140" width="190" x="60" y="310" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;arcSize=10;" value="&lt;b&gt;format_state(obs)&lt;/b&gt;&lt;br&gt;decision_utils.py&lt;hr/&gt;• Identifica tubería activa&lt;br&gt;• Proyecta trayectoria N pasos&lt;br&gt;• Genera advice en inglés" vertex="1">
+                    <mxGeometry height="140" width="220" x="390" y="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;arcSize=10;" value="&lt;b&gt;Laya Model&lt;/b&gt;&lt;br&gt;onnx-community/laya-multilingual-ONNX&lt;hr/&gt;• ModernBERT-base (FP16)&lt;br&gt;• CUDAExecutionProvider&lt;br&gt;• Puntúa [MASK] tokens" vertex="1">
+                    <mxGeometry height="140" width="230" x="760" y="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="40" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;arcSize=50;" value="&lt;b&gt;Decisión&lt;/b&gt;&lt;br&gt;&lt;br&gt;flap: 0.993&lt;br&gt;no_flap: 0.007&lt;br&gt;&lt;br&gt;→ action = 1 (FLAP)" vertex="1">
+                    <mxGeometry height="130" width="230" x="760" y="450" as="geometry"/>
+                </mxCell>
+                <mxCell id="50" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;arcSize=5;align=left;" value="&lt;b&gt;main.py — Game Loop&lt;/b&gt;&lt;hr/&gt;obs = env.reset()&lt;br&gt;while True:&lt;br&gt;&amp;nbsp;&amp;nbsp;state = format_state(obs)&lt;br&gt;&amp;nbsp;&amp;nbsp;probs = engine.predict(state)&lt;br&gt;&amp;nbsp;&amp;nbsp;action = argmax(probs)&lt;br&gt;&amp;nbsp;&amp;nbsp;obs, rew, done = env.step(action)" vertex="1">
+                    <mxGeometry height="150" width="270" x="360" y="450" as="geometry"/>
+                </mxCell>
+                <mxCell id="60" edge="1" parent="1" source="10" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=12;fontStyle=1;" target="20" value="obs[12]">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="310" y="352"/>
+                            <mxPoint x="310" y="250"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="61" edge="1" parent="1" source="20" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=12;fontStyle=1;" target="30" value="texto (~130 tokens)">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="62" edge="1" parent="1" source="30" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=11;" target="40" value="{flap: 0.993, no_flap: 0.007}">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="63" edge="1" parent="1" source="40" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=12;fontStyle=1;" target="50" value="action = 1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="64" edge="1" parent="1" source="50" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=11;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="10" value="env.step(action)">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="360" y="525"/>
+                            <mxPoint x="155" y="525"/>
+                            <mxPoint x="155" y="450"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="65" edge="1" parent="1" source="50" style="edgeStyle=orthogonalEdgeStyle;html=1;dashed=1;strokeColor=#666;" target="20" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="70" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;align=left;" value="&lt;b&gt;Tiempos por step&lt;/b&gt;&lt;hr/&gt;format_state(): &amp;nbsp;&amp;nbsp;0.1 ms&lt;br&gt;Laya GPU FP16: &amp;nbsp;&amp;nbsp;&amp;nbsp;7 ms&lt;br&gt;env.step(): &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;2 ms&lt;br&gt;pygame render: &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;1 ms&lt;br&gt;&lt;hr/&gt;&lt;b&gt;Total: ~10 ms → 100+ FPS&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="140" width="210" x="60" y="540" as="geometry"/>
+                </mxCell>
+                <mxCell id="80" parent="1" style="callout;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;perimeter=calloutPerimeter;size=15;position=0.5;direction=south;" value="&lt;b&gt;Restricción del challenge:&lt;/b&gt;&lt;br&gt;Solo se puede modificar&lt;br&gt;&lt;b&gt;decision_utils.py&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="80" width="270" x="360" y="350" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="p2" name="2. Laya - Formato de Tokens">
+        <mxGraphModel dx="1977" dy="737" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=20;fontStyle=1;" value="Laya — Formato de Tokens y Mecanismo de Decisión" vertex="1">
+                    <mxGeometry height="40" width="1010" x="80" y="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=15;fontStyle=1;" value="Secuencia de Tokens de Entrada" vertex="1">
+                    <mxGeometry height="30" width="400" x="60" y="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;fontSize=13;fontStyle=1;" value="[CLS]" vertex="1">
+                    <mxGeometry height="50" width="70" x="60" y="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="choice question:&lt;br&gt;What is the correct&lt;br&gt;action for the bird?" vertex="1">
+                    <mxGeometry height="70" width="180" x="150" y="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;fontSize=13;fontStyle=1;" value="[SEP]" vertex="1">
+                    <mxGeometry height="50" width="70" x="350" y="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ff8000;strokeColor=#d6b656;fontColor=#ffffff;fontSize=11;fontStyle=1;" value="[MASK]&lt;br&gt;flap: Flap wings&lt;br&gt;to rise upward." vertex="1">
+                    <mxGeometry height="70" width="170" x="440" y="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ff8000;strokeColor=#d6b656;fontColor=#ffffff;fontSize=11;fontStyle=1;" value="[MASK]&lt;br&gt;no_flap: Do not flap;&lt;br&gt;let bird fall." vertex="1">
+                    <mxGeometry height="70" width="175" x="630" y="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;fontSize=13;fontStyle=1;" value="[SEP]" vertex="1">
+                    <mxGeometry height="50" width="70" x="825" y="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" value="Active pipe: dist=0.30,&lt;br&gt;gap=[0.280, 0.480]...&lt;br&gt;Bird: y=0.46, falling...&lt;br&gt;Flap now to rise." vertex="1">
+                    <mxGeometry height="74" width="190" x="915" y="108" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;fontSize=12;fontStyle=1;" value="[SEP]" vertex="1">
+                    <mxGeometry height="50" width="44" x="1115" y="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" edge="1" parent="1" source="10" style="edgeStyle=none;html=1;" target="11" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" edge="1" parent="1" source="11" style="edgeStyle=none;html=1;" target="12" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" edge="1" parent="1" source="12" style="edgeStyle=none;html=1;" target="13" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" edge="1" parent="1" source="13" style="edgeStyle=none;html=1;" target="14" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" edge="1" parent="1" source="14" style="edgeStyle=none;html=1;" target="15" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" edge="1" parent="1" source="15" style="edgeStyle=none;html=1;" target="16" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" edge="1" parent="1" source="16" style="edgeStyle=none;html=1;" target="17" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" parent="1" style="text;html=1;align=center;fontSize=10;fontColor=#647687;fontStyle=2;" value="Inicio de secuencia" vertex="1">
+                    <mxGeometry height="20" width="100" x="40" y="175" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" parent="1" style="text;html=1;align=center;fontSize=10;fontColor=#6c8ebf;fontStyle=2;" value="Pregunta" vertex="1">
+                    <mxGeometry height="20" width="170" x="155" y="185" as="geometry"/>
+                </mxCell>
+                <mxCell id="32" parent="1" style="text;html=1;align=center;fontSize=10;fontColor=#ff8000;fontStyle=2;" value="Opciones (posiciones de decisión)" vertex="1">
+                    <mxGeometry height="20" width="370" x="435" y="185" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" parent="1" style="text;html=1;align=center;fontSize=10;fontColor=#82b366;fontStyle=2;" value="Estado del juego" vertex="1">
+                    <mxGeometry height="20" width="190" x="915" y="185" as="geometry"/>
+                </mxCell>
+                <mxCell id="40" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=15;fontStyle=1;" value="Extracción de Logits y Softmax" vertex="1">
+                    <mxGeometry height="30" width="400" x="60" y="230" as="geometry"/>
+                </mxCell>
+                <mxCell id="41" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" value="&lt;b&gt;ModernBERT Encoder&lt;/b&gt;&lt;br&gt;(22 capas transformer)&lt;br&gt;&lt;br&gt;Cada token → vector 768d&lt;br&gt;Atención bidireccional" vertex="1">
+                    <mxGeometry height="110" width="220" x="60" y="275" as="geometry"/>
+                </mxCell>
+                <mxCell id="42" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="41" value="tokens">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="170" y="185" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="43" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;align=left;" value="&lt;b&gt;Extracción de logits&lt;/b&gt;&lt;hr/&gt;Posición [MASK] flap: &amp;nbsp;→ logit = 3.82&lt;br&gt;Posición [MASK] no_flap → logit = 0.21" vertex="1">
+                    <mxGeometry height="110" width="290" x="360" y="275" as="geometry"/>
+                </mxCell>
+                <mxCell id="44" edge="1" parent="1" source="41" style="edgeStyle=orthogonalEdgeStyle;html=1;" target="43" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="45" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666;fontSize=12;align=left;" value="&lt;b&gt;Temperature scaling&lt;/b&gt;&lt;hr/&gt;scaled = logits / T&lt;br&gt;T = config[&amp;quot;temperature&amp;quot;]" vertex="1">
+                    <mxGeometry height="110" width="220" x="730" y="275" as="geometry"/>
+                </mxCell>
+                <mxCell id="46" edge="1" parent="1" source="43" style="edgeStyle=orthogonalEdgeStyle;html=1;" target="45" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="47" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;align=left;" value="&lt;b&gt;Softmax&lt;/b&gt;&lt;hr/&gt;exp(3.82) / (exp(3.82) + exp(0.21))&lt;br&gt;&lt;br&gt;flap &amp;nbsp;&amp;nbsp;&amp;nbsp;= &lt;b&gt;0.993&lt;/b&gt;&lt;br&gt;no_flap = &lt;b&gt;0.007&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="120" width="270" x="60" y="480" as="geometry"/>
+                </mxCell>
+                <mxCell id="48" edge="1" parent="1" source="45" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="47" value="">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="840" y="450"/>
+                            <mxPoint x="195" y="450"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="49" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;align=left;" value="&lt;b&gt;Decisión final&lt;/b&gt;&lt;hr/&gt;argmax({flap: 0.993, no_flap: 0.007})&lt;br&gt;&lt;br&gt;→ &lt;b&gt;action = 1 (FLAP)&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="120" width="290" x="400" y="480" as="geometry"/>
+                </mxCell>
+                <mxCell id="50" edge="1" parent="1" source="47" style="edgeStyle=orthogonalEdgeStyle;html=1;" target="49" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="55" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=13;" value="&lt;b&gt;Insight clave:&lt;/b&gt; El modelo NO genera texto. Evalúa cuál opción &lt;br&gt;encaja mejor en el contexto. El estado debe hacer que la opción&lt;br&gt;correcta sea &lt;b&gt;obvia en lenguaje natural.&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="80" width="600" x="60" y="640" as="geometry"/>
+                </mxCell>
+                <mxCell id="60" parent="1" style="text;html=1;fontSize=14;fontStyle=1;" value="&lt;b&gt;System-1 vs System-2&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="25" width="250" x="740" y="460" as="geometry"/>
+                </mxCell>
+                <mxCell id="61" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" value="&lt;b&gt;System-1 (Laya)&lt;/b&gt;&lt;br&gt;7 ms por decisión&lt;br&gt;Sin cadena de pensamiento&lt;br&gt;Intuición → acción inmediata&lt;br&gt;Ideal para tiempo real" vertex="1">
+                    <mxGeometry height="110" width="190" x="730" y="490" as="geometry"/>
+                </mxCell>
+                <mxCell id="62" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" value="&lt;b&gt;System-2 (GPT-4)&lt;/b&gt;&lt;br&gt;1-10 s por decisión&lt;br&gt;Chain-of-thought&lt;br&gt;Razona paso a paso&lt;br&gt;Para decisiones complejas" vertex="1">
+                    <mxGeometry height="110" width="190" x="940" y="490" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="p3" name="3. Entorno - Coordenadas y obs[12]">
+        <mxGraphModel dx="1836" dy="684" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=20;fontStyle=1;" value="Entorno Flappy Bird — Sistema de Coordenadas y Observación" vertex="1">
+                    <mxGeometry height="40" width="1010" x="80" y="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f9f9f9;strokeColor=#333333;strokeWidth=3;" value="" vertex="1">
+                    <mxGeometry height="512" width="288" x="60" y="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" parent="1" style="text;html=1;align=left;fontSize=11;fontStyle=2;" value="y = 0.0 (techo)" vertex="1">
+                    <mxGeometry height="20" width="180" x="360" y="77" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;strokeColor=#999;" value="">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="348" y="83" as="sourcePoint"/>
+                        <mxPoint x="60" y="83" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="13" parent="1" style="text;html=1;align=left;fontSize=11;fontStyle=2;" value="y ≈ 0.79 (suelo, GROUND_Y)" vertex="1">
+                    <mxGeometry height="20" width="220" x="360" y="480" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;strokeColor=#999;" value="">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="348" y="486" as="sourcePoint"/>
+                        <mxPoint x="60" y="486" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="15" parent="1" style="text;html=1;align=left;fontSize=11;fontStyle=2;" value="y = 1.0" vertex="1">
+                    <mxGeometry height="20" width="100" x="360" y="582" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#23445D;strokeColor=#23445D;fontColor=#ffffff;fontSize=11;" value="Tubería&lt;br&gt;Superior" vertex="1">
+                    <mxGeometry height="160" width="80" x="114" y="83" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" parent="1" style="text;html=1;align=left;fontSize=11;fontColor=#1a73e8;fontStyle=1;" value="pipe_top (obs[1])&lt;br&gt;= 0.31" vertex="1">
+                    <mxGeometry height="25" width="160" x="360" y="235" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;strokeColor=#1a73e8;" value="">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="348" y="243" as="sourcePoint"/>
+                        <mxPoint x="194" y="243" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="25" parent="1" style="text;html=1;align=center;fontSize=12;fontColor=#006600;fontStyle=1;" value="GAP (hueco)&lt;br&gt;~100 px = 0.195 norm" vertex="1">
+                    <mxGeometry height="50" width="80" x="114" y="252" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" edge="1" parent="1" style="endArrow=none;html=1;strokeColor=#00aa00;strokeWidth=2;" value="">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="60" y="243" as="sourcePoint"/>
+                        <mxPoint x="348" y="243" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="27" edge="1" parent="1" style="endArrow=none;html=1;strokeColor=#00aa00;strokeWidth=2;" value="">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="60" y="344" as="sourcePoint"/>
+                        <mxPoint x="348" y="344" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="28" parent="1" style="text;html=1;align=left;fontSize=11;fontColor=#1a73e8;fontStyle=1;" value="pipe_bot (obs[2])&lt;br&gt;= 0.51" vertex="1">
+                    <mxGeometry height="25" width="160" x="360" y="335" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;strokeColor=#1a73e8;" value="">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="348" y="344" as="sourcePoint"/>
+                        <mxPoint x="194" y="344" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="30" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#23445D;strokeColor=#23445D;fontColor=#ffffff;fontSize=11;" value="Tubería&lt;br&gt;Inferior" vertex="1">
+                    <mxGeometry height="148" width="80" x="114" y="344" as="geometry"/>
+                </mxCell>
+                <mxCell id="35" parent="1" style="text;html=1;fontSize=28;align=center;verticalAlign=middle;" value="🐦" vertex="1">
+                    <mxGeometry height="40" width="40" x="98" y="270" as="geometry"/>
+                </mxCell>
+                <mxCell id="36" parent="1" style="text;html=1;align=center;fontSize=11;fontColor=#cc0000;fontStyle=1;" value="x = 0.20 (fijo)" vertex="1">
+                    <mxGeometry height="20" width="80" x="75" y="310" as="geometry"/>
+                </mxCell>
+                <mxCell id="37" parent="1" style="text;html=1;align=left;fontSize=11;fontColor=#cc0000;fontStyle=1;" value="player_y (obs[9]) = 0.38" vertex="1">
+                    <mxGeometry height="20" width="200" x="360" y="283" as="geometry"/>
+                </mxCell>
+                <mxCell id="38" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;strokeColor=#cc0000;" value="">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="348" y="290" as="sourcePoint"/>
+                        <mxPoint x="138" y="290" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="40" parent="1" style="text;html=1;align=center;fontSize=11;fontColor=#666;fontStyle=2;" value="y aumenta&lt;br&gt;↓&lt;br&gt;hacia abajo" vertex="1">
+                    <mxGeometry height="70" width="45" x="10" y="280" as="geometry"/>
+                </mxCell>
+                <mxCell id="41" parent="1" style="text;html=1;align=left;fontSize=11;fontColor=#8b0000;fontStyle=1;" value="pipe_x (obs[0]) → se mueve de derecha a izquierda" vertex="1">
+                    <mxGeometry height="20" width="330" x="360" y="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="50" parent="1" style="text;html=1;fontSize=14;fontStyle=1;align=left;" value="obs[12] — Vector de Observación" vertex="1">
+                    <mxGeometry height="25" width="350" x="630" y="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="51" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;fontStyle=1;fontSize=12;" value="Índice" vertex="1">
+                    <mxGeometry height="30" width="60" x="630" y="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="52" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;fontStyle=1;fontSize=12;" value="Variable" vertex="1">
+                    <mxGeometry height="30" width="130" x="690" y="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="53" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;fontStyle=1;fontSize=12;" value="Descripción" vertex="1">
+                    <mxGeometry height="30" width="180" x="820" y="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="54" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="obs[0]" vertex="1">
+                    <mxGeometry height="25" width="60" x="630" y="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="55" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="pipe_0_x" vertex="1">
+                    <mxGeometry height="25" width="130" x="690" y="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="56" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="Tubería más cercana, posición X" vertex="1">
+                    <mxGeometry height="25" width="180" x="820" y="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="57" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="obs[1]" vertex="1">
+                    <mxGeometry height="25" width="60" x="630" y="165" as="geometry"/>
+                </mxCell>
+                <mxCell id="58" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="pipe_0_top" vertex="1">
+                    <mxGeometry height="25" width="130" x="690" y="165" as="geometry"/>
+                </mxCell>
+                <mxCell id="59" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="Borde superior del hueco" vertex="1">
+                    <mxGeometry height="25" width="180" x="820" y="165" as="geometry"/>
+                </mxCell>
+                <mxCell id="60" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="obs[2]" vertex="1">
+                    <mxGeometry height="25" width="60" x="630" y="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="61" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="pipe_0_bot" vertex="1">
+                    <mxGeometry height="25" width="130" x="690" y="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="62" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="Borde inferior del hueco" vertex="1">
+                    <mxGeometry height="25" width="180" x="820" y="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="63" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" value="obs[3..5]" vertex="1">
+                    <mxGeometry height="25" width="60" x="630" y="215" as="geometry"/>
+                </mxCell>
+                <mxCell id="64" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" value="pipe_1_x/top/bot" vertex="1">
+                    <mxGeometry height="25" width="130" x="690" y="215" as="geometry"/>
+                </mxCell>
+                <mxCell id="65" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" value="Segunda tubería" vertex="1">
+                    <mxGeometry height="25" width="180" x="820" y="215" as="geometry"/>
+                </mxCell>
+                <mxCell id="66" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666;fontSize=11;" value="obs[6..8]" vertex="1">
+                    <mxGeometry height="25" width="60" x="630" y="240" as="geometry"/>
+                </mxCell>
+                <mxCell id="67" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666;fontSize=11;" value="pipe_2_x/top/bot" vertex="1">
+                    <mxGeometry height="25" width="130" x="690" y="240" as="geometry"/>
+                </mxCell>
+                <mxCell id="68" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666;fontSize=11;" value="Tercera tubería" vertex="1">
+                    <mxGeometry height="25" width="180" x="820" y="240" as="geometry"/>
+                </mxCell>
+                <mxCell id="69" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" value="obs[9]" vertex="1">
+                    <mxGeometry height="25" width="60" x="630" y="265" as="geometry"/>
+                </mxCell>
+                <mxCell id="70" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" value="player_y" vertex="1">
+                    <mxGeometry height="25" width="130" x="690" y="265" as="geometry"/>
+                </mxCell>
+                <mxCell id="71" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" value="Posición vertical del pájaro" vertex="1">
+                    <mxGeometry height="25" width="180" x="820" y="265" as="geometry"/>
+                </mxCell>
+                <mxCell id="72" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" value="obs[10]" vertex="1">
+                    <mxGeometry height="25" width="60" x="630" y="290" as="geometry"/>
+                </mxCell>
+                <mxCell id="73" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" value="player_vel" vertex="1">
+                    <mxGeometry height="25" width="130" x="690" y="290" as="geometry"/>
+                </mxCell>
+                <mxCell id="74" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" value="Velocidad vertical (+ = caída)" vertex="1">
+                    <mxGeometry height="25" width="180" x="820" y="290" as="geometry"/>
+                </mxCell>
+                <mxCell id="75" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666;fontSize=11;" value="obs[11]" vertex="1">
+                    <mxGeometry height="25" width="60" x="630" y="315" as="geometry"/>
+                </mxCell>
+                <mxCell id="76" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666;fontSize=11;" value="player_rot" vertex="1">
+                    <mxGeometry height="25" width="130" x="690" y="315" as="geometry"/>
+                </mxCell>
+                <mxCell id="77" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666;fontSize=11;" value="Rotación (no usada)" vertex="1">
+                    <mxGeometry height="25" width="180" x="820" y="315" as="geometry"/>
+                </mxCell>
+                <mxCell id="80" parent="1" style="text;html=1;fontSize=14;fontStyle=1;align=left;" value="Constantes Físicas (del código fuente)" vertex="1">
+                    <mxGeometry height="25" width="380" x="630" y="370" as="geometry"/>
+                </mxCell>
+                <mxCell id="81" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;fontSize=12;" value="&lt;b&gt;Constante&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="28" width="130" x="630" y="400" as="geometry"/>
+                </mxCell>
+                <mxCell id="82" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;fontSize=12;" value="&lt;b&gt;Valor&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="28" width="100" x="760" y="400" as="geometry"/>
+                </mxCell>
+                <mxCell id="83" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;fontSize=12;" value="&lt;b&gt;Significado&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="28" width="150" x="860" y="400" as="geometry"/>
+                </mxCell>
+                <mxCell id="84" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=11;" value="VEL_SCALE" vertex="1">
+                    <mxGeometry height="25" width="130" x="630" y="428" as="geometry"/>
+                </mxCell>
+                <mxCell id="85" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=11;" value="10/512 ≈ 0.0195" vertex="1">
+                    <mxGeometry height="25" width="100" x="760" y="428" as="geometry"/>
+                </mxCell>
+                <mxCell id="86" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=11;" value="Δy por step por vel" vertex="1">
+                    <mxGeometry height="25" width="150" x="860" y="428" as="geometry"/>
+                </mxCell>
+                <mxCell id="87" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=11;" value="GRAVITY" vertex="1">
+                    <mxGeometry height="25" width="130" x="630" y="453" as="geometry"/>
+                </mxCell>
+                <mxCell id="88" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=11;" value="1/10 = 0.10" vertex="1">
+                    <mxGeometry height="25" width="100" x="760" y="453" as="geometry"/>
+                </mxCell>
+                <mxCell id="89" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=11;" value="Δvel por step" vertex="1">
+                    <mxGeometry height="25" width="150" x="860" y="453" as="geometry"/>
+                </mxCell>
+                <mxCell id="90" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=11;" value="FLAP_VEL" vertex="1">
+                    <mxGeometry height="25" width="130" x="630" y="478" as="geometry"/>
+                </mxCell>
+                <mxCell id="91" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=11;" value="-9/10 = -0.90" vertex="1">
+                    <mxGeometry height="25" width="100" x="760" y="478" as="geometry"/>
+                </mxCell>
+                <mxCell id="92" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=11;" value="Vel tras aletear" vertex="1">
+                    <mxGeometry height="25" width="150" x="860" y="478" as="geometry"/>
+                </mxCell>
+                <mxCell id="93" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=11;" value="MAX_VEL" vertex="1">
+                    <mxGeometry height="25" width="130" x="630" y="503" as="geometry"/>
+                </mxCell>
+                <mxCell id="94" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=11;" value="10/10 = 1.00" vertex="1">
+                    <mxGeometry height="25" width="100" x="760" y="503" as="geometry"/>
+                </mxCell>
+                <mxCell id="95" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=11;" value="Vel máx de caída" vertex="1">
+                    <mxGeometry height="25" width="150" x="860" y="503" as="geometry"/>
+                </mxCell>
+                <mxCell id="96" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=11;" value="PIPE_SPEED" vertex="1">
+                    <mxGeometry height="25" width="130" x="630" y="528" as="geometry"/>
+                </mxCell>
+                <mxCell id="97" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=11;" value="4/288 ≈ 0.0139" vertex="1">
+                    <mxGeometry height="25" width="100" x="760" y="528" as="geometry"/>
+                </mxCell>
+                <mxCell id="98" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=11;" value="Vel tubería por step" vertex="1">
+                    <mxGeometry height="25" width="150" x="860" y="528" as="geometry"/>
+                </mxCell>
+                <mxCell id="99" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=11;fillColor=#fff2cc;strokeColor=#d6b656;" value="PIPE_CLEAR_X" vertex="1">
+                    <mxGeometry height="25" width="130" x="630" y="553" as="geometry"/>
+                </mxCell>
+                <mxCell id="100" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=11;fillColor=#fff2cc;strokeColor=#d6b656;" value="0.019" vertex="1">
+                    <mxGeometry height="25" width="100" x="760" y="553" as="geometry"/>
+                </mxCell>
+                <mxCell id="101" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=11;fillColor=#fff2cc;strokeColor=#d6b656;" value="Tubería ya pasó al pájaro" vertex="1">
+                    <mxGeometry height="25" width="150" x="860" y="553" as="geometry"/>
+                </mxCell>
+                <mxCell id="102" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=11;fillColor=#f8cecc;strokeColor=#b85450;" value="COLLISION_X" vertex="1">
+                    <mxGeometry height="25" width="130" x="630" y="578" as="geometry"/>
+                </mxCell>
+                <mxCell id="103" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=11;fillColor=#f8cecc;strokeColor=#b85450;" value="0.318" vertex="1">
+                    <mxGeometry height="25" width="100" x="760" y="578" as="geometry"/>
+                </mxCell>
+                <mxCell id="104" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=11;fillColor=#f8cecc;strokeColor=#b85450;" value="Colisión empieza aquí" vertex="1">
+                    <mxGeometry height="25" width="150" x="860" y="578" as="geometry"/>
+                </mxCell>
+                <mxCell id="110" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;" value="&lt;b&gt;Importante:&lt;/b&gt; las tuberías se ordenan por posición X,&lt;br&gt;la más cercana (izquierda) siempre va en obs[0:3]." vertex="1">
+                    <mxGeometry height="55" width="380" x="630" y="625" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="p4" name="4. format_state() - Lógica">
+        <mxGraphModel dx="1285" dy="479" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=20;fontStyle=1;" value="format_state() — Construcción del Estado para Laya" vertex="1">
+                    <mxGeometry height="35" width="1010" x="80" y="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;fontStyle=1;" value="obs[12] recibido&lt;br&gt;de env.step()" vertex="1">
+                    <mxGeometry height="60" width="180" x="490" y="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=13;" value="last_x &gt; PIPE_CLEAR_X&lt;br&gt;(0.019)?" vertex="1">
+                    <mxGeometry height="80" width="200" x="480" y="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" edge="1" parent="1" source="10" style="edgeStyle=orthogonalEdgeStyle;html=1;" target="20" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" value="Tubería activa = obs[0:3]&lt;br&gt;(last = pipe más cercana)" vertex="1">
+                    <mxGeometry height="60" width="200" x="280" y="280" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" edge="1" parent="1" source="20" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" target="22" value="SÍ">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" value="Tubería activa = obs[3:6]&lt;br&gt;(next = siguiente tubería)" vertex="1">
+                    <mxGeometry height="60" width="200" x="680" y="280" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" edge="1" parent="1" source="20" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="24" value="NO">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;" value="Calcular steps_ahead&lt;br&gt;= min((active_x - 0.019) / PIPE_SPEED, 12)&lt;br&gt;Cuántos pasos hasta que la tubería pase" vertex="1">
+                    <mxGeometry height="70" width="340" x="410" y="390" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" edge="1" parent="1" source="22" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="30" value="">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="380" y="370"/>
+                            <mxPoint x="410" y="425"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="32" edge="1" parent="1" source="24" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="30" value="">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="780" y="370"/>
+                            <mxPoint x="750" y="425"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="40" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;" value="_project_minmax(y, vel, steps)&lt;br&gt;→ (end_y, nf_min, nf_max)&lt;br&gt;&lt;br&gt;Simula N pasos bajo gravedad sin aletear" vertex="1">
+                    <mxGeometry height="80" width="340" x="410" y="500" as="geometry"/>
+                </mxCell>
+                <mxCell id="41" edge="1" parent="1" source="30" style="edgeStyle=orthogonalEdgeStyle;html=1;" target="40" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="50" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" value="nf_max &gt; bot_limit?&lt;br&gt;(¿chocará con tubería inferior?)" vertex="1">
+                    <mxGeometry height="80" width="240" x="460" y="625" as="geometry"/>
+                </mxCell>
+                <mxCell id="51" edge="1" parent="1" source="40" style="edgeStyle=orthogonalEdgeStyle;html=1;" target="50" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="60" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" value="fl_min &lt; top_limit?&lt;br&gt;(¿aletear lo saca por arriba?)" vertex="1">
+                    <mxGeometry height="75" width="220" x="200" y="750" as="geometry"/>
+                </mxCell>
+                <mxCell id="61" edge="1" parent="1" source="50" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" target="60" value="SÍ (hit bottom)">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="460" y="665"/>
+                            <mxPoint x="310" y="665"/>
+                            <mxPoint x="310" y="787"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="62" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" value="nf_min &lt; top_limit?&lt;br&gt;(¿chocará con tubería superior?)" vertex="1">
+                    <mxGeometry height="75" width="240" x="700" y="737.5" as="geometry"/>
+                </mxCell>
+                <mxCell id="63" edge="1" parent="1" source="50" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="62" value="NO (no hit bottom)">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="700" y="665"/>
+                            <mxPoint x="820" y="665"/>
+                            <mxPoint x="820" y="787"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="70" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="&lt;b&gt;advice:&lt;/b&gt;&lt;br&gt;DO NOT flap —&lt;br&gt;flapping would overshoot.&lt;br&gt;Stay; gravity helps." vertex="1">
+                    <mxGeometry height="90" width="135" x="180" y="880" as="geometry"/>
+                </mxCell>
+                <mxCell id="71" edge="1" parent="1" source="60" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" target="70" value="SÍ (flap unsafe)">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="420" y="907.5" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="72" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" value="&lt;b&gt;advice:&lt;/b&gt;&lt;br&gt;Flap now to&lt;br&gt;rise into the gap." vertex="1">
+                    <mxGeometry height="90" width="135" x="420" y="880" as="geometry"/>
+                </mxCell>
+                <mxCell id="73" edge="1" parent="1" source="60" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="72" value="NO (safe to flap)">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="74" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="&lt;b&gt;advice:&lt;/b&gt;&lt;br&gt;Do not flap;&lt;br&gt;let the bird fall." vertex="1">
+                    <mxGeometry height="90" width="130" x="690" y="870" as="geometry"/>
+                </mxCell>
+                <mxCell id="75" edge="1" parent="1" source="62" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" target="74" value="SÍ (hit top)">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="76" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" value="&lt;b&gt;advice:&lt;/b&gt;&lt;br&gt;Maintain course;&lt;br&gt;do not flap." vertex="1">
+                    <mxGeometry height="90" width="130" x="890" y="860" as="geometry"/>
+                </mxCell>
+                <mxCell id="77" edge="1" parent="1" source="62" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="76" value="NO (on track)">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="80" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666;fontSize=11;align=left;" value="&lt;b&gt;Texto de salida (ejemplo):&lt;/b&gt;&lt;br&gt;Active pipe: dist=0.30, gap=[0.280,0.480] (center 0.380).&lt;br&gt;Bird: y=0.460, falling (vel=+0.90).&lt;br&gt;No-flap range over 9 steps: [0.460,0.694] — will hit BOTTOM pipe.&lt;br&gt;Flap now to rise into the gap. Next gap center: 0.500." vertex="1">
+                    <mxGeometry width="340" x="230" y="610" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
