@@ -45,3 +45,6 @@ training.log
 # Build artifacts
 dist/
 *.zip
+
+# Products
+products/
