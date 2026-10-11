@@ -130,8 +130,10 @@ Part of the [HF products factory](https://huggingface.co/iamdgarcia): tendencies
 | **Voice Agents Playground** | Watch Silero VAD do endpointing live on your mic — waveform, speech probability, segments, decision log; tune threshold & hangover in real time | Silero VAD · transformers.js (WebGPU/WASM), 100% client-side | [▶ Open](https://iamdgarcia-voice-agents-playground.static.hf.space) |
 | **Jev Mini Bench** | Pocket explorer of the tiny decision-model wave (kev, tev, gev, clef…): feel the 1200 ms vs 12 ms latency gap, try a demo router, vote your favorite repro | Vanilla JS, mobile-first | [▶ Open](https://iamdgarcia-jev-mini-bench.static.hf.space) |
 | **Voice Metrics Dashboard** | Paste a voice-agent transcript JSON → KPIs (talk-time, gaps p95, interruptions, containment), turn timeline & gap histogram | Chart.js, 100% client-side | [▶ Open](https://iamdgarcia-voice-metrics-dashboard.static.hf.space) |
+| **Word Timing Explorer** | Whisper word-level timestamps in-browser: record or upload, click a word to seek, watch playback highlight — the substrate for barge-in & alignment | transformers.js (WebGPU/WASM), 100% client-side | [▶ Open](https://iamdgarcia-word-timing-explorer.static.hf.space) |
+| **Latency Gap Simulator** | Where the milliseconds go in a voice-agent turn: waterfall of endpointing → ASR → LLM TTFT → TTS, presets from robust to S2S duplex | Vanilla JS, teaching approximation | [▶ Open](https://iamdgarcia-latency-gap-simulator.static.hf.space) |
 
-Code for each demo: [voice-agents-playground](https://github.com/iamdgarcia/voice-agents-playground) · [jev-mini-bench](https://github.com/iamdgarcia/jev-mini-bench) · [voice-metrics-dashboard](https://github.com/iamdgarcia/voice-metrics-dashboard)
+Code: [voice-agents-playground](https://github.com/iamdgarcia/voice-agents-playground) · [jev-mini-bench](https://github.com/iamdgarcia/jev-mini-bench) · [voice-metrics-dashboard](https://github.com/iamdgarcia/voice-metrics-dashboard) · [word-timing-explorer](https://github.com/iamdgarcia/word-timing-explorer) · [latency-gap-simulator](https://github.com/iamdgarcia/latency-gap-simulator) · API twin: [voice-kpi-api](https://github.com/iamdgarcia/voice-kpi-api) (one-click Railway deploy)
 
 ---
 
