@@ -120,6 +120,21 @@ Grab-and-use toolkits, OS templates, and blueprints from the store.
 
 ---
 
+## 🎙️ Live Demos — Voice & Conversational AI (on Hugging Face)
+
+Interactive products you can open and use right now — no setup, runs in your browser.
+Part of the [HF products factory](https://huggingface.co/iamdgarcia): tendencies → build → observe → reflect.
+
+| Demo | What it does | Tech | Open |
+|---|---|---|---|
+| **Voice Agents Playground** | Watch Silero VAD do endpointing live on your mic — waveform, speech probability, segments, decision log; tune threshold & hangover in real time | Silero VAD · transformers.js (WebGPU/WASM), 100% client-side | [▶ Open](https://iamdgarcia-voice-agents-playground.static.hf.space) |
+| **Jev Mini Bench** | Pocket explorer of the tiny decision-model wave (kev, tev, gev, clef…): feel the 1200 ms vs 12 ms latency gap, try a demo router, vote your favorite repro | Vanilla JS, mobile-first | [▶ Open](https://iamdgarcia-jev-mini-bench.static.hf.space) |
+| **Voice Metrics Dashboard** | Paste a voice-agent transcript JSON → KPIs (talk-time, gaps p95, interruptions, containment), turn timeline & gap histogram | Chart.js, 100% client-side | [▶ Open](https://iamdgarcia-voice-metrics-dashboard.static.hf.space) |
+
+Code for each demo: [voice-agents-playground](https://github.com/iamdgarcia/voice-agents-playground) · [jev-mini-bench](https://github.com/iamdgarcia/jev-mini-bench) · [voice-metrics-dashboard](https://github.com/iamdgarcia/voice-metrics-dashboard)
+
+---
+
 ## 🛠️ Recommended Stack
 
 The tools we use across every project in this repo. These are genuine picks — links are affiliate/referral and help keep the community free.
