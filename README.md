@@ -138,6 +138,8 @@ Part of the [HF products factory](https://huggingface.co/iamdgarcia): tendencies
 
 📖 **Writeup:** [Watching your voice agent think](https://iamdgarcia.medium.com/watching-your-voice-agent-think-three-instruments-you-can-open-in-a-browser-tab-f7ed16ec2a2a) — why these instruments exist and what they teach.
 
+🧠 **New: [event-driven-voice-orchestrator](https://github.com/iamdgarcia/event-driven-voice-orchestrator)** — S2S-duplex turn-taking structure for cascaded voice agents, ~600 lines, zero deps, runnable demo + benchmark.
+
 Code: [voice-agents-playground](https://github.com/iamdgarcia/voice-agents-playground) · [jev-mini-bench](https://github.com/iamdgarcia/jev-mini-bench) · [voice-metrics-dashboard](https://github.com/iamdgarcia/voice-metrics-dashboard) · [word-timing-explorer](https://github.com/iamdgarcia/word-timing-explorer) · [latency-gap-simulator](https://github.com/iamdgarcia/latency-gap-simulator) · [kokoro-tab](https://github.com/iamdgarcia/kokoro-tab) · [asr-arena](https://github.com/iamdgarcia/asr-arena) · [real-or-kokoro](https://github.com/iamdgarcia/real-or-kokoro) · API twin: [voice-kpi-api](https://github.com/iamdgarcia/voice-kpi-api) (one-click Railway deploy)
 
 ---
