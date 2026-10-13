@@ -136,6 +136,8 @@ Part of the [HF products factory](https://huggingface.co/iamdgarcia): tendencies
 | **ASR Arena** | Two tiny ASR models (moonshine vs whisper) transcribe your mic side-by-side — latency, WER, win counter | transformers.js (WASM), 100% client-side | [▶ Open](https://iamdgarcia-asr-arena.static.hf.space) |
 | **Real or Kokoro?** | Ear-training game: expressive vs flat TTS reads — 10 rounds, forensic hints, share your score | Kokoro TTS, 100% client-side | [▶ Open](https://iamdgarcia-real-or-kokoro.static.hf.space) |
 
+📖 **Writeup:** [Watching your voice agent think](https://iamdgarcia.medium.com/watching-your-voice-agent-think-three-instruments-you-can-open-in-a-browser-tab-f7ed16ec2a2a) — why these instruments exist and what they teach.
+
 Code: [voice-agents-playground](https://github.com/iamdgarcia/voice-agents-playground) · [jev-mini-bench](https://github.com/iamdgarcia/jev-mini-bench) · [voice-metrics-dashboard](https://github.com/iamdgarcia/voice-metrics-dashboard) · [word-timing-explorer](https://github.com/iamdgarcia/word-timing-explorer) · [latency-gap-simulator](https://github.com/iamdgarcia/latency-gap-simulator) · [kokoro-tab](https://github.com/iamdgarcia/kokoro-tab) · [asr-arena](https://github.com/iamdgarcia/asr-arena) · [real-or-kokoro](https://github.com/iamdgarcia/real-or-kokoro) · API twin: [voice-kpi-api](https://github.com/iamdgarcia/voice-kpi-api) (one-click Railway deploy)
 
 ---
