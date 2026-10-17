@@ -7,7 +7,7 @@
 **Hands-on AI engineering projects. No hype, just working code.**
 
 [![Substack](https://img.shields.io/badge/Subscribe-The_Learning_Curve-FF6B00?style=for-the-badge&logo=substack&logoColor=white)](https://iamdgarcia.substack.com)
-[![GitHub Stars](https://img.shields.io/github/stars/iamdgarcia/the-learning-curve?style=for-the-badge&color=FF6B00)](https://github.com/iamdgarcia/the-learning-curve/stargazers)
+[![GitHub Stars](https://img.shields.io/github/stars/iamdgarcia/the-learning-curve?style=for-the-badge&color=FF6B00)](https://github.com/iamdgarcia/the-learning-curve)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 
 </div>
@@ -195,7 +195,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for the full guide.
 
 - **Newsletter:** [iamdgarcia.substack.com](https://iamdgarcia.substack.com) — weekly AI engineering deep-dives
 - **Issues:** Found a bug or have an idea? [Open an issue](https://github.com/iamdgarcia/the-learning-curve/issues)
-- **Discussions:** Questions and project showcases → [GitHub Discussions](https://github.com/iamdgarcia/the-learning-curve/discussions)
+- **Questions & showcases:** comment on any issue or reach the author on [Substack](https://iamdgarcia.substack.com) (Discussions not enabled on this repo)
 
 ---
 
