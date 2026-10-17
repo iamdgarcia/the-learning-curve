@@ -22,6 +22,16 @@ Each project ships with working code, a web interface, and a one-click deploy bu
 
 ---
 
+## 🧩 Agent Frameworks in Action (new series)
+
+One agent specification, implemented side by side in plain Python, LangGraph, CrewAI, Google ADK
+and LangChain classic — same 4 behaviors (tool loop, parallel tools, non-stalling user turn,
+barge-in), real traces, zero API keys, honest scoreboard of where each framework fights you.
+
+→ [agent-frameworks-in-action](./agent-frameworks-in-action/)
+
+---
+
 ## ⚡ Agent Blueprints
 
 Deploy a working AI agent in under 60 seconds. Each blueprint is a self-contained project with a web UI, ready to run on Netlify.

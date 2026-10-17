@@ -1,0 +1,9 @@
+{
+  "name": "tlc-agent-frameworks-in-action",
+  "version": "0.1.0",
+  "private": true,
+  "description": "One agent spec, four frameworks: LangGraph, CrewAI, Google ADK, LangChain classic — same behaviors, same tests, honest traces.",
+  "scripts": {
+    "test": "echo 'run each episode: python <episode>/agent.py'"
+  }
+}
