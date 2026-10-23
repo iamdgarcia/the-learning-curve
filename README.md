@@ -145,6 +145,8 @@ Part of the [HF products factory](https://huggingface.co/iamdgarcia): tendencies
 | **Kokoro Tab** | 82M-param Kokoro TTS synthesizes in your tab — zero backend, time-to-first-audio meter | transformers.js/kokoro-js (WASM), 100% client-side | [▶ Open](https://iamdgarcia-kokoro-tab.static.hf.space) |
 | **ASR Arena** | Two tiny ASR models (moonshine vs whisper) transcribe your mic side-by-side — latency, WER, win counter | transformers.js (WASM), 100% client-side | [▶ Open](https://iamdgarcia-asr-arena.static.hf.space) |
 | **Real or Kokoro?** | Ear-training game: expressive vs flat TTS reads — 10 rounds, forensic hints, share your score | Kokoro TTS, 100% client-side | [▶ Open](https://iamdgarcia-real-or-kokoro.static.hf.space) |
+| **Where Conversations Die** | The latent space of untested conversation behavior: 640 conversations projected onto a 2-D plane, click any point to read its full transcript and grammar walk — and see which regions a test suite never touches | trace2grammar walker, PCA + coverage grid, 100% client-side | [▶ Open](https://iamdgarcia-where-conversations-die.static.hf.space) |
+| **Conversation Autopsy** | Paste your own conversation, watch it dissected decision by decision, get the verdict: contained, abandoned (with the exact killer line), or handoff to a human | tau walker (JS port, parity 585/585 vs Python), no backend | [▶ Open](https://iamdgarcia-conversation-autopsy.static.hf.space) |
 
 📖 **Writeup:** [Watching your voice agent think](https://iamdgarcia.medium.com/watching-your-voice-agent-think-three-instruments-you-can-open-in-a-browser-tab-f7ed16ec2a2a) — why these instruments exist and what they teach.
 
