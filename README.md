@@ -299,6 +299,8 @@ Part of the [HF products factory](https://huggingface.co/iamdgarcia): tendencies
 | **The Four Endings** | Speedrun the 4 endings of a support conversation (contained / abandoned / handoff / escape): the decision walker classifies your transcript live and rules the verdict — press `model: on` and try to jailbreak a real 0.5B LLM running in your browser | tau walker + scripted tables, opt-in Qwen2.5-0.5B via transformers.js (WebGPU), 100% client-side | [▶ Open](https://iamdgarcia-the-four-endings.static.hf.space) |
 | **Silent Failure Radio** | Blind listening test: every track is the real final line of a real conversation — 33 closings of conversations that failed (reward 0 or the agent itself confessing), 33 that delivered. The voice sounds identical on both sides; vote and flip the card. The *confident closing, silent failure* mode, made audible | KittenTTS nano (24 MB) in-browser via ONNX Runtime Web, published walker verdicts, 100% client-side | [▶ Open](https://iamdgarcia-silent-failure-radio.static.hf.space) |
 
+| **The Receipts Audit** | Your agent did your morning, then kept going: 14 receipts, a 6-rule authority rulebook published up front — stamp each receipt OK or CONTEST and see how much overreach you catch (7 of 14 break a rule, €94.79 spent beyond instructions, one action ran after revoke) | vanilla JS, mechanical rule-cited verdicts, 100% client-side | [▶ Open](https://iamdgarcia-agent-receipts.static.hf.space) |
+
 
 
 📖 **Writeup:** [Watching your voice agent think](https://iamdgarcia.medium.com/watching-your-voice-agent-think-three-instruments-you-can-open-in-a-browser-tab-f7ed16ec2a2a) — why these instruments exist and what they teach.
