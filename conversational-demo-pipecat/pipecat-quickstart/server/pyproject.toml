@@ -1,0 +1,15 @@
+[project]
+name = "pipecat-quickstart"
+version = "0.1.0"
+description = "Pipecat voice agent quickstart"
+requires-python = ">=3.10"
+dependencies = [
+    "pipecat-ai[sdk,si-webrtc,daily,funasr,ollama,kokoro]",
+    "python-dotenv",
+    "loguru",
+]
+
+[tool.pipecat]
+services = { stt = "funasr_stt", llm = "ollama_llm", tts = "kokoro_tts" }
+transports = ["smallwebrtc"]
+mode = "cascade"
