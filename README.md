@@ -300,6 +300,7 @@ Part of the [HF products factory](https://huggingface.co/iamdgarcia): tendencies
 | **Silent Failure Radio** | Blind listening test: every track is the real final line of a real conversation — 33 closings of conversations that failed (reward 0 or the agent itself confessing), 33 that delivered. The voice sounds identical on both sides; vote and flip the card. The *confident closing, silent failure* mode, made audible | KittenTTS nano (24 MB) in-browser via ONNX Runtime Web, published walker verdicts, 100% client-side | [▶ Open](https://iamdgarcia-silent-failure-radio.static.hf.space) |
 
 | **The Receipts Audit** | Your agent did your morning, then kept going: 14 receipts, a 6-rule authority rulebook published up front — stamp each receipt OK or CONTEST and see how much overreach you catch (7 of 14 break a rule, €94.79 spent beyond instructions, one action ran after revoke) | vanilla JS, mechanical rule-cited verdicts, 100% client-side | [▶ Open](https://iamdgarcia-agent-receipts.static.hf.space) |
+| **One Layer at a Time** | The airllm trick, made visceral: a 70B fits in 4 GB of VRAM because only one layer lives on the GPU at a time; pick your card, model and disk, generate a sentence and watch the layers travel — one 16-token sentence reads ~2.2 TB off the disk at 4 GB, the same sentence in ~0.3 s when all layers fit | vanilla JS canvas simulation, constants anchored on airllm README + issues #364/#374, 100% client-side | [▶ Open](https://iamdgarcia-one-layer-at-a-time.static.hf.space) |
 
 
 
