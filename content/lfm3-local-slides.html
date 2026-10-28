@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>How to Run LFM3 Locally — Slides</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: rgb(246,244,240); font-family: Montserrat, sans-serif; }
+  .hint { text-align: center; padding: 24px; font-size: 14px; color: rgb(107,101,92); font-family: Montserrat, sans-serif; }
+
+  /* SCREEN */
+  .slide-page { display: flex; justify-content: center; padding: 10px 0; overflow: hidden; }
+  .slide { width: 1920px; height: 1080px; position: relative; background: rgb(246,244,240); overflow: hidden; transform-origin: top center; flex-shrink: 0; }
+
+  /* PRINT */
+  @media print {
+    html, body { margin: 0; padding: 0; background: rgb(246,244,240); }
+    .hint { display: none; }
+    .slide-page { display: contents; }
+    .slide { display: block; transform: none !important; width: 1920px !important; height: 1080px !important; overflow: hidden; page-break-after: always; break-after: page; }
+  }
+  @page { size: 1920px 1080px; margin: 0; }
+</style>
+</head>
+<body>
+
+<div class="hint">Ctrl+P → Save as PDF · Margins: None · Background graphics: ON</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 1 — COVER
+════════════════════════════════════════════ -->
+<div class="slide-page"><div class="slide">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:32px;padding:128px 128px 160px;box-sizing:border-box;">
+    <div style="font-family:'Caveat',cursive;font-size:64px;font-weight:700;color:rgb(255,106,0);line-height:1;">
+      Liquid AI · LFM3
+    </div>
+    <h1 style="font-family:Montserrat,sans-serif;font-size:88px;font-weight:900;color:rgb(20,20,20);line-height:1.05;max-width:1400px;">
+      How to Run <span style="color:rgb(255,106,0);">LFM3</span> Locally
+    </h1>
+    <p style="font-family:Montserrat,sans-serif;font-size:36px;font-weight:500;color:rgb(107,101,92);max-width:900px;line-height:1.4;">
+      The non-Transformer model that fits in 1.1 GB — and runs on your laptop right now.
+    </p>
+  </div>
+  <!-- decorative pill -->
+  <div style="position:absolute;right:128px;top:50%;transform:translateY(-50%);background:white;border:3px solid rgb(20,20,20);border-radius:24px;padding:40px 56px;text-align:center;">
+    <div style="font-family:Montserrat,sans-serif;font-size:96px;font-weight:900;color:rgb(255,106,0);line-height:1;">1.1</div>
+    <div style="font-family:Montserrat,sans-serif;font-size:28px;font-weight:700;color:rgb(20,20,20);">GB on disk</div>
+    <div style="font-family:Montserrat,sans-serif;font-size:22px;font-weight:500;color:rgb(107,101,92);margin-top:8px;">Q4_K_M quant</div>
+  </div>
+  <div style="position:absolute;left:128px;bottom:64px;font-family:Montserrat,sans-serif;font-size:26px;font-weight:700;color:rgb(107,101,92);">iamdgarcia.substack.com</div>
+  <div style="position:absolute;right:128px;bottom:64px;font-family:Montserrat,sans-serif;font-size:26px;font-weight:700;color:rgb(107,101,92);">1 / 8</div>
+</div></div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 2 — WHAT IS LFM3
+════════════════════════════════════════════ -->
+<div class="slide-page"><div class="slide">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;gap:32px;padding:96px 128px 160px;box-sizing:border-box;">
+    <div style="font-family:'Caveat',cursive;font-size:44px;font-weight:700;color:rgb(255,106,0);">The model</div>
+    <h2 style="font-family:Montserrat,sans-serif;font-size:68px;font-weight:900;color:rgb(20,20,20);line-height:1.05;">
+      LFM3 is <span style="color:rgb(255,106,0);">not a Transformer</span>
+    </h2>
+    <p style="font-family:Montserrat,sans-serif;font-size:30px;font-weight:500;color:rgb(20,20,20);max-width:1100px;line-height:1.5;">
+      From Liquid AI — an MIT spinout — LFM3 uses a <strong>hybrid SSM architecture</strong> (State Space Models). Same tasks, linear complexity on long contexts, smaller memory footprint.
+    </p>
+    <!-- 3 cards -->
+    <div style="display:flex;gap:32px;margin-top:16px;">
+      <div style="flex:1;background:white;border:3px solid rgb(20,20,20);border-radius:16px;padding:32px;">
+        <div style="font-family:Montserrat,sans-serif;font-size:48px;font-weight:900;color:rgb(255,106,0);">1.7B</div>
+        <div style="font-family:Montserrat,sans-serif;font-size:22px;font-weight:700;color:rgb(20,20,20);margin-top:8px;">Parameters</div>
+        <div style="font-family:Montserrat,sans-serif;font-size:20px;font-weight:500;color:rgb(107,101,92);margin-top:6px;">text model</div>
+      </div>
+      <div style="flex:1;background:white;border:3px solid rgb(20,20,20);border-radius:16px;padding:32px;">
+        <div style="font-family:Montserrat,sans-serif;font-size:48px;font-weight:900;color:rgb(255,106,0);">2B VL</div>
+        <div style="font-family:Montserrat,sans-serif;font-size:22px;font-weight:700;color:rgb(20,20,20);margin-top:8px;">Vision model</div>
+        <div style="font-family:Montserrat,sans-serif;font-size:20px;font-weight:500;color:rgb(107,101,92);margin-top:6px;">image + text</div>
+      </div>
+      <div style="flex:1;background:white;border:3px solid rgb(20,20,20);border-radius:16px;padding:32px;">
+        <div style="font-family:Montserrat,sans-serif;font-size:48px;font-weight:900;color:rgb(255,106,0);">2B Omni</div>
+        <div style="font-family:Montserrat,sans-serif;font-size:22px;font-weight:700;color:rgb(20,20,20);margin-top:8px;">Any-to-Any</div>
+        <div style="font-family:Montserrat,sans-serif;font-size:20px;font-weight:500;color:rgb(107,101,92);margin-top:6px;">audio + text + image</div>
+      </div>
+      <div style="flex:1;background:rgb(255,245,235);border:3px solid rgb(255,106,0);border-radius:16px;padding:32px;">
+        <div style="font-family:Montserrat,sans-serif;font-size:48px;font-weight:900;color:rgb(20,20,20);">Free</div>
+        <div style="font-family:Montserrat,sans-serif;font-size:22px;font-weight:700;color:rgb(20,20,20);margin-top:8px;">Open weights</div>
+        <div style="font-family:Montserrat,sans-serif;font-size:20px;font-weight:500;color:rgb(107,101,92);margin-top:6px;">HuggingFace</div>
+      </div>
+    </div>
+  </div>
+  <div style="position:absolute;left:128px;bottom:64px;font-family:Montserrat,sans-serif;font-size:26px;font-weight:700;color:rgb(107,101,92);">iamdgarcia.substack.com</div>
+  <div style="position:absolute;right:128px;bottom:64px;font-family:Montserrat,sans-serif;font-size:26px;font-weight:700;color:rgb(107,101,92);">2 / 8</div>
+</div></div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 3 — QUANTIZATION TABLE
+════════════════════════════════════════════ -->
+<div class="slide-page"><div class="slide">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;gap:32px;padding:96px 128px 160px;box-sizing:border-box;">
+    <div style="font-family:'Caveat',cursive;font-size:44px;font-weight:700;color:rgb(255,106,0);">Pick your size</div>
+    <h2 style="font-family:Montserrat,sans-serif;font-size:68px;font-weight:900;color:rgb(20,20,20);line-height:1.05;">
+      Which quantization <span style="color:rgb(255,106,0);">should you use?</span>
+    </h2>
+    <!-- table as cards -->
+    <div style="display:flex;flex-direction:column;gap:20px;margin-top:8px;">
+      <!-- header -->
+      <div style="display:grid;grid-template-columns:2fr 1.2fr 1.2fr 2fr;gap:16px;padding:0 24px;">
+        <div style="font-family:Montserrat,sans-serif;font-size:22px;font-weight:700;color:rgb(107,101,92);">Quantization</div>
+        <div style="font-family:Montserrat,sans-serif;font-size:22px;font-weight:700;color:rgb(107,101,92);">File size</div>
+        <div style="font-family:Montserrat,sans-serif;font-size:22px;font-weight:700;color:rgb(107,101,92);">RAM needed</div>
+        <div style="font-family:Montserrat,sans-serif;font-size:22px;font-weight:700;color:rgb(107,101,92);">Note</div>
+      </div>
+      <!-- Q4_K_M — highlighted -->
+      <div style="display:grid;grid-template-columns:2fr 1.2fr 1.2fr 2fr;gap:16px;background:rgb(255,245,235);border:3px solid rgb(255,106,0);border-radius:16px;padding:24px;">
+        <div style="font-family:Montserrat,sans-serif;font-size:28px;font-weight:800;color:rgb(20,20,20);">Q4_K_M ⭐</div>
+        <div style="font-family:Montserrat,sans-serif;font-size:28px;font-weight:700;color:rgb(255,106,0);">1.1 GB</div>
+        <div style="font-family:Montserrat,sans-serif;font-size:28px;font-weight:700;color:rgb(20,20,20);">~2 GB</div>
+        <div style="font-family:Montserrat,sans-serif;font-size:24px;font-weight:500;color:rgb(20,20,20);">QAD checkpoint — quality loss baked back in</div>
+      </div>
+      <div style="display:grid;grid-template-columns:2fr 1.2fr 1.2fr 2fr;gap:16px;background:white;border:3px solid rgb(20,20,20);border-radius:16px;padding:24px;">
+        <div style="font-family:Montserrat,sans-serif;font-size:26px;font-weight:700;color:rgb(20,20,20);">Q5_K_M</div>
+        <div style="font-family:Montserrat,sans-serif;font-size:26px;font-weight:700;color:rgb(20,20,20);">1.26 GB</div>
+        <div style="font-family:Montserrat,sans-serif;font-size:26px;font-weight:700;color:rgb(20,20,20);">~2.5 GB</div>
+        <div style="font-family:Montserrat,sans-serif;font-size:22px;font-weight:500;color:rgb(107,101,92);">Sweet spot for quality vs size</div>
+      </div>
+      <div style="display:grid;grid-template-columns:2fr 1.2fr 1.2fr 2fr;gap:16px;background:white;border:3px solid rgb(20,20,20);border-radius:16px;padding:24px;">
+        <div style="font-family:Montserrat,sans-serif;font-size:26px;font-weight:700;color:rgb(20,20,20);">Q8_0</div>
+        <div style="font-family:Montserrat,sans-serif;font-size:26px;font-weight:700;color:rgb(20,20,20);">1.85 GB</div>
+        <div style="font-family:Montserrat,sans-serif;font-size:26px;font-weight:700;color:rgb(20,20,20);">~3.5 GB</div>
+        <div style="font-family:Montserrat,sans-serif;font-size:22px;font-weight:500;color:rgb(107,101,92);">Near-lossless, still fits on most laptops</div>
+      </div>
+      <div style="display:grid;grid-template-columns:2fr 1.2fr 1.2fr 2fr;gap:16px;background:white;border:3px solid rgb(20,20,20);border-radius:16px;padding:24px;">
+        <div style="font-family:Montserrat,sans-serif;font-size:26px;font-weight:700;color:rgb(107,101,92);">BF16</div>
+        <div style="font-family:Montserrat,sans-serif;font-size:26px;font-weight:700;color:rgb(107,101,92);">3.47 GB</div>
+        <div style="font-family:Montserrat,sans-serif;font-size:26px;font-weight:700;color:rgb(107,101,92);">~6 GB</div>
+        <div style="font-family:Montserrat,sans-serif;font-size:22px;font-weight:500;color:rgb(107,101,92);">Reference quality, needs more RAM</div>
+      </div>
+    </div>
+  </div>
+  <div style="position:absolute;left:128px;bottom:64px;font-family:Montserrat,sans-serif;font-size:26px;font-weight:700;color:rgb(107,101,92);">iamdgarcia.substack.com</div>
+  <div style="position:absolute;right:128px;bottom:64px;font-family:Montserrat,sans-serif;font-size:26px;font-weight:700;color:rgb(107,101,92);">3 / 8</div>
+</div></div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 4 — OPTION 1: OLLAMA
+════════════════════════════════════════════ -->
+<div class="slide-page"><div class="slide">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;gap:28px;padding:96px 128px 160px;box-sizing:border-box;">
+    <div style="font-family:'Caveat',cursive;font-size:44px;font-weight:700;color:rgb(255,106,0);">Option 1 — Easiest</div>
+    <h2 style="font-family:Montserrat,sans-serif;font-size:68px;font-weight:900;color:rgb(20,20,20);line-height:1.05;">
+      Run LFM3 with <span style="color:rgb(255,106,0);">Ollama</span>
+    </h2>
+    <p style="font-family:Montserrat,sans-serif;font-size:30px;font-weight:500;color:rgb(20,20,20);line-height:1.5;">
+      One command. Ollama downloads the model and opens a chat. No build step.
+    </p>
+    <!-- code block -->
+    <div style="background:rgb(20,20,20);border-radius:16px;padding:48px 56px;margin-top:8px;">
+      <div style="font-family:'Courier New',monospace;font-size:36px;font-weight:700;color:rgb(255,106,0);">$</div>
+      <div style="font-family:'Courier New',monospace;font-size:34px;color:white;margin-top:12px;line-height:1.5;">
+        ollama run hf.co/LiquidAI/LFM3-1.7B-GGUF:Q4_K_M
+      </div>
+    </div>
+    <!-- callout -->
+    <div style="background:rgb(227,246,232);border:3px solid rgb(47,165,91);border-radius:16px;padding:18px 36px;margin-top:8px;max-width:900px;">
+      <span style="font-family:Montserrat,sans-serif;font-size:26px;font-weight:700;color:rgb(20,20,20);">
+        Downloads 1.1 GB on first run · works on CPU · no GPU required
+      </span>
+    </div>
+  </div>
+  <div style="position:absolute;left:128px;bottom:64px;font-family:Montserrat,sans-serif;font-size:26px;font-weight:700;color:rgb(107,101,92);">iamdgarcia.substack.com</div>
+  <div style="position:absolute;right:128px;bottom:64px;font-family:Montserrat,sans-serif;font-size:26px;font-weight:700;color:rgb(107,101,92);">4 / 8</div>
+</div></div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 5 — OPTION 2: llama.cpp
+════════════════════════════════════════════ -->
+<div class="slide-page"><div class="slide">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;gap:24px;padding:88px 128px 148px;box-sizing:border-box;">
+    <div style="font-family:'Caveat',cursive;font-size:44px;font-weight:700;color:rgb(255,106,0);">Option 2 — Fastest inference</div>
+    <h2 style="font-family:Montserrat,sans-serif;font-size:64px;font-weight:900;color:rgb(20,20,20);line-height:1.05;">
+      Run LFM3 with <span style="color:rgb(255,106,0);">llama.cpp</span>
+    </h2>
+    <!-- two code blocks side by side -->
+    <div style="display:flex;gap:32px;flex:1;">
+      <div style="flex:1;display:flex;flex-direction:column;gap:12px;">
+        <div style="font-family:Montserrat,sans-serif;font-size:22px;font-weight:700;color:rgb(107,101,92);">Step 1 — Build (one-time, ~3 min)</div>
+        <div style="background:rgb(20,20,20);border-radius:16px;padding:32px;flex:1;">
+          <div style="font-family:'Courier New',monospace;font-size:22px;color:white;line-height:1.8;">
+            git clone https://github.com/ggml-org/llama.cpp<br/>
+            cd llama.cpp<br/>
+            cmake -B build<br/>
+            cmake --build build --config Release -j$(nproc)
+          </div>
+        </div>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;gap:12px;">
+        <div style="font-family:Montserrat,sans-serif;font-size:22px;font-weight:700;color:rgb(107,101,92);">Step 2 — Chat</div>
+        <div style="background:rgb(20,20,20);border-radius:16px;padding:32px;flex:1;">
+          <div style="font-family:'Courier New',monospace;font-size:22px;color:white;line-height:1.8;">
+            ./build/bin/llama-cli \<br/>
+            &nbsp;&nbsp;-hf LiquidAI/LFM3-1.7B-GGUF:Q4_K_M \<br/>
+            &nbsp;&nbsp;--temp 0.1 --top-k 50 \<br/>
+            &nbsp;&nbsp;--repeat-penalty 1.1 -cnv
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="background:rgb(227,246,232);border:3px solid rgb(47,165,91);border-radius:16px;padding:18px 36px;">
+      <span style="font-family:Montserrat,sans-serif;font-size:26px;font-weight:700;color:rgb(20,20,20);">
+        💡 Math/science? Use <code style="background:rgba(0,0,0,0.08);padding:2px 8px;border-radius:6px;">--temp 1.0 --top-p 0.95 --top-k 20</code> instead
+      </span>
+    </div>
+  </div>
+  <div style="position:absolute;left:128px;bottom:64px;font-family:Montserrat,sans-serif;font-size:26px;font-weight:700;color:rgb(107,101,92);">iamdgarcia.substack.com</div>
+  <div style="position:absolute;right:128px;bottom:64px;font-family:Montserrat,sans-serif;font-size:26px;font-weight:700;color:rgb(107,101,92);">5 / 8</div>
+</div></div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 6 — OPTION 3: PYTHON
+════════════════════════════════════════════ -->
+<div class="slide-page"><div class="slide">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;gap:28px;padding:96px 128px 160px;box-sizing:border-box;">
+    <div style="font-family:'Caveat',cursive;font-size:44px;font-weight:700;color:rgb(255,106,0);">Option 3 — For developers</div>
+    <h2 style="font-family:Montserrat,sans-serif;font-size:68px;font-weight:900;color:rgb(20,20,20);line-height:1.05;">
+      Run LFM3 with <span style="color:rgb(255,106,0);">Python</span>
+    </h2>
+    <!-- install command -->
+    <div style="background:rgb(20,20,20);border-radius:16px;padding:40px 56px;">
+      <div style="font-family:'Courier New',monospace;font-size:30px;color:rgb(255,106,0);">$ pip install llama-cpp-python huggingface_hub</div>
+      <div style="font-family:'Courier New',monospace;font-size:30px;color:white;margin-top:16px;">$ python lfm3_chat.py</div>
+    </div>
+    <p style="font-family:Montserrat,sans-serif;font-size:28px;font-weight:500;color:rgb(20,20,20);line-height:1.5;max-width:1100px;">
+      The script auto-downloads the GGUF on first run and opens a conversation loop. No framework, no LangChain, no boilerplate.
+    </p>
+    <!-- callout -->
+    <div style="background:rgb(227,246,232);border:3px solid rgb(47,165,91);border-radius:16px;padding:18px 36px;">
+      <span style="font-family:Montserrat,sans-serif;font-size:26px;font-weight:700;color:rgb(20,20,20);">
+        → github.com/iamdgarcia/the-learning-curve · llm/lfm3-local/
+      </span>
+    </div>
+  </div>
+  <div style="position:absolute;left:128px;bottom:64px;font-family:Montserrat,sans-serif;font-size:26px;font-weight:700;color:rgb(107,101,92);">iamdgarcia.substack.com</div>
+  <div style="position:absolute;right:128px;bottom:64px;font-family:Montserrat,sans-serif;font-size:26px;font-weight:700;color:rgb(107,101,92);">6 / 8</div>
+</div></div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 7 — BIGGER PICTURE / SSM vs TRANSFORMER
+════════════════════════════════════════════ -->
+<div class="slide-page"><div class="slide">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;gap:28px;padding:96px 128px 160px;box-sizing:border-box;">
+    <div style="font-family:'Caveat',cursive;font-size:44px;font-weight:700;color:rgb(255,106,0);">The bigger picture</div>
+    <h2 style="font-family:Montserrat,sans-serif;font-size:64px;font-weight:900;color:rgb(20,20,20);line-height:1.05;">
+      Why SSM matters for <span style="color:rgb(255,106,0);">small models</span>
+    </h2>
+    <!-- two columns -->
+    <div style="display:flex;gap:40px;flex:1;align-items:flex-start;margin-top:8px;">
+      <div style="flex:1;background:white;border:3px solid rgb(20,20,20);border-radius:16px;padding:36px;display:flex;flex-direction:column;gap:20px;">
+        <div style="font-family:Montserrat,sans-serif;font-size:28px;font-weight:800;color:rgb(20,20,20);">Transformer</div>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div style="font-family:Montserrat,sans-serif;font-size:24px;font-weight:500;color:rgb(107,101,92);">❌ Quadratic complexity on long contexts</div>
+          <div style="font-family:Montserrat,sans-serif;font-size:24px;font-weight:500;color:rgb(107,101,92);">❌ KV cache grows with sequence length</div>
+          <div style="font-family:Montserrat,sans-serif;font-size:24px;font-weight:500;color:rgb(107,101,92);">❌ Memory-hungry at small param counts</div>
+          <div style="font-family:Montserrat,sans-serif;font-size:24px;font-weight:500;color:rgb(107,101,92);">✅ Mature ecosystem (llama.cpp, Ollama...)</div>
+        </div>
+      </div>
+      <div style="flex:1;background:rgb(255,245,235);border:3px solid rgb(255,106,0);border-radius:16px;padding:36px;display:flex;flex-direction:column;gap:20px;">
+        <div style="font-family:Montserrat,sans-serif;font-size:28px;font-weight:800;color:rgb(255,106,0);">LFM3 (SSM hybrid)</div>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div style="font-family:Montserrat,sans-serif;font-size:24px;font-weight:500;color:rgb(20,20,20);">✅ Linear complexity on long contexts</div>
+          <div style="font-family:Montserrat,sans-serif;font-size:24px;font-weight:500;color:rgb(20,20,20);">✅ Fixed-size memory footprint</div>
+          <div style="font-family:Montserrat,sans-serif;font-size:24px;font-weight:500;color:rgb(20,20,20);">✅ Competitive at 1.7B vs 3.2B Transformers</div>
+          <div style="font-family:Montserrat,sans-serif;font-size:24px;font-weight:500;color:rgb(20,20,20);">✅ GGUF/ONNX/MLX — same tools</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="position:absolute;left:128px;bottom:64px;font-family:Montserrat,sans-serif;font-size:26px;font-weight:700;color:rgb(107,101,92);">iamdgarcia.substack.com</div>
+  <div style="position:absolute;right:128px;bottom:64px;font-family:Montserrat,sans-serif;font-size:26px;font-weight:700;color:rgb(107,101,92);">7 / 8</div>
+</div></div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 8 — CTA
+════════════════════════════════════════════ -->
+<div class="slide-page"><div class="slide">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:40px;padding:128px 128px 160px;box-sizing:border-box;">
+    <div style="font-family:'Caveat',cursive;font-size:64px;font-weight:700;color:rgb(255,106,0);">Try it today</div>
+    <h2 style="font-family:Montserrat,sans-serif;font-size:72px;font-weight:900;color:rgb(20,20,20);line-height:1.1;max-width:1300px;">
+      1.1 GB. No API key. No cloud.<br/>Just <span style="color:rgb(255,106,0);">LFM3 on your laptop.</span>
+    </h2>
+    <!-- two callouts -->
+    <div style="display:flex;gap:32px;margin-top:8px;">
+      <div style="flex:1;background:rgb(227,246,232);border:3px solid rgb(47,165,91);border-radius:16px;padding:28px 36px;">
+        <div style="font-family:Montserrat,sans-serif;font-size:24px;font-weight:800;color:rgb(20,20,20);margin-bottom:10px;">🐙 GitHub repo</div>
+        <div style="font-family:Montserrat,sans-serif;font-size:22px;font-weight:500;color:rgb(20,20,20);">github.com/iamdgarcia/the-learning-curve<br/><span style="color:rgb(107,101,92);">→ llm/lfm3-local/</span></div>
+      </div>
+      <div style="flex:1;background:rgb(255,245,235);border:3px solid rgb(255,106,0);border-radius:16px;padding:28px 36px;">
+        <div style="font-family:Montserrat,sans-serif;font-size:24px;font-weight:800;color:rgb(20,20,20);margin-bottom:10px;">☁️ Prefer cloud?</div>
+        <div style="font-family:Montserrat,sans-serif;font-size:22px;font-weight:500;color:rgb(20,20,20);">novita.ai — 200+ open-source models<br/><span style="color:rgb(107,101,92);">OpenAI-compatible API</span></div>
+      </div>
+    </div>
+  </div>
+  <div style="position:absolute;left:128px;bottom:64px;font-family:Montserrat,sans-serif;font-size:26px;font-weight:700;color:rgb(107,101,92);">iamdgarcia.substack.com</div>
+  <div style="position:absolute;right:128px;bottom:64px;font-family:Montserrat,sans-serif;font-size:26px;font-weight:700;color:rgb(107,101,92);">8 / 8</div>
+</div></div>
+
+<script>
+(function(){
+  function s(){
+    var sc = (window.innerWidth - 24) / 1920;
+    document.querySelectorAll('.slide').forEach(function(el){
+      el.style.transform = 'scale(' + sc + ')';
+    });
+    document.querySelectorAll('.slide-page').forEach(function(p){
+      p.style.height = Math.ceil(1080 * sc + 20) + 'px';
+    });
+  }
+  window.addEventListener('resize', s);
+  s();
+})();
+</script>
+</body>
+</html>
