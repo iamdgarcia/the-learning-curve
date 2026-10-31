@@ -276,6 +276,7 @@ Part of the [HF products factory](https://huggingface.co/iamdgarcia): tendencies
 
 |---|---|---|---|
 
+| **LFM3 Omni Voice Agent** | Talk to a 2B speech-to-speech omni model in your tab: hands-free VAD, barge-in while it speaks, measured latency chain per turn (end-of-speech → first word → first voice) | LFM3-Omni-2B ONNX + Silero VAD, ort-web/WebGPU, 100% client-side | [▶ Open](https://iamdgarcia-lfm3-omni-voice-agent.static.hf.space) |
 | **Voice Agents Playground** | Watch Silero VAD do endpointing live on your mic — waveform, speech probability, segments, decision log; tune threshold & hangover in real time | Silero VAD · transformers.js (WebGPU/WASM), 100% client-side | [▶ Open](https://iamdgarcia-voice-agents-playground.static.hf.space) |
 
 | **Jev Mini Bench** | Pocket explorer of the tiny decision-model wave (kev, tev, gev, clef…): feel the 1200 ms vs 12 ms latency gap, try a demo router, vote your favorite repro | Vanilla JS, mobile-first | [▶ Open](https://iamdgarcia-jev-mini-bench.static.hf.space) |
