@@ -1,0 +1,16 @@
+[project]
+name = "thinking-backchannel-example"
+version = "0.1.0"
+description = "ThinkingBackchannel demo — ElevenLabs STT/TTS + NovitaAI LLM"
+requires-python = ">=3.11"
+
+dependencies = [
+    # Core pipecat + the providers we use
+    "pipecat-ai[elevenlabs,novita,silero,runner,webrtc]>=1.6.0,<2",
+    # ThinkingBackchannel (not on PyPI yet — install from GitHub)
+    "pipecat-thinking-backchannel @ git+https://github.com/iamdgarcia/pipecat-thinking-backchannel.git",
+    "python-dotenv",
+]
+
+[tool.uv]
+package = false
