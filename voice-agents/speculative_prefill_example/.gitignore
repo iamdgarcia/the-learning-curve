@@ -1,0 +1,7 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+uv.lock
+# HuggingFace model cache (large, local)
+~/.cache/huggingface/
