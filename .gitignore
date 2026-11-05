@@ -59,6 +59,8 @@ build/
 .ipynb_checkpoints/
 *.ipynb_checkpoints
 
+# Internal tool working dirs
+yt-clipper/temp/
 # Credentials & secrets — NEVER commit
 *.pem
 *.key
@@ -70,9 +72,6 @@ build/
 service_account.json
 client_secrets.json
 gcp_credentials.json
-yt-clipper/config/token*.json
-yt-clipper/config/tts_token.json
-yt-clipper/config/client_secrets.json
 
 # Environment & secrets
 .env
