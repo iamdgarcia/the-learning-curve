@@ -59,6 +59,21 @@ build/
 .ipynb_checkpoints/
 *.ipynb_checkpoints
 
+# Credentials & secrets — NEVER commit
+*.pem
+*.key
+*.p12
+*.pfx
+*token*.json
+*secret*.json
+*credential*.json
+service_account.json
+client_secrets.json
+gcp_credentials.json
+yt-clipper/config/token*.json
+yt-clipper/config/tts_token.json
+yt-clipper/config/client_secrets.json
+
 # Environment & secrets
 .env
 .env.local
