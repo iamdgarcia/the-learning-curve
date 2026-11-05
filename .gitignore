@@ -11,6 +11,33 @@ conversational-demo-pipecat/
 # Video production slides (not code/course content)
 */slides/
 
+# Video formats
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm
+*.m4v
+*.flv
+*.wmv
+*.ogv
+*.3gp
+*.ts
+
+# Audio formats
+*.mp3
+*.wav
+*.aac
+*.flac
+*.ogg
+*.m4a
+*.wma
+*.opus
+*.aiff
+
+# HTML (production slides, demos — course HTML already tracked is unaffected)
+*.html
+
 # Thumbnails y assets de producción local
 thumbnail.png
 youtube-upload.json
