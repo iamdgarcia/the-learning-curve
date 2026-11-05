@@ -1,0 +1,1407 @@
+{
+  "summary": {
+    "total": 48,
+    "perClass": 8,
+    "accuracy": {
+      "damaged": 0.8333333333333334,
+      "zone": 1,
+      "severity": 0.5
+    },
+    "avgMs": 1675.7291666666667,
+    "totalTokens": 83004
+  },
+  "cases": [
+    {
+      "imgSrc": "/images/4_F_Breakage.jpg",
+      "label": "F_Breakage",
+      "zone": "frontal",
+      "isDamaged": true,
+      "severityGT": 2,
+      "jevDamaged": true,
+      "jevZone": "frontal",
+      "jevSeverity": 4,
+      "dmgProbs": [
+        0.009029936825512676,
+        0.9909700631744872
+      ],
+      "zoneProbs": [
+        0.9999999056764726,
+        9.432352742574257e-08
+      ],
+      "sevProbs": [
+        1.1538885188807355e-05,
+        6.401994832778189e-05,
+        0.005565851025268682,
+        0.2384776872137258,
+        0.7310262717883166,
+        0.02485463113917229
+      ],
+      "elapsed": 2478,
+      "tokens": 1569,
+      "description": "Siniestro por colisi\u00f3n del veh\u00edculo, con faros rotos, paragolpes fracturado y rejilla da\u00f1ada. El da\u00f1o se concentra en la parte frontal tras el impacto."
+    },
+    {
+      "imgSrc": "/images/2_F_Breakage.jpg",
+      "label": "F_Breakage",
+      "zone": "frontal",
+      "isDamaged": true,
+      "severityGT": 2,
+      "jevDamaged": true,
+      "jevZone": "frontal",
+      "jevSeverity": 3,
+      "dmgProbs": [
+        0.012820136889464184,
+        0.9871798631105357
+      ],
+      "zoneProbs": [
+        0.9999998071792507,
+        1.928207491696907e-07
+      ],
+      "sevProbs": [
+        2.611604410989343e-05,
+        0.0007785497832978809,
+        0.09873382872536178,
+        0.4765412149079408,
+        0.4204132758813085,
+        0.0035070146579810916
+      ],
+      "elapsed": 2491,
+      "tokens": 1569,
+      "description": "Durante una maniobra de estacionamiento, el veh\u00edculo golpe\u00f3 un objeto fijo y sufri\u00f3 da\u00f1o frontal con faros rotos, paragolpes fracturado y rejilla deformada. No se declaran lesiones y se solicita peritaje para determinar los costos de reparaci\u00f3n."
+    },
+    {
+      "imgSrc": "/images/3_F_Breakage.jpg",
+      "label": "F_Breakage",
+      "zone": "frontal",
+      "isDamaged": true,
+      "severityGT": 2,
+      "jevDamaged": true,
+      "jevZone": "frontal",
+      "jevSeverity": 4,
+      "dmgProbs": [
+        0.007017449506210565,
+        0.9929825504937894
+      ],
+      "zoneProbs": [
+        0.9999998687195216,
+        1.3128047825653116e-07
+      ],
+      "sevProbs": [
+        1.0478763201748682e-05,
+        5.295333259596654e-05,
+        0.002885816967132834,
+        0.1853447619841741,
+        0.775698355457107,
+        0.036007633495788484
+      ],
+      "elapsed": 2508,
+      "tokens": 1569,
+      "description": "El veh\u00edculo sufri\u00f3 una colisi\u00f3n contra un animal, generando da\u00f1os frontales significativos. Se observan faros rotos, paragolpes fracturado y rejilla delantera da\u00f1ada."
+    },
+    {
+      "imgSrc": "/images/1_F_Breakage.jpg",
+      "label": "F_Breakage",
+      "zone": "frontal",
+      "isDamaged": true,
+      "severityGT": 2,
+      "jevDamaged": true,
+      "jevZone": "frontal",
+      "jevSeverity": 3,
+      "dmgProbs": [
+        0.09746489714107201,
+        0.9025351028589279
+      ],
+      "zoneProbs": [
+        0.9999996514521898,
+        3.4854781020620935e-07
+      ],
+      "sevProbs": [
+        0.00016363702829906408,
+        0.0301536711292915,
+        0.250773006379931,
+        0.6006947792369585,
+        0.11705157406754932,
+        0.0011633321579706264
+      ],
+      "elapsed": 2510,
+      "tokens": 1569,
+      "description": "Veh\u00edculo siniestrado por colisi\u00f3n con animal, con rotura de faros, paragolpes fracturado y rejilla delantera deformada. El impacto frontal produjo da\u00f1os en el tren delantero y en los componentes del frontal del veh\u00edculo."
+    },
+    {
+      "imgSrc": "/images/0_F_Breakage.jpg",
+      "label": "F_Breakage",
+      "zone": "frontal",
+      "isDamaged": true,
+      "severityGT": 2,
+      "jevDamaged": true,
+      "jevZone": "frontal",
+      "jevSeverity": 3,
+      "dmgProbs": [
+        0.0067800115738166356,
+        0.9932199884261834
+      ],
+      "zoneProbs": [
+        0.9999994075408911,
+        5.924591090148194e-07
+      ],
+      "sevProbs": [
+        7.549966321401488e-06,
+        0.0007291336501563294,
+        0.08756328666204449,
+        0.7175348943561621,
+        0.19388989584025457,
+        0.00027523952506111724
+      ],
+      "elapsed": 2651,
+      "tokens": 1569,
+      "description": "El veh\u00edculo sufri\u00f3 una colisi\u00f3n con un animal en la calzada, con rotura de faros, paragolpes y rejilla. La parte delantera presenta da\u00f1os visibles que requieren valoraci\u00f3n del perito."
+    },
+    {
+      "imgSrc": "/images/6_F_Breakage.jpg",
+      "label": "F_Breakage",
+      "zone": "frontal",
+      "isDamaged": true,
+      "severityGT": 2,
+      "jevDamaged": true,
+      "jevZone": "frontal",
+      "jevSeverity": 4,
+      "dmgProbs": [
+        0.00784011659805741,
+        0.9921598834019427
+      ],
+      "zoneProbs": [
+        0.9999999372448841,
+        6.275511583098952e-08
+      ],
+      "sevProbs": [
+        9.886011372042136e-06,
+        8.75011080603554e-05,
+        0.019587684720944316,
+        0.3691791322962856,
+        0.6071104924591962,
+        0.0040253034041413975
+      ],
+      "elapsed": 1296,
+      "tokens": 1569,
+      "description": "El veh\u00edculo sufri\u00f3 da\u00f1os frontales tras una colisi\u00f3n con un animal en la calzada, observ\u00e1ndose faros rotos, paragolpes fracturado y rejilla deformada. Se solicita la reparaci\u00f3n de los elementos delanteros afectados por el impacto."
+    },
+    {
+      "imgSrc": "/images/8_F_Crushed.jpg",
+      "label": "F_Crushed",
+      "zone": "frontal",
+      "isDamaged": true,
+      "severityGT": 4,
+      "jevDamaged": true,
+      "jevZone": "frontal",
+      "jevSeverity": 2,
+      "dmgProbs": [
+        0.1592993013822111,
+        0.840700698617789
+      ],
+      "zoneProbs": [
+        0.9999949387508811,
+        5.061249119042825e-06
+      ],
+      "sevProbs": [
+        7.488233924494108e-05,
+        0.12785383606152587,
+        0.47322019713094016,
+        0.3695030191665801,
+        0.02873563840065753,
+        0.0006124269010512921
+      ],
+      "elapsed": 1533,
+      "tokens": 1569,
+      "description": "El siniestro se produjo por una colisi\u00f3n con un animal en la parte frontal. El veh\u00edculo presenta carrocer\u00eda deformada y posible da\u00f1o en el motor."
+    },
+    {
+      "imgSrc": "/images/5_F_Breakage.jpg",
+      "label": "F_Breakage",
+      "zone": "frontal",
+      "isDamaged": true,
+      "severityGT": 2,
+      "jevDamaged": true,
+      "jevZone": "frontal",
+      "jevSeverity": 3,
+      "dmgProbs": [
+        0.0043479027757414536,
+        0.9956520972242586
+      ],
+      "zoneProbs": [
+        0.9999998916763366,
+        1.083236633842421e-07
+      ],
+      "sevProbs": [
+        7.237829112680139e-06,
+        6.817831067348341e-05,
+        0.036781772824261316,
+        0.48837794129963175,
+        0.473042531247886,
+        0.0017223384884348149
+      ],
+      "elapsed": 1734,
+      "tokens": 1569,
+      "description": "Veh\u00edculo con da\u00f1os frontales tras colisi\u00f3n contra un animal, con rotura de faros, paragolpes y rejilla. Se solicita peritaje para valorar la reparaci\u00f3n por impacto directo en la parte delantera."
+    },
+    {
+      "imgSrc": "/images/9_F_Crushed.jpg",
+      "label": "F_Crushed",
+      "zone": "frontal",
+      "isDamaged": true,
+      "severityGT": 4,
+      "jevDamaged": true,
+      "jevZone": "frontal",
+      "jevSeverity": 3,
+      "dmgProbs": [
+        0.020506463187743067,
+        0.9794935368122568
+      ],
+      "zoneProbs": [
+        0.9998288090442008,
+        0.00017119095579930512
+      ],
+      "sevProbs": [
+        5.559811591822521e-05,
+        0.010126236653589096,
+        0.2573455269895311,
+        0.5975399372755366,
+        0.1339499973641039,
+        0.000982703601320982
+      ],
+      "elapsed": 1846,
+      "tokens": 3744,
+      "description": "El siniestro consisti\u00f3 en una colisi\u00f3n frontal con un animal en v\u00eda p\u00fablica. La carrocer\u00eda delantera qued\u00f3 deformada, con posible afectaci\u00f3n al motor."
+    },
+    {
+      "imgSrc": "/images/7_F_Breakage.jpg",
+      "label": "F_Breakage",
+      "zone": "frontal",
+      "isDamaged": true,
+      "severityGT": 2,
+      "jevDamaged": true,
+      "jevZone": "frontal",
+      "jevSeverity": 4,
+      "dmgProbs": [
+        0.003582211907854417,
+        0.9964177880921455
+      ],
+      "zoneProbs": [
+        0.9999997011309637,
+        2.988690362813985e-07
+      ],
+      "sevProbs": [
+        8.166340245732064e-06,
+        1.7257355512054024e-05,
+        0.0004334827029155897,
+        0.06428458322667376,
+        0.8000461119458916,
+        0.13521039842876123
+      ],
+      "elapsed": 1934,
+      "tokens": 2844,
+      "description": "El veh\u00edculo sufri\u00f3 una colisi\u00f3n frontal contra un objeto fijo durante la circulaci\u00f3n. La inspecci\u00f3n muestra faros rotos, paragolpes fracturado y rejilla delantera da\u00f1ada."
+    },
+    {
+      "imgSrc": "/images/13_F_Crushed.jpg",
+      "label": "F_Crushed",
+      "zone": "frontal",
+      "isDamaged": true,
+      "severityGT": 4,
+      "jevDamaged": true,
+      "jevZone": "frontal",
+      "jevSeverity": 3,
+      "dmgProbs": [
+        0.17988777258491792,
+        0.8201122274150822
+      ],
+      "zoneProbs": [
+        0.99989928008475,
+        0.00010071991524993386
+      ],
+      "sevProbs": [
+        0.0005800355529004796,
+        0.052226460602440294,
+        0.30837640081076595,
+        0.5581483153922412,
+        0.07966098997769826,
+        0.0010077976639538435
+      ],
+      "elapsed": 1100,
+      "tokens": 1569,
+      "description": "Siniestro por impacto contra un animal de gran tama\u00f1o, con aplastamiento frontal, deformaci\u00f3n de la carrocer\u00eda y posible afectaci\u00f3n del motor. La inspecci\u00f3n fotogr\u00e1fica confirma el da\u00f1o en la parte delantera del veh\u00edculo tras la colisi\u00f3n."
+    },
+    {
+      "imgSrc": "/images/11_F_Crushed.jpg",
+      "label": "F_Crushed",
+      "zone": "frontal",
+      "isDamaged": true,
+      "severityGT": 4,
+      "jevDamaged": true,
+      "jevZone": "frontal",
+      "jevSeverity": 3,
+      "dmgProbs": [
+        0.006963982557975214,
+        0.9930360174420249
+      ],
+      "zoneProbs": [
+        0.9999914956008359,
+        8.504399163996939e-06
+      ],
+      "sevProbs": [
+        9.838035830152923e-06,
+        0.00022861542983813844,
+        0.04147597940342072,
+        0.6434779644189442,
+        0.31417942348964095,
+        0.0006281792223257426
+      ],
+      "elapsed": 1109,
+      "tokens": 1569,
+      "description": "El veh\u00edculo sufri\u00f3 un siniestro por impacto con un animal en v\u00eda p\u00fablica. Se observa da\u00f1o frontal aplastado, carrocer\u00eda deformada y posible afectaci\u00f3n del motor."
+    },
+    {
+      "imgSrc": "/images/10_F_Crushed.jpg",
+      "label": "F_Crushed",
+      "zone": "frontal",
+      "isDamaged": true,
+      "severityGT": 4,
+      "jevDamaged": true,
+      "jevZone": "frontal",
+      "jevSeverity": 2,
+      "dmgProbs": [
+        0.28413656960423933,
+        0.7158634303957607
+      ],
+      "zoneProbs": [
+        0.9999678417048552,
+        3.21582951446865e-05
+      ],
+      "sevProbs": [
+        0.001457087419672277,
+        0.13429617334372523,
+        0.43885620680993176,
+        0.38812167071956194,
+        0.03638372136111959,
+        0.0008851403459890819
+      ],
+      "elapsed": 1493,
+      "tokens": 1569,
+      "description": "Veh\u00edculo siniestrado tras colisi\u00f3n frontal contra un ciervo en zona rural durante el amanecer, con aplastamiento total del frontal y deformaci\u00f3n severa de la carrocer\u00eda. La fuerza del impacto sugiere da\u00f1o directo sobre el bloque motor y el radiador, dejando el veh\u00edculo inmovilizado en la calzada."
+    },
+    {
+      "imgSrc": "/images/12_F_Crushed.jpg",
+      "label": "F_Crushed",
+      "zone": "frontal",
+      "isDamaged": true,
+      "severityGT": 4,
+      "jevDamaged": false,
+      "jevZone": "frontal",
+      "jevSeverity": 1,
+      "dmgProbs": [
+        0.8448454358722894,
+        0.15515456412771056
+      ],
+      "zoneProbs": [
+        0.9992396651885304,
+        0.0007603348114697281
+      ],
+      "sevProbs": [
+        0.36533582561825206,
+        0.3891696230016926,
+        0.15545801048655739,
+        0.08485089091828754,
+        0.004497390805926701,
+        0.00068825916928375
+      ],
+      "elapsed": 1510,
+      "tokens": 1569,
+      "description": "El veh\u00edculo presenta da\u00f1o frontal aplastado, carrocer\u00eda deformada y posible da\u00f1o en motor debido a un impacto con un animal en la calzada. Se requiere inspecci\u00f3n mec\u00e1nica para verificar la afectaci\u00f3n del radiador, parachoques, faros y componentes del motor."
+    },
+    {
+      "imgSrc": "/images/14_F_Crushed.jpg",
+      "label": "F_Crushed",
+      "zone": "frontal",
+      "isDamaged": true,
+      "severityGT": 4,
+      "jevDamaged": false,
+      "jevZone": "frontal",
+      "jevSeverity": 2,
+      "dmgProbs": [
+        0.6062466537033523,
+        0.3937533462966477
+      ],
+      "zoneProbs": [
+        0.9984107377648745,
+        0.0015892622351255502
+      ],
+      "sevProbs": [
+        0.13809686063170656,
+        0.24589831638079337,
+        0.3206959997206387,
+        0.21766869218626625,
+        0.0687261105339389,
+        0.008914020546656224
+      ],
+      "elapsed": 1517,
+      "tokens": 1569,
+      "description": "Veh\u00edculo presenta da\u00f1os en paragolpes lateral y puerta trasera por colisi\u00f3n en maniobra de estacionamiento. No se observan da\u00f1os en mec\u00e1nica, solo deformaciones en carrocer\u00eda."
+    },
+    {
+      "imgSrc": "/images/18_F_Normal.jpg",
+      "label": "F_Normal",
+      "zone": "frontal",
+      "isDamaged": false,
+      "severityGT": 0,
+      "jevDamaged": false,
+      "jevZone": "frontal",
+      "jevSeverity": 0,
+      "dmgProbs": [
+        0.9580069627887595,
+        0.04199303721124061
+      ],
+      "zoneProbs": [
+        0.9914346265494207,
+        0.008565373450579377
+      ],
+      "sevProbs": [
+        0.7584431620492144,
+        0.1457536586324018,
+        0.06698011350077439,
+        0.026776996417615766,
+        0.0016551393760366178,
+        0.00039093002395701524
+      ],
+      "elapsed": 1661,
+      "tokens": 1569,
+      "description": "El veh\u00edculo asegurado presenta da\u00f1os en el frontal tras una colisi\u00f3n en parking. El otro veh\u00edculo implicado no presenta da\u00f1os aparentes."
+    },
+    {
+      "imgSrc": "/images/17_F_Normal.jpg",
+      "label": "F_Normal",
+      "zone": "frontal",
+      "isDamaged": false,
+      "severityGT": 0,
+      "jevDamaged": false,
+      "jevZone": "frontal",
+      "jevSeverity": 1,
+      "dmgProbs": [
+        0.7822471832588909,
+        0.21775281674110927
+      ],
+      "zoneProbs": [
+        0.9998912315880144,
+        0.00010876841198550463
+      ],
+      "sevProbs": [
+        0.29414247596927867,
+        0.48453225048147386,
+        0.16564684748423855,
+        0.05161991682277047,
+        0.0033694180249129457,
+        0.0006890912173254753
+      ],
+      "elapsed": 1666,
+      "tokens": 1569,
+      "description": "El veh\u00edculo asegurado presenta da\u00f1os frontales causados por colisi\u00f3n con un animal que se cruz\u00f3 en la v\u00eda. No se observan da\u00f1os en otro veh\u00edculo ni lesiones en ocupantes."
+    },
+    {
+      "imgSrc": "/images/15_F_Crushed.jpg",
+      "label": "F_Crushed",
+      "zone": "frontal",
+      "isDamaged": true,
+      "severityGT": 4,
+      "jevDamaged": true,
+      "jevZone": "frontal",
+      "jevSeverity": 3,
+      "dmgProbs": [
+        0.08472914413820733,
+        0.9152708558617927
+      ],
+      "zoneProbs": [
+        0.999998221125608,
+        1.7788743920172105e-06
+      ],
+      "sevProbs": [
+        7.579123876523223e-05,
+        0.014130217480044243,
+        0.16876836515879812,
+        0.6550379670839126,
+        0.1612168393851934,
+        0.0007708196532864483
+      ],
+      "elapsed": 1721,
+      "tokens": 1569,
+      "description": "Veh\u00edculo siniestrado por colisi\u00f3n frontal con otro autom\u00f3vil, con da\u00f1o aplastado y carrocer\u00eda deformada en el sector delantero. Se observa posible compromiso del motor, por lo que requiere inspecci\u00f3n mec\u00e1nica."
+    },
+    {
+      "imgSrc": "/images/19_F_Normal.jpg",
+      "label": "F_Normal",
+      "zone": "frontal",
+      "isDamaged": false,
+      "severityGT": 0,
+      "jevDamaged": false,
+      "jevZone": "frontal",
+      "jevSeverity": 1,
+      "dmgProbs": [
+        0.6735417435765303,
+        0.32645825642346965
+      ],
+      "zoneProbs": [
+        0.9967315842322211,
+        0.0032684157677789244
+      ],
+      "sevProbs": [
+        0.09741299397302473,
+        0.5404659113781256,
+        0.24075318473317767,
+        0.11783812720216778,
+        0.003130072785745011,
+        0.00039970992775924203
+      ],
+      "elapsed": 1951,
+      "tokens": 1569,
+      "description": "El veh\u00edculo presenta da\u00f1o frontal durante una maniobra de aparcamiento. El otro veh\u00edculo implicado no tiene da\u00f1os aparentes."
+    },
+    {
+      "imgSrc": "/images/16_F_Normal.jpg",
+      "label": "F_Normal",
+      "zone": "frontal",
+      "isDamaged": false,
+      "severityGT": 0,
+      "jevDamaged": false,
+      "jevZone": "frontal",
+      "jevSeverity": 0,
+      "dmgProbs": [
+        0.9445205939111548,
+        0.05547940608884528
+      ],
+      "zoneProbs": [
+        0.9995559750786348,
+        0.00044402492136505446
+      ],
+      "sevProbs": [
+        0.8159161346422178,
+        0.11847789229045581,
+        0.04659615972376025,
+        0.017777963435898783,
+        0.001073526253897421,
+        0.0001583236537700751
+      ],
+      "elapsed": 2228,
+      "tokens": 4932,
+      "description": "Colisi\u00f3n frontal con un turismo que no presenta da\u00f1os aparentes, con da\u00f1os visibles en la parte delantera del veh\u00edculo asegurado. Se notifica el siniestro para su valoraci\u00f3n por perito."
+    },
+    {
+      "imgSrc": "/images/21_F_Normal.jpg",
+      "label": "F_Normal",
+      "zone": "frontal",
+      "isDamaged": false,
+      "severityGT": 0,
+      "jevDamaged": false,
+      "jevZone": "frontal",
+      "jevSeverity": 0,
+      "dmgProbs": [
+        0.9349426390430176,
+        0.0650573609569825
+      ],
+      "zoneProbs": [
+        0.999972950088933,
+        2.70499110669174e-05
+      ],
+      "sevProbs": [
+        0.6995578149346134,
+        0.18354703366985878,
+        0.07682554325233662,
+        0.0370218411669605,
+        0.002425971769745487,
+        0.000621795206485201
+      ],
+      "elapsed": 827,
+      "tokens": 1569,
+      "description": "Se declara un siniestro por roce en estacionamiento. El veh\u00edculo asegurado presenta da\u00f1o frontal, sin da\u00f1os aparentes en el otro veh\u00edculo."
+    },
+    {
+      "imgSrc": "/images/20_F_Normal.jpg",
+      "label": "F_Normal",
+      "zone": "frontal",
+      "isDamaged": false,
+      "severityGT": 0,
+      "jevDamaged": false,
+      "jevZone": "frontal",
+      "jevSeverity": 0,
+      "dmgProbs": [
+        0.9339993726645898,
+        0.0660006273354102
+      ],
+      "zoneProbs": [
+        0.9986369482116433,
+        0.00136305178835673
+      ],
+      "sevProbs": [
+        0.6335399117243798,
+        0.24152967417808952,
+        0.09207899473364282,
+        0.031017123885077682,
+        0.0015238569132334208,
+        0.0003104385655766429
+      ],
+      "elapsed": 1508,
+      "tokens": 1569,
+      "description": "Accidente en parking por contacto entre dos veh\u00edculos: uno presenta da\u00f1o frontal y el otro sin da\u00f1os aparentes. La maniobra de estacionamiento origin\u00f3 un golpe leve en el paragolpes delantero del primero."
+    },
+    {
+      "imgSrc": "/images/24_R_Breakage.jpg",
+      "label": "R_Breakage",
+      "zone": "trasera",
+      "isDamaged": true,
+      "severityGT": 2,
+      "jevDamaged": true,
+      "jevZone": "trasera",
+      "jevSeverity": 2,
+      "dmgProbs": [
+        0.0351708606118309,
+        0.9648291393881692
+      ],
+      "zoneProbs": [
+        2.5044795551422553e-05,
+        0.9999749552044485
+      ],
+      "sevProbs": [
+        1.7007168209156736e-05,
+        0.05671592269024805,
+        0.5774884476543406,
+        0.3514925820779983,
+        0.01421482599289286,
+        7.121441631108867e-05
+      ],
+      "elapsed": 1510,
+      "tokens": 1569,
+      "description": "El veh\u00edculo presenta da\u00f1os en la zona trasera por roce en parking, con rotura del piloto y fractura del paragolpes. No se observan da\u00f1os estructurales adicionales ni terceros identificados."
+    },
+    {
+      "imgSrc": "/images/22_F_Normal.jpg",
+      "label": "F_Normal",
+      "zone": "frontal",
+      "isDamaged": false,
+      "severityGT": 0,
+      "jevDamaged": false,
+      "jevZone": "frontal",
+      "jevSeverity": 0,
+      "dmgProbs": [
+        0.9285805357856838,
+        0.07141946421431616
+      ],
+      "zoneProbs": [
+        0.9998390197987885,
+        0.00016098020121136364
+      ],
+      "sevProbs": [
+        0.6091851134693044,
+        0.24716742663366306,
+        0.10028287442562633,
+        0.0407196579362136,
+        0.00221789372711984,
+        0.00042703380807281965
+      ],
+      "elapsed": 1528,
+      "tokens": 1569,
+      "description": "El veh\u00edculo asegurado presenta da\u00f1os frontales en paragolpes y faro derecho tras un golpe en parking. El otro veh\u00edculo implicado no muestra da\u00f1os aparentes en la inspecci\u00f3n visual."
+    },
+    {
+      "imgSrc": "/images/23_F_Normal.jpg",
+      "label": "F_Normal",
+      "zone": "frontal",
+      "isDamaged": false,
+      "severityGT": 0,
+      "jevDamaged": false,
+      "jevZone": "frontal",
+      "jevSeverity": 1,
+      "dmgProbs": [
+        0.8097304760565424,
+        0.19026952394345764
+      ],
+      "zoneProbs": [
+        0.9921836224139081,
+        0.0078163775860919
+      ],
+      "sevProbs": [
+        0.30135605737158827,
+        0.49641494150562354,
+        0.15218638274453192,
+        0.04597133718621426,
+        0.0031441895912890103,
+        0.0009270916007530167
+      ],
+      "elapsed": 1790,
+      "tokens": 1569,
+      "description": "Siniestro por colisi\u00f3n en parking con impacto frontal del veh\u00edculo asegurado. El otro veh\u00edculo implicado no presenta da\u00f1os aparentes."
+    },
+    {
+      "imgSrc": "/images/28_R_Breakage.jpg",
+      "label": "R_Breakage",
+      "zone": "trasera",
+      "isDamaged": true,
+      "severityGT": 2,
+      "jevDamaged": true,
+      "jevZone": "trasera",
+      "jevSeverity": 4,
+      "dmgProbs": [
+        0.005087804091777685,
+        0.9949121959082223
+      ],
+      "zoneProbs": [
+        0.001427119715757949,
+        0.9985728802842422
+      ],
+      "sevProbs": [
+        1.1345877836830269e-05,
+        5.5577453279588086e-05,
+        0.007678311829819031,
+        0.22033157782865648,
+        0.7415324730106486,
+        0.0303907139997595
+      ],
+      "elapsed": 1355,
+      "tokens": 1569,
+      "description": "El veh\u00edculo presenta da\u00f1os en la parte trasera a causa de una colisi\u00f3n por alcance durante una maniobra de estacionamiento. Se aprecian rotura del piloto trasero y fractura del paragolpes posterior."
+    },
+    {
+      "imgSrc": "/images/27_R_Breakage.jpg",
+      "label": "R_Breakage",
+      "zone": "trasera",
+      "isDamaged": true,
+      "severityGT": 2,
+      "jevDamaged": true,
+      "jevZone": "trasera",
+      "jevSeverity": 3,
+      "dmgProbs": [
+        0.04555740160888288,
+        0.954442598391117
+      ],
+      "zoneProbs": [
+        1.1789466681659388e-05,
+        0.9999882105333183
+      ],
+      "sevProbs": [
+        4.44437257127318e-05,
+        0.0035607083291709332,
+        0.1415774782577479,
+        0.5244275412078637,
+        0.32848186176741745,
+        0.0019079667120871576
+      ],
+      "elapsed": 1526,
+      "tokens": 1569,
+      "description": "El siniestro se origina por una colisi\u00f3n en maniobra de estacionamiento contra un bordillo fijo, con da\u00f1o en la parte trasera. El veh\u00edculo presenta un piloto trasero roto y paragolpes posterior fracturado."
+    },
+    {
+      "imgSrc": "/images/26_R_Breakage.jpg",
+      "label": "R_Breakage",
+      "zone": "trasera",
+      "isDamaged": true,
+      "severityGT": 2,
+      "jevDamaged": true,
+      "jevZone": "trasera",
+      "jevSeverity": 3,
+      "dmgProbs": [
+        0.02348438867064876,
+        0.9765156113293514
+      ],
+      "zoneProbs": [
+        0.0013839581518094346,
+        0.9986160418481906
+      ],
+      "sevProbs": [
+        3.919936261865281e-05,
+        0.009634364933809808,
+        0.24389404649844543,
+        0.5575581879227757,
+        0.1873533377203336,
+        0.0015208635620167978
+      ],
+      "elapsed": 1620,
+      "tokens": 1569,
+      "description": "El veh\u00edculo sufri\u00f3 una colisi\u00f3n por alcance mientras realizaba una maniobra de parking. Los da\u00f1os se concentran en la parte trasera, con el piloto roto y el paragolpes trasero fracturado."
+    },
+    {
+      "imgSrc": "/images/29_R_Breakage.jpg",
+      "label": "R_Breakage",
+      "zone": "trasera",
+      "isDamaged": true,
+      "severityGT": 2,
+      "jevDamaged": false,
+      "jevZone": "trasera",
+      "jevSeverity": 1,
+      "dmgProbs": [
+        0.7096526113816767,
+        0.2903473886183233
+      ],
+      "zoneProbs": [
+        0.004577487838534067,
+        0.9954225121614659
+      ],
+      "sevProbs": [
+        0.12446634983227248,
+        0.40045674280517546,
+        0.27585292429532554,
+        0.17592783307904816,
+        0.021157076679393365,
+        0.0021390733087849763
+      ],
+      "elapsed": 1624,
+      "tokens": 1569,
+      "description": "Se declara colisi\u00f3n por alcance producida en v\u00eda urbana, donde el veh\u00edculo asegurado fue impactado por un tercero en su parte trasera. Como consecuencia se observan da\u00f1os de consideraci\u00f3n con fractura del paragolpes trasero y rotura del piloto izquierdo."
+    },
+    {
+      "imgSrc": "/images/25_R_Breakage.jpg",
+      "label": "R_Breakage",
+      "zone": "trasera",
+      "isDamaged": true,
+      "severityGT": 2,
+      "jevDamaged": true,
+      "jevZone": "trasera",
+      "jevSeverity": 3,
+      "dmgProbs": [
+        0.01974704789686083,
+        0.9802529521031392
+      ],
+      "zoneProbs": [
+        0.44637072820636187,
+        0.5536292717936381
+      ],
+      "sevProbs": [
+        5.140481041391874e-05,
+        0.0021752726414244372,
+        0.060458880812933144,
+        0.5879712114598709,
+        0.3460481251785277,
+        0.003295105096830015
+      ],
+      "elapsed": 1626,
+      "tokens": 1569,
+      "description": "Veh\u00edculo siniestrado tras colisi\u00f3n por alcance en maniobra de cambio de carril. Presenta pilotos traseros rotos, paragolpes trasero fracturado y deformaci\u00f3n del port\u00f3n trasero."
+    },
+    {
+      "imgSrc": "/images/33_R_Crushed.jpg",
+      "label": "R_Crushed",
+      "zone": "trasera",
+      "isDamaged": true,
+      "severityGT": 4,
+      "jevDamaged": false,
+      "jevZone": "trasera",
+      "jevSeverity": 0,
+      "dmgProbs": [
+        0.8355401000991706,
+        0.1644598999008295
+      ],
+      "zoneProbs": [
+        0.0008596630193498918,
+        0.9991403369806501
+      ],
+      "sevProbs": [
+        0.45855766733729403,
+        0.30619611556699555,
+        0.14291819039721396,
+        0.08564440684196642,
+        0.005846223634724114,
+        0.0008373962218059382
+      ],
+      "elapsed": 1653,
+      "tokens": 1569,
+      "description": "Siniestro por colisi\u00f3n por alcance trasero, con aplastamiento de la parte posterior y deformaci\u00f3n del maletero. Se observa posible da\u00f1o estructural en la carrocer\u00eda trasera."
+    },
+    {
+      "imgSrc": "/images/31_R_Breakage.jpg",
+      "label": "R_Breakage",
+      "zone": "trasera",
+      "isDamaged": true,
+      "severityGT": 2,
+      "jevDamaged": true,
+      "jevZone": "trasera",
+      "jevSeverity": 3,
+      "dmgProbs": [
+        0.03414023190138593,
+        0.9658597680986141
+      ],
+      "zoneProbs": [
+        6.989388619195556e-06,
+        0.9999930106113809
+      ],
+      "sevProbs": [
+        2.2460678070322694e-05,
+        0.024038980046394848,
+        0.361233845387747,
+        0.559555613916258,
+        0.054962522639350454,
+        0.0001865773321793894
+      ],
+      "elapsed": 1663,
+      "tokens": 1569,
+      "description": "El veh\u00edculo presenta da\u00f1o trasero como consecuencia de una maniobra de aparcamiento, con el piloto trasero roto y el paragolpes trasero fracturado. Las piezas da\u00f1adas muestran roturas visibles que afectan a su funci\u00f3n de iluminaci\u00f3n y protecci\u00f3n."
+    },
+    {
+      "imgSrc": "/images/32_R_Crushed.jpg",
+      "label": "R_Crushed",
+      "zone": "trasera",
+      "isDamaged": true,
+      "severityGT": 4,
+      "jevDamaged": true,
+      "jevZone": "trasera",
+      "jevSeverity": 3,
+      "dmgProbs": [
+        0.02897294504495547,
+        0.9710270549550446
+      ],
+      "zoneProbs": [
+        8.151174523569104e-06,
+        0.9999918488254764
+      ],
+      "sevProbs": [
+        1.4280094254994321e-05,
+        0.019303890301687082,
+        0.41498149747770513,
+        0.5332700149698819,
+        0.03232720383041868,
+        0.0001031133260522504
+      ],
+      "elapsed": 1793,
+      "tokens": 1569,
+      "description": "Veh\u00edculo con parte trasera aplastada y maletero deformado por golpe en parking. Se observa posible da\u00f1o estructural pendiente de peritaje."
+    },
+    {
+      "imgSrc": "/images/34_R_Crushed.jpg",
+      "label": "R_Crushed",
+      "zone": "trasera",
+      "isDamaged": true,
+      "severityGT": 4,
+      "jevDamaged": false,
+      "jevZone": "trasera",
+      "jevSeverity": 1,
+      "dmgProbs": [
+        0.7688426458260086,
+        0.23115735417399141
+      ],
+      "zoneProbs": [
+        0.004792561276148554,
+        0.9952074387238514
+      ],
+      "sevProbs": [
+        0.3072652829163319,
+        0.3075492701817859,
+        0.20535909908314767,
+        0.15543396927259057,
+        0.02218411570617933,
+        0.002208262839964599
+      ],
+      "elapsed": 1888,
+      "tokens": 1569,
+      "description": "El siniestro se produjo por colisi\u00f3n con un animal, presentando la parte trasera aplastada y el maletero deformado. Se aprecia posible da\u00f1o estructural en la zona posterior del veh\u00edculo."
+    },
+    {
+      "imgSrc": "/images/30_R_Breakage.jpg",
+      "label": "R_Breakage",
+      "zone": "trasera",
+      "isDamaged": true,
+      "severityGT": 2,
+      "jevDamaged": true,
+      "jevZone": "trasera",
+      "jevSeverity": 4,
+      "dmgProbs": [
+        0.0029283889500934072,
+        0.9970716110499065
+      ],
+      "zoneProbs": [
+        8.309741979113064e-05,
+        0.9999169025802088
+      ],
+      "sevProbs": [
+        6.421793968960247e-06,
+        5.509676282969367e-05,
+        0.043867891202309696,
+        0.44701988292435846,
+        0.5059232644439049,
+        0.0031274428726281982
+      ],
+      "elapsed": 1898,
+      "tokens": 1569,
+      "description": "Siniestro ocurrido en parking al rozar la parte trasera del veh\u00edculo contra una columna. Se constata piloto trasero roto y paragolpes trasero fracturado."
+    },
+    {
+      "imgSrc": "/images/35_R_Crushed.jpg",
+      "label": "R_Crushed",
+      "zone": "trasera",
+      "isDamaged": true,
+      "severityGT": 4,
+      "jevDamaged": true,
+      "jevZone": "trasera",
+      "jevSeverity": 3,
+      "dmgProbs": [
+        0.10020883592042631,
+        0.8997911640795737
+      ],
+      "zoneProbs": [
+        0.0011334855521356304,
+        0.9988665144478645
+      ],
+      "sevProbs": [
+        0.00011716260907793936,
+        0.03723022496725835,
+        0.42936326761563615,
+        0.4722039966438986,
+        0.06043607188838135,
+        0.0006492762757475479
+      ],
+      "elapsed": 1523,
+      "tokens": 1569,
+      "description": "Colisi\u00f3n trasera por alcance con otro veh\u00edculo, causando aplastamiento de la parte trasera y deformaci\u00f3n del maletero. Se observa posible da\u00f1o estructural que requiere inspecci\u00f3n t\u00e9cnica."
+    },
+    {
+      "imgSrc": "/images/37_R_Crushed.jpg",
+      "label": "R_Crushed",
+      "zone": "trasera",
+      "isDamaged": true,
+      "severityGT": 4,
+      "jevDamaged": false,
+      "jevZone": "trasera",
+      "jevSeverity": 1,
+      "dmgProbs": [
+        0.530828869550344,
+        0.46917113044965597
+      ],
+      "zoneProbs": [
+        0.00016598477070648202,
+        0.9998340152292935
+      ],
+      "sevProbs": [
+        0.04276951044354117,
+        0.4492641371960622,
+        0.32935874393831993,
+        0.17156488402669384,
+        0.0063937656841938795,
+        0.0006489587111889749
+      ],
+      "elapsed": 1528,
+      "tokens": 1569,
+      "description": "El veh\u00edculo sufri\u00f3 una colisi\u00f3n en parking que origin\u00f3 aplastamiento de la parte trasera y deformaci\u00f3n del maletero. Se aprecia posible da\u00f1o estructural en la zona afectada, pendiente de valoraci\u00f3n pericial."
+    },
+    {
+      "imgSrc": "/images/36_R_Crushed.jpg",
+      "label": "R_Crushed",
+      "zone": "trasera",
+      "isDamaged": true,
+      "severityGT": 4,
+      "jevDamaged": true,
+      "jevZone": "trasera",
+      "jevSeverity": 2,
+      "dmgProbs": [
+        0.35422022608327924,
+        0.6457797739167208
+      ],
+      "zoneProbs": [
+        0.003267976263182191,
+        0.9967320237368178
+      ],
+      "sevProbs": [
+        0.02334101685602778,
+        0.23037841245559235,
+        0.4646201518022879,
+        0.24967781316967708,
+        0.02979342113298598,
+        0.0021891845834289816
+      ],
+      "elapsed": 1549,
+      "tokens": 1569,
+      "description": "Veh\u00edculo siniestrado por impacto en maniobra de aparcamiento contra un objeto fijo, con la parte trasera aplastada y el maletero deformado. Se constata posible da\u00f1o estructural en la zona afectada por la deformaci\u00f3n del port\u00f3n trasero y los montantes."
+    },
+    {
+      "imgSrc": "/images/39_R_Crushed.jpg",
+      "label": "R_Crushed",
+      "zone": "trasera",
+      "isDamaged": true,
+      "severityGT": 4,
+      "jevDamaged": true,
+      "jevZone": "trasera",
+      "jevSeverity": 3,
+      "dmgProbs": [
+        0.28413656960423933,
+        0.7158634303957607
+      ],
+      "zoneProbs": [
+        0.0006420047387257083,
+        0.9993579952612742
+      ],
+      "sevProbs": [
+        0.00607480126539563,
+        0.0739830999527736,
+        0.3352584955577825,
+        0.4804274182629275,
+        0.10119476992290795,
+        0.0030614150382128956
+      ],
+      "elapsed": 1549,
+      "tokens": 1569,
+      "description": "El veh\u00edculo sufri\u00f3 una colisi\u00f3n por alcance que origin\u00f3 aplastamiento de la zona trasera y deformaci\u00f3n del maletero. Se observa posible da\u00f1o estructural en largueros y port\u00f3n posterior, pendiente de valoraci\u00f3n por perito."
+    },
+    {
+      "imgSrc": "/images/38_R_Crushed.jpg",
+      "label": "R_Crushed",
+      "zone": "trasera",
+      "isDamaged": true,
+      "severityGT": 4,
+      "jevDamaged": false,
+      "jevZone": "trasera",
+      "jevSeverity": 2,
+      "dmgProbs": [
+        0.6819524762310197,
+        0.31804752376898027
+      ],
+      "zoneProbs": [
+        0.004439469682061568,
+        0.9955605303179383
+      ],
+      "sevProbs": [
+        0.12698086187868005,
+        0.2444088062680149,
+        0.2903264751455248,
+        0.2690397102063928,
+        0.06418559876427284,
+        0.005058547737114637
+      ],
+      "elapsed": 1561,
+      "tokens": 1569,
+      "description": "Veh\u00edculo con parte trasera aplastada, maletero deformado y posible da\u00f1o estructural tras un impacto en maniobra de estacionamiento. Se observan da\u00f1os localizados en el paragolpes posterior y en la tapa del maletero, sin otros elementos visibles afectados."
+    },
+    {
+      "imgSrc": "/images/41_R_Normal.jpg",
+      "label": "R_Normal",
+      "zone": "trasera",
+      "isDamaged": false,
+      "severityGT": 0,
+      "jevDamaged": false,
+      "jevZone": "trasera",
+      "jevSeverity": 1,
+      "dmgProbs": [
+        0.802508399087996,
+        0.19749160091200402
+      ],
+      "zoneProbs": [
+        0.000386607606126992,
+        0.9996133923938729
+      ],
+      "sevProbs": [
+        0.3512419424826155,
+        0.3859897515006873,
+        0.16666974674568255,
+        0.08956507848186544,
+        0.005579459173062405,
+        0.0009540216160868344
+      ],
+      "elapsed": 1526,
+      "tokens": 1569,
+      "description": "El veh\u00edculo sufri\u00f3 una colisi\u00f3n con un animal que afect\u00f3 a su parte trasera. La inspecci\u00f3n muestra da\u00f1o trasera, sin otros da\u00f1os aparentes en el veh\u00edculo."
+    },
+    {
+      "imgSrc": "/images/43_R_Normal.jpg",
+      "label": "R_Normal",
+      "zone": "trasera",
+      "isDamaged": false,
+      "severityGT": 0,
+      "jevDamaged": false,
+      "jevZone": "trasera",
+      "jevSeverity": 0,
+      "dmgProbs": [
+        0.8167487453806458,
+        0.18325125461935415
+      ],
+      "zoneProbs": [
+        0.0011510293497080282,
+        0.9988489706502921
+      ],
+      "sevProbs": [
+        0.3931256888652973,
+        0.34740951054279456,
+        0.16990792380635802,
+        0.08187777982465112,
+        0.006330432821021899,
+        0.0013486641398770852
+      ],
+      "elapsed": 1524,
+      "tokens": 1569,
+      "description": "El veh\u00edculo asegurado sufri\u00f3 da\u00f1os en la parte trasera por colisi\u00f3n contra un objeto fijo en parking. No se aprecian da\u00f1os aparentes en el resto del veh\u00edculo."
+    },
+    {
+      "imgSrc": "/images/44_R_Normal.jpg",
+      "label": "R_Normal",
+      "zone": "trasera",
+      "isDamaged": false,
+      "severityGT": 0,
+      "jevDamaged": false,
+      "jevZone": "trasera",
+      "jevSeverity": 0,
+      "dmgProbs": [
+        0.945322306846192,
+        0.05467769315380799
+      ],
+      "zoneProbs": [
+        0.000846556309601496,
+        0.9991534436903985
+      ],
+      "sevProbs": [
+        0.7143724379146081,
+        0.187434026497694,
+        0.06926530910641183,
+        0.02726279588360253,
+        0.0013925678639431086,
+        0.0002728627337404109
+      ],
+      "elapsed": 1533,
+      "tokens": 1569,
+      "description": "El asegurado declar\u00f3 que el da\u00f1o trasero fue provocado por un impacto con un animal en la calzada. La fotograf\u00eda muestra desperfectos en el paragolpes trasero, sin otros da\u00f1os aparentes en el veh\u00edculo."
+    },
+    {
+      "imgSrc": "/images/40_R_Normal.jpg",
+      "label": "R_Normal",
+      "zone": "trasera",
+      "isDamaged": false,
+      "severityGT": 0,
+      "jevDamaged": false,
+      "jevZone": "trasera",
+      "jevSeverity": 1,
+      "dmgProbs": [
+        0.7769536726153348,
+        0.22304632738466526
+      ],
+      "zoneProbs": [
+        0.006812130946424688,
+        0.9931878690535754
+      ],
+      "sevProbs": [
+        0.2849404319125797,
+        0.41440794177413703,
+        0.19342646791884258,
+        0.09615922514921803,
+        0.009353807975393917,
+        0.001712125269828818
+      ],
+      "elapsed": 1650,
+      "tokens": 1569,
+      "description": "El veh\u00edculo asegurado presenta da\u00f1os en la parte trasera, principalmente en luneta y port\u00f3n, tras una granizada. No se observan da\u00f1os aparentes en otros veh\u00edculos."
+    },
+    {
+      "imgSrc": "/images/42_R_Normal.jpg",
+      "label": "R_Normal",
+      "zone": "trasera",
+      "isDamaged": false,
+      "severityGT": 0,
+      "jevDamaged": true,
+      "jevZone": "trasera",
+      "jevSeverity": 2,
+      "dmgProbs": [
+        0.11655591938376982,
+        0.8834440806162303
+      ],
+      "zoneProbs": [
+        6.13303472813331e-06,
+        0.9999938669652719
+      ],
+      "sevProbs": [
+        1.775329018003406e-05,
+        0.23665376606236344,
+        0.48476473795631075,
+        0.27724161545211595,
+        0.001302941615334595,
+        1.918562369529172e-05
+      ],
+      "elapsed": 1845,
+      "tokens": 2448,
+      "description": "El veh\u00edculo asegurado presenta da\u00f1os en la parte trasera a consecuencia de un incidente de parking ocurrido mientras estaba estacionado. Tras la inspecci\u00f3n fotogr\u00e1fica, se constata que el impacto fue superficial, quedando el veh\u00edculo sin da\u00f1os aparentes en el resto de su carrocer\u00eda y elementos luminosos."
+    },
+    {
+      "imgSrc": "/images/45_R_Normal.jpg",
+      "label": "R_Normal",
+      "zone": "trasera",
+      "isDamaged": false,
+      "severityGT": 0,
+      "jevDamaged": false,
+      "jevZone": "trasera",
+      "jevSeverity": 1,
+      "dmgProbs": [
+        0.7861574255230095,
+        0.2138425744769906
+      ],
+      "zoneProbs": [
+        0.0015175172088749266,
+        0.998482482791125
+      ],
+      "sevProbs": [
+        0.24583438191070361,
+        0.5035779038150546,
+        0.16688005934021993,
+        0.08041865750996376,
+        0.0027725430878647174,
+        0.0005164543361934137
+      ],
+      "elapsed": 1294,
+      "tokens": 1569,
+      "description": "Veh\u00edculo con da\u00f1os en la parte trasera tras un incidente de aparcamiento. El segundo veh\u00edculo no presenta da\u00f1os aparentes."
+    },
+    {
+      "imgSrc": "/images/46_R_Normal.jpg",
+      "label": "R_Normal",
+      "zone": "trasera",
+      "isDamaged": false,
+      "severityGT": 0,
+      "jevDamaged": false,
+      "jevZone": "trasera",
+      "jevSeverity": 0,
+      "dmgProbs": [
+        0.8727837707568956,
+        0.12721622924310436
+      ],
+      "zoneProbs": [
+        9.993512901060332e-05,
+        0.9999000648709895
+      ],
+      "sevProbs": [
+        0.4104823711217088,
+        0.3860559531582039,
+        0.14266504241218084,
+        0.05792885135923971,
+        0.002512734797990935,
+        0.0003550471506757463
+      ],
+      "elapsed": 1299,
+      "tokens": 1569,
+      "description": "La parte trasera del veh\u00edculo result\u00f3 da\u00f1ada tras colisionar con un animal suelto en la v\u00eda. No se observan da\u00f1os aparentes en el resto del veh\u00edculo."
+    },
+    {
+      "imgSrc": "/images/47_R_Normal.jpg",
+      "label": "R_Normal",
+      "zone": "trasera",
+      "isDamaged": false,
+      "severityGT": 0,
+      "jevDamaged": false,
+      "jevZone": "trasera",
+      "jevSeverity": 0,
+      "dmgProbs": [
+        0.914708468425804,
+        0.08529153157419593
+      ],
+      "zoneProbs": [
+        0.0006827048164566884,
+        0.9993172951835433
+      ],
+      "sevProbs": [
+        0.5988139989630809,
+        0.2506436062809378,
+        0.10655559691969585,
+        0.041940237133918756,
+        0.0017772174536103476,
+        0.0002693432487563431
+      ],
+      "elapsed": 1308,
+      "tokens": 1569,
+      "description": "Siniestro por colisi\u00f3n con animal que produjo da\u00f1os \u00fanicamente en la parte trasera del veh\u00edculo asegurado, sin da\u00f1os aparentes en el resto del turismo. En la documentaci\u00f3n fotogr\u00e1fica no se aprecian da\u00f1os en el veh\u00edculo contrario."
+    }
+  ]
+}

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Quiz S3 — Agent Engineering | The Learning Curve</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<style>
+@layer base{html,body{margin:0;padding:0;}}
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:#f3f3f6;}
+::-webkit-scrollbar-thumb{background:#e2bfb0;border-radius:9999px;}
+</style>
+<script src="https://cdn.tailwindcss.com"></script>
+<script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"background":"#f9f9fc","on-secondary-fixed-variant":"#43455b","surface-dim":"#d9dadc","on-error-container":"#93000a","surface-container-high":"#e8e8ea","on-secondary-container":"#5f6178","on-primary-fixed":"#351000","outline-variant":"#e2bfb0","surface-container":"#eeeef0","inverse-primary":"#ffb693","on-primary":"#ffffff","secondary-container":"#ddddf9","on-secondary-fixed":"#181a2e","surface-container-lowest":"#ffffff","primary":"#a04100","on-tertiary-fixed":"#2a1800","tertiary-fixed":"#ffddb6","on-background":"#1a1c1e","primary-container":"#ff6b00","surface-container-low":"#f3f3f6","secondary-fixed":"#e0e0fc","tertiary-fixed-dim":"#ffb95a","surface-tint":"#a04100","primary-fixed-dim":"#ffb693","surface-bright":"#f9f9fc","primary-fixed":"#ffdbcc","on-tertiary":"#ffffff","on-tertiary-container":"#472b00","on-surface":"#1a1c1e","tertiary-container":"#d08b1f","error-container":"#ffdad6","on-secondary":"#ffffff","surface-container-highest":"#e2e2e5","inverse-surface":"#2f3133","on-surface-variant":"#5a4136","inverse-on-surface":"#f0f0f3","on-tertiary-fixed-variant":"#643f00","tertiary":"#845400","surface":"#f9f9fc","on-primary-container":"#572000","on-error":"#ffffff","error":"#ba1a1a","secondary-fixed-dim":"#c4c4df","outline":"#8e7164","surface-variant":"#e2e2e5","on-primary-fixed-variant":"#7a3000","secondary":"#5b5d74"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"gutter":"1.5rem","gutter-mobile":"0.75rem","space-xl":"2.5rem","margin-mobile":"1rem","space-xs":"0.25rem","space-md":"1rem","space-sm":"0.5rem","space-lg":"1.5rem","margin":"2.5rem"},fontFamily:{"display-hero-mobile":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"headline-lg-mobile":["Plus Jakarta Sans"],"title-md":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"label-lg":["Plus Jakarta Sans"],"display-hero":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"]},fontSize:{"display-hero-mobile":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"800"}],"headline-lg":["40px",{"lineHeight":"48px","letterSpacing":"-0.025em","fontWeight":"700"}],"headline-lg-mobile":["28px",{"lineHeight":"36px","letterSpacing":"-0.02em","fontWeight":"700"}],"title-md":["18px",{"lineHeight":"26px","fontWeight":"600"}],"headline-sm":["22px",{"lineHeight":"30px","fontWeight":"600"}],"label-lg":["14px",{"lineHeight":"18px","letterSpacing":"0.04em","fontWeight":"700"}],"display-hero":["56px",{"lineHeight":"64px","letterSpacing":"-0.03em","fontWeight":"800"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.05em","fontWeight":"600"}],"body-md":["15px",{"lineHeight":"24px","fontWeight":"400"}],"headline-md":["28px",{"lineHeight":"36px","letterSpacing":"-0.015em","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.06em","fontWeight":"600"}],"body-sm":["13px",{"lineHeight":"20px","fontWeight":"400"}]}}}}</script>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen">
+
+<!-- Fixed header -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface/95 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.06)]">
+  <div class="w-full max-w-3xl mx-auto h-16 px-6 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-on-primary shadow-sm">
+        <span class="material-symbols-outlined text-[18px]">auto_stories</span>
+      </div>
+      <div class="flex flex-col leading-tight">
+        <span class="text-[11px] font-bold uppercase tracking-widest text-on-surface-variant">The Learning Curve</span>
+        <span class="text-[13px] font-bold text-on-surface">S3 — Agent Engineering</span>
+      </div>
+      <div class="hidden sm:flex items-center gap-1.5 ml-2 px-2.5 py-1 rounded-full bg-primary-fixed">
+        <span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>
+        <span class="text-[11px] font-bold uppercase tracking-wider text-primary">Quiz</span>
+      </div>
+    </div>
+    <!-- Score -->
+    <div class="flex items-center gap-2 px-4 py-2 rounded-xl bg-surface-container-low shadow-sm">
+      <span class="material-symbols-outlined text-[18px] text-primary-container">emoji_events</span>
+      <span class="text-[13px] font-bold text-on-surface-variant">Puntuación</span>
+      <span class="text-[15px] font-extrabold text-primary-container" id="score-display">0 / 7</span>
+    </div>
+  </div>
+  <!-- Progress bar -->
+  <div class="w-full h-1 bg-surface-container-high">
+    <div class="h-full bg-primary-container transition-all duration-500" id="progress-bar" style="width:0%"></div>
+  </div>
+</header>
+
+<!-- Main content -->
+<main class="max-w-3xl mx-auto px-4 sm:px-6 pt-24 pb-20">
+
+  <!-- Title block -->
+  <div class="mb-8">
+    <h1 class="text-2xl font-extrabold tracking-tight text-on-surface mb-1">Cuestionario de diseño</h1>
+    <p class="text-[14px] text-on-surface-variant">7 decisiones de arquitectura · una por lección · nivel senior</p>
+  </div>
+
+  <!-- Questions container -->
+  <div class="flex flex-col gap-5" id="questions-container"></div>
+
+  <!-- Completion banner (hidden initially) -->
+  <div class="hidden mt-8 p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant shadow-sm text-center" id="completion-banner">
+    <div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center mx-auto mb-3">
+      <span class="material-symbols-outlined text-primary-container text-[28px]">workspace_premium</span>
+    </div>
+    <p class="text-[12px] font-bold uppercase tracking-wider text-on-surface-variant mb-1">Resultado final</p>
+    <p class="text-3xl font-extrabold text-on-surface mb-1" id="final-score-text">— / 7</p>
+    <p class="text-[14px] text-on-surface-variant mb-4" id="final-feedback"></p>
+    <button onclick="resetQuiz()" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary-container text-on-primary font-bold text-[13px] hover:opacity-90 transition-opacity shadow-sm">
+      <span class="material-symbols-outlined text-[16px]">refresh</span>
+      Reintentar
+    </button>
+  </div>
+
+</main>
+
+<script>
+const questions = [
+  {
+    lesson: "3.1 — ¿Qué es un agente?",
+    q: "Tienes un sistema que siempre sigue estos pasos: 1) recibe un documento, 2) lo resume, 3) extrae entidades, 4) genera un informe. El flujo nunca cambia. ¿Es un agente?",
+    options: [
+      "Sí: usa un LLM en cada paso, por tanto es un agente.",
+      "No: es un pipeline. El flujo está codificado; el LLM solo genera texto en cada paso, no decide qué hacer a continuación.",
+      "Depende de la complejidad del documento procesado.",
+      "Sí, porque tiene múltiples pasos con LLMs encadenados."
+    ],
+    correct: 1,
+    explanation: "Un agente es un sistema donde el LLM decide el siguiente paso en runtime. Si el flujo está predefinido en código, es un pipeline aunque use LLMs en cada paso."
+  },
+  {
+    lesson: "3.2 — Skills, herramientas y límites",
+    q: "Tu agente puede: buscar en la web, crear un borrador de email, y enviar el email. ¿Qué política de diseño aplicas para las acciones?",
+    options: [
+      "Las tres acciones son equivalentes; el agente puede ejecutar cualquiera de forma autónoma.",
+      "Permitir búsqueda y creación de borrador de forma autónoma; requerir confirmación humana antes de enviar (acción irreversible).",
+      "Deshabilitar el envío de email: demasiado riesgo para cualquier agente.",
+      "Ejecutar todas las acciones de forma autónoma pero loguearlas para auditoría posterior."
+    ],
+    correct: 1,
+    explanation: "Principio de mínimo privilegio: las acciones irreversibles (enviar email) requieren confirmación humana. Las acciones de solo lectura o reversibles pueden ser autónomas."
+  },
+  {
+    lesson: "3.3 — Verifiers y validación",
+    q: "Tu agente genera código Python que se ejecuta en producción. Necesitas verificar el output antes de ejecutarlo. ¿Qué tipo de verifier usas como primera línea de defensa?",
+    options: [
+      "LLM-as-judge: otro modelo revisa si el código parece correcto semánticamente.",
+      "Revisión humana de cada output antes de ejecutar.",
+      "Verificación determinista: AST parsing para sintaxis, análisis estático y checklist de imports prohibidos.",
+      "Ejecutar el código en un sandbox y ver si lanza excepción."
+    ],
+    correct: 2,
+    explanation: "La primera línea debe ser determinista: syntax check, análisis estático, imports prohibidos. Es instantánea y sin coste de API. El LLM-judge es la segunda línea para calidad semántica."
+  },
+  {
+    lesson: "3.4 — Supervisors y supervisión humana",
+    q: "Tu agente de investigación lleva 47 pasos y 8 minutos sin devolver resultado. No hay error explícito, simplemente no avanza. ¿Cómo lo manejas?",
+    options: [
+      "Esperar indefinidamente: las tareas de investigación son largas por naturaleza.",
+      "Implementar un supervisor con timeout y detección de estancamiento que escala a humano si no hay avance en N pasos o T tiempo.",
+      "Reiniciar el agente automáticamente desde cero cuando supere un tiempo límite.",
+      "Limitar todos los agentes a un máximo fijo de 10 pasos siempre."
+    ],
+    correct: 1,
+    explanation: "El supervisor detecta anomalías (bucles, estancamiento) y decide: reintentar, escalar a humano o abortar con resultado parcial. Un timeout sin supervisión activa es un resource leak."
+  },
+  {
+    lesson: "3.5 — Self-correction y reflexión",
+    q: "Tu agente implementa self-correction: si el verifier rechaza el output, reintenta con el feedback del verifier. ¿Cuántos reintentos máximos configuras?",
+    options: [
+      "Reintentos ilimitados: el agente seguirá mejorando con cada iteración.",
+      "1 reintento máximo: si falla dos veces seguidas, el problema es estructural.",
+      "3–5 reintentos con backoff: suficientes para errores recuperables, con límite que evita bucles.",
+      "10 reintentos: maximizar las probabilidades de éxito antes de escalar."
+    ],
+    correct: 2,
+    explanation: "3–5 reintentos es el rango práctico de producción. Si el agente no corrige un error en ese rango, el problema suele ser estructural: escalar a humano es más eficiente que seguir reintentando."
+  },
+  {
+    lesson: "3.6 — Memoria en agentes",
+    q: "Tu agente de soporte necesita: a) recordar el contexto de la conversación actual, b) acceder al historial de tickets del cliente de los últimos 2 años. ¿Qué arquitectura de memoria usas?",
+    options: [
+      "Todo en la context window: simple y sin latencia de retrieval.",
+      "In-context para la conversación actual + external retrieval (vector DB o BD relacional) para el historial histórico.",
+      "Solo external retrieval para todo: más consistente y sin límite de tamaño.",
+      "Resumir todo el historial del cliente e incluirlo en el system prompt."
+    ],
+    correct: 1,
+    explanation: "Cada capa sirve una necesidad distinta: in-context para acceso inmediato de baja latencia, retrieval para el historial que no cabe en contexto. Combinarlas es el patrón correcto en producción."
+  },
+  {
+    lesson: "3.7 — Comunicación entre agentes",
+    q: "Sistema con 1 orquestador y 5 agentes especializados conocidos. El orquestador coordina las tareas entre ellos. ¿Qué patrón de comunicación aplicas?",
+    options: [
+      "Broadcast: el orquestador envía cada tarea a todos los agentes y el primero que responde gana.",
+      "Mediator/Orquestador: el orquestador enruta directamente cada tarea al agente especializado correcto.",
+      "Peer-to-peer directo: los agentes se comunican entre sí sin pasar por el orquestador.",
+      "Publish-subscribe: los agentes se suscriben a tipos de tareas y consumen de una cola."
+    ],
+    correct: 1,
+    explanation: "Con agentes especializados conocidos, el orquestador enruta directamente a cada especialista. El patrón mediator mantiene el control centralizado y la auditabilidad del sistema."
+  }
+];
+
+let answered = new Array(questions.length).fill(false);
+let score = 0;
+
+function renderQuestions() {
+  const container = document.getElementById('questions-container');
+  container.innerHTML = '';
+
+  questions.forEach(function(q, qi) {
+    const card = document.createElement('div');
+    card.id = 'card-' + qi;
+    card.className = 'bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm overflow-hidden transition-all duration-200';
+
+    const lessonBadge = '<span class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">' +
+      '<span class="material-symbols-outlined text-[12px]">school</span>' + escHtml(q.lesson) + '</span>';
+
+    const optionsHtml = q.options.map(function(opt, oi) {
+      return '<button id="opt-' + qi + '-' + oi + '" onclick="answer(' + qi + ',' + oi + ')" ' +
+        'class="w-full text-left px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low ' +
+        'hover:bg-surface-container hover:border-outline transition-all duration-150 ' +
+        'text-[13px] font-medium text-on-surface flex items-start gap-3 group opt-btn">' +
+        '<span class="mt-0.5 shrink-0 w-5 h-5 rounded-full border-2 border-outline-variant ' +
+        'flex items-center justify-center text-[10px] font-bold text-on-surface-variant group-hover:border-primary ' +
+        'opt-indicator">' + String.fromCharCode(65 + oi) + '</span>' +
+        '<span>' + escHtml(opt) + '</span>' +
+        '</button>';
+    }).join('');
+
+    card.innerHTML =
+      '<div class="px-5 pt-5 pb-4">' +
+        '<div class="flex items-center justify-between mb-3">' +
+          lessonBadge +
+          '<span class="text-[11px] font-bold text-on-surface-variant">Pregunta ' + (qi + 1) + ' / ' + questions.length + '</span>' +
+        '</div>' +
+        '<p class="text-[15px] font-semibold text-on-surface leading-snug mb-4">' + escHtml(q.q) + '</p>' +
+        '<div class="flex flex-col gap-2" id="opts-' + qi + '">' + optionsHtml + '</div>' +
+        '<div id="explanation-' + qi + '" class="hidden mt-4 flex items-start gap-2.5 px-4 py-3 rounded-xl bg-surface-container">' +
+          '<span class="material-symbols-outlined text-[18px] text-primary-container shrink-0 mt-0.5">lightbulb</span>' +
+          '<p class="text-[13px] text-on-surface leading-relaxed">' + escHtml(q.explanation) + '</p>' +
+        '</div>' +
+      '</div>';
+
+    container.appendChild(card);
+  });
+}
+
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function answer(qi, chosen) {
+  if (answered[qi]) return;
+  answered[qi] = true;
+
+  const q = questions[qi];
+  const isCorrect = chosen === q.correct;
+  if (isCorrect) score++;
+
+  // Style all options
+  for (var oi = 0; oi < q.options.length; oi++) {
+    var btn = document.getElementById('opt-' + qi + '-' + oi);
+    btn.disabled = true;
+    btn.classList.remove('hover:bg-surface-container', 'hover:border-outline', 'cursor-pointer');
+    btn.classList.add('cursor-default');
+
+    var indicator = btn.querySelector('.opt-indicator');
+
+    if (oi === q.correct) {
+      btn.classList.remove('bg-surface-container-low', 'border-outline-variant');
+      btn.classList.add('bg-[#d6f5e3]', 'border-[#22c55e]');
+      indicator.classList.remove('border-outline-variant', 'text-on-surface-variant');
+      indicator.classList.add('bg-[#22c55e]', 'border-[#22c55e]', 'text-white');
+      indicator.innerHTML = '<span class="material-symbols-outlined text-[13px]">check</span>';
+    } else if (oi === chosen && !isCorrect) {
+      btn.classList.remove('bg-surface-container-low', 'border-outline-variant');
+      btn.classList.add('bg-error-container', 'border-error');
+      indicator.classList.remove('border-outline-variant', 'text-on-surface-variant');
+      indicator.classList.add('bg-error', 'border-error', 'text-white');
+      indicator.innerHTML = '<span class="material-symbols-outlined text-[13px]">close</span>';
+    } else {
+      btn.classList.add('opacity-50');
+    }
+  }
+
+  // Show explanation
+  var exp = document.getElementById('explanation-' + qi);
+  exp.classList.remove('hidden');
+  exp.classList.add('flex');
+
+  // Update score
+  updateScore();
+
+  // Check completion
+  var allDone = answered.every(function(a) { return a; });
+  if (allDone) showCompletion();
+}
+
+function updateScore() {
+  var answeredCount = answered.filter(function(a) { return a; }).length;
+  document.getElementById('score-display').textContent = score + ' / ' + questions.length;
+  var pct = (answeredCount / questions.length) * 100;
+  document.getElementById('progress-bar').style.width = pct + '%';
+}
+
+function showCompletion() {
+  var banner = document.getElementById('completion-banner');
+  banner.classList.remove('hidden');
+
+  var pct = Math.round((score / questions.length) * 100);
+  document.getElementById('final-score-text').textContent = score + ' / ' + questions.length;
+
+  var feedback;
+  if (pct === 100) feedback = 'Perfecto. Todas las decisiones de arquitectura correctas.';
+  else if (pct >= 71) feedback = 'Muy bien. Dominas los conceptos centrales del módulo.';
+  else if (pct >= 43) feedback = 'Parcial. Repasa las lecciones donde fallaste antes de avanzar.';
+  else feedback = 'Repasa el módulo completo. Los fundamentos son la base de todo lo que viene.';
+
+  document.getElementById('final-feedback').textContent = feedback;
+  banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function resetQuiz() {
+  answered = new Array(questions.length).fill(false);
+  score = 0;
+  document.getElementById('score-display').textContent = '0 / ' + questions.length;
+  document.getElementById('progress-bar').style.width = '0%';
+  document.getElementById('completion-banner').classList.add('hidden');
+  renderQuestions();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+renderQuestions();
+</script>
+</body>
+</html>

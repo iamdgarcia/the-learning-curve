@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>The Learning Curve | S1 L1.3 — Embeddings para arquitectos</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"background":"#f9f9fc","on-secondary-fixed-variant":"#43455b","surface-dim":"#d9dadc","on-error-container":"#93000a","surface-container-high":"#e8e8ea","on-secondary-container":"#5f6178","on-primary-fixed":"#351000","outline-variant":"#e2bfb0","surface-container":"#eeeef0","inverse-primary":"#ffb693","on-primary":"#ffffff","secondary-container":"#ddddf9","on-secondary-fixed":"#181a2e","surface-container-lowest":"#ffffff","primary":"#a04100","on-tertiary-fixed":"#2a1800","tertiary-fixed":"#ffddb6","on-background":"#1a1c1e","primary-container":"#ff6b00","surface-container-low":"#f3f3f6","secondary-fixed":"#e0e0fc","tertiary-fixed-dim":"#ffb95a","surface-tint":"#a04100","primary-fixed-dim":"#ffb693","surface-bright":"#f9f9fc","primary-fixed":"#ffdbcc","on-tertiary":"#ffffff","on-tertiary-container":"#472b00","on-surface":"#1a1c1e","tertiary-container":"#d08b1f","error-container":"#ffdad6","on-secondary":"#ffffff","surface-container-highest":"#e2e2e5","inverse-surface":"#2f3133","on-surface-variant":"#5a4136","inverse-on-surface":"#f0f0f3","on-tertiary-fixed-variant":"#643f00","tertiary":"#845400","surface":"#f9f9fc","on-primary-container":"#572000","on-error":"#ffffff","error":"#ba1a1a","secondary-fixed-dim":"#c4c4df","outline":"#8e7164","surface-variant":"#e2e2e5","on-primary-fixed-variant":"#7a3000","secondary":"#5b5d74"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"gutter":"1.5rem","gutter-mobile":"0.75rem","space-xl":"2.5rem","margin-mobile":"1rem","space-xs":"0.25rem","space-md":"1rem","space-sm":"0.5rem","space-lg":"1.5rem","margin":"2.5rem"},fontFamily:{"display-hero-mobile":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"headline-lg-mobile":["Plus Jakarta Sans"],"title-md":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"label-lg":["Plus Jakarta Sans"],"display-hero":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"]},fontSize:{"display-hero-mobile":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"800"}],"headline-lg":["40px",{"lineHeight":"48px","letterSpacing":"-0.025em","fontWeight":"700"}],"headline-lg-mobile":["28px",{"lineHeight":"36px","letterSpacing":"-0.02em","fontWeight":"700"}],"title-md":["18px",{"lineHeight":"26px","fontWeight":"600"}],"headline-sm":["22px",{"lineHeight":"30px","fontWeight":"600"}],"label-lg":["14px",{"lineHeight":"18px","letterSpacing":"0.04em","fontWeight":"700"}],"display-hero":["56px",{"lineHeight":"64px","letterSpacing":"-0.03em","fontWeight":"800"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.05em","fontWeight":"600"}],"body-md":["15px",{"lineHeight":"24px","fontWeight":"400"}],"headline-md":["28px",{"lineHeight":"36px","letterSpacing":"-0.015em","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.06em","fontWeight":"600"}],"body-sm":["13px",{"lineHeight":"20px","fontWeight":"400"}]}}}}</script></head>
+<body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen flex flex-col justify-between selection:bg-primary-fixed selection:text-on-primary-fixed">
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+  <div class="w-full h-16 px-gutter flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="flex items-center gap-space-sm">
+        <div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-on-primary shadow-sm">
+          <span class="material-symbols-outlined text-[20px]">auto_stories</span>
+        </div>
+        <span class="font-headline-sm text-title-md font-bold tracking-tight text-on-surface">The Learning Curve</span>
+      </div>
+      <div class="hidden md:block h-5 w-[1px] bg-surface-container-high"></div>
+      <div class="hidden md:flex items-center gap-space-sm">
+        <span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm uppercase tracking-wider font-bold">SEMESTRE 1</span>
+        <span class="font-body-md text-body-md text-on-surface-variant font-semibold">Foundations of LLMs</span>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <nav class="hidden lg:flex items-center gap-space-xs p-1 bg-surface-container-low rounded-xl">
+        <a aria-current="page" class="px-3 py-1.5 transition-colors bg-surface-container-highest text-on-surface font-semibold rounded-lg text-label-md" href="#">Visor</a>
+        <a class="px-3 py-1.5 text-on-surface-variant hover:text-on-surface transition-colors text-label-md font-label-md" href="#">Índice</a>
+        <a class="px-3 py-1.5 text-on-surface-variant hover:text-on-surface transition-colors text-label-md font-label-md" href="#">Notas</a>
+      </nav>
+    </div>
+  </div>
+  <div class="w-full h-1 bg-surface-container-high">
+    <div class="h-full bg-primary-container transition-all duration-300" style="width: 37%;"></div>
+  </div>
+</header>
+
+<main class="w-full pt-16 bg-surface flex-1 flex flex-col justify-center items-center px-gutter-mobile md:px-gutter py-space-md md:py-space-lg">
+  <div class="w-full max-w-[1280px] mx-auto flex flex-col items-center justify-center flex-1">
+
+    <div class="relative w-full aspect-video bg-surface-container-lowest rounded-xl shadow-[0_20px_48px_-12px_rgba(30,32,34,0.08)] flex flex-col overflow-hidden p-5">
+      <!-- Ambient blobs -->
+      <div class="absolute -right-20 -top-20 w-80 h-80 bg-tertiary-fixed/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-16 -bottom-16 w-64 h-64 bg-secondary-fixed/25 rounded-full blur-3xl pointer-events-none"></div>
+
+      <!-- Slide Header -->
+      <div class="shrink-0 relative z-10 flex items-start justify-between mb-3">
+        <div>
+          <div class="flex items-center gap-space-sm mb-1">
+            <span class="px-3 py-1 rounded-full bg-primary-fixed text-primary font-label-sm text-label-sm uppercase tracking-wider font-bold inline-flex items-center gap-1.5 shadow-sm">
+              <span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>
+              S1 · LECCIÓN 1.3
+            </span>
+            <span class="text-on-surface-variant font-label-md text-label-md font-semibold">7-9 min</span>
+          </div>
+          <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight font-bold leading-tight">
+            Embeddings para arquitectos
+          </h1>
+          <p class="font-body-md text-body-md text-on-surface-variant mt-1">Textos como coordenadas: búsqueda semántica, cuándo usarlos, y cuándo NO.</p>
+        </div>
+      </div>
+
+      <!-- Content: 2-column layout — Semantic space + Use cases -->
+      <div class="relative z-10 flex-1 min-h-0 flex items-stretch gap-3">
+
+        <!-- Left: Semantic Space 2D Plot -->
+        <div class="relative flex-1 min-h-0 bg-surface-container-low rounded-xl overflow-hidden shadow-sm">
+          <div class="absolute inset-0 p-2">
+            <p class="font-label-sm text-[9px] font-bold text-on-surface-variant uppercase tracking-wider mb-1">Espacio semántico 2D (proyección de 768+ dimensiones)</p>
+
+            <!-- SVG 2D scatter plot -->
+            <svg viewBox="0 0 340 170" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+              <!-- Background grid lines -->
+              <line x1="0" y1="85" x2="340" y2="85" stroke="#e8e8ea" stroke-width="0.5" stroke-dasharray="3,3"/>
+              <line x1="170" y1="0" x2="170" y2="170" stroke="#e8e8ea" stroke-width="0.5" stroke-dasharray="3,3"/>
+
+              <!-- Cluster 1: Legal / Contratos (top-left) -->
+              <circle cx="52" cy="32" r="4.5" fill="#ddddf9" stroke="#5b5d74" stroke-width="1"/>
+              <circle cx="68" cy="48" r="4" fill="#ddddf9" stroke="#5b5d74" stroke-width="1"/>
+              <circle cx="38" cy="55" r="3.5" fill="#ddddf9" stroke="#5b5d74" stroke-width="1"/>
+              <circle cx="72" cy="28" r="3" fill="#ddddf9" stroke="#5b5d74" stroke-width="1"/>
+              <circle cx="45" cy="42" r="3" fill="#ddddf9" stroke="#5b5d74" stroke-width="1"/>
+              <!-- Cluster 1 ellipse -->
+              <ellipse cx="55" cy="42" rx="28" ry="22" fill="none" stroke="#5b5d74" stroke-width="1" stroke-dasharray="4,2" opacity="0.5"/>
+              <text x="55" y="72" text-anchor="middle" font-size="8" fill="#5b5d74" font-weight="700" font-family="Plus Jakarta Sans, sans-serif">Contratos / Legal</text>
+
+              <!-- Cluster 2: Finanzas (center) -->
+              <circle cx="162" cy="80" r="4.5" fill="#ffdbcc" stroke="#a04100" stroke-width="1"/>
+              <circle cx="178" cy="68" r="4" fill="#ffdbcc" stroke="#a04100" stroke-width="1"/>
+              <circle cx="148" cy="65" r="3.5" fill="#ffdbcc" stroke="#a04100" stroke-width="1"/>
+              <circle cx="175" cy="90" r="3.5" fill="#ffdbcc" stroke="#a04100" stroke-width="1"/>
+              <circle cx="155" cy="92" r="3" fill="#ffdbcc" stroke="#a04100" stroke-width="1"/>
+              <!-- Cluster 2 ellipse -->
+              <ellipse cx="164" cy="79" rx="24" ry="18" fill="none" stroke="#a04100" stroke-width="1.5" stroke-dasharray="4,2" opacity="0.6"/>
+              <text x="164" y="105" text-anchor="middle" font-size="8" fill="#a04100" font-weight="700" font-family="Plus Jakarta Sans, sans-serif">Finanzas corporativas</text>
+
+              <!-- Cluster 3: Soporte Técnico (bottom-right) -->
+              <circle cx="278" cy="128" r="4.5" fill="#ffddb6" stroke="#845400" stroke-width="1"/>
+              <circle cx="295" cy="140" r="4" fill="#ffddb6" stroke="#845400" stroke-width="1"/>
+              <circle cx="265" cy="140" r="3.5" fill="#ffddb6" stroke="#845400" stroke-width="1"/>
+              <circle cx="290" cy="120" r="3" fill="#ffddb6" stroke="#845400" stroke-width="1"/>
+              <circle cx="270" cy="122" r="3" fill="#ffddb6" stroke="#845400" stroke-width="1"/>
+              <!-- Cluster 3 ellipse -->
+              <ellipse cx="280" cy="132" rx="26" ry="18" fill="none" stroke="#845400" stroke-width="1" stroke-dasharray="4,2" opacity="0.5"/>
+              <text x="280" y="158" text-anchor="middle" font-size="8" fill="#845400" font-weight="700" font-family="Plus Jakarta Sans, sans-serif">Soporte técnico</text>
+
+              <!-- Query point -->
+              <circle cx="185" cy="92" r="6" fill="#ff6b00" stroke="white" stroke-width="2"/>
+              <text x="185" y="95" text-anchor="middle" font-size="7" fill="white" font-weight="800" font-family="Plus Jakarta Sans, sans-serif">Q</text>
+
+              <!-- Lines from query to nearest neighbors in Finanzas cluster -->
+              <line x1="185" y1="92" x2="175" y2="90" stroke="#ff6b00" stroke-width="1.5" stroke-dasharray="3,2" opacity="0.7"/>
+              <line x1="185" y1="92" x2="178" y2="68" stroke="#ff6b00" stroke-width="1.5" stroke-dasharray="3,2" opacity="0.7"/>
+              <line x1="185" y1="92" x2="162" y2="80" stroke="#ff6b00" stroke-width="1.5" stroke-dasharray="3,2" opacity="0.7"/>
+
+              <!-- Dashed circle around nearest neighbors -->
+              <circle cx="174" cy="80" r="22" fill="none" stroke="#ff6b00" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.8"/>
+              <text x="174" y="55" text-anchor="middle" font-size="7.5" fill="#ff6b00" font-weight="700" font-family="Plus Jakarta Sans, sans-serif">top-3 nearest</text>
+
+              <!-- Query label -->
+              <text x="200" y="90" font-size="7.5" fill="#572000" font-weight="700" font-family="Plus Jakarta Sans, sans-serif">"factura error IVA"</text>
+
+              <!-- Note: same model -->
+              <rect x="2" y="155" width="200" height="13" rx="2" fill="#f3f3f6" opacity="0.9"/>
+              <text x="6" y="164" font-size="7" fill="#5a4136" font-family="Plus Jakarta Sans, sans-serif">⚠ Mismo modelo de embedding para docs y queries (crítico)</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Right: Use cases + Decision tree -->
+        <div class="flex flex-col gap-2 w-44 shrink-0">
+          <!-- When to use -->
+          <div class="bg-surface-container-low rounded-xl p-2 shadow-sm">
+            <p class="font-label-sm text-[9px] font-bold text-on-surface uppercase tracking-wider mb-1.5">¿Cuándo usar embeddings?</p>
+            <div class="flex flex-col gap-1">
+              <div class="flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-primary-container text-[13px]" style="font-variation-settings:'FILL' 1">check_circle</span>
+                <p class="font-body-sm text-[10px] text-on-surface">Búsqueda semántica (lenguaje natural)</p>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-primary-container text-[13px]" style="font-variation-settings:'FILL' 1">check_circle</span>
+                <p class="font-body-sm text-[10px] text-on-surface">Clustering de documentos</p>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-primary-container text-[13px]" style="font-variation-settings:'FILL' 1">check_circle</span>
+                <p class="font-body-sm text-[10px] text-on-surface">Detección de duplicados</p>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-primary-container text-[13px]" style="font-variation-settings:'FILL' 1">check_circle</span>
+                <p class="font-body-sm text-[10px] text-on-surface">Sistemas de recomendación</p>
+              </div>
+            </div>
+          </div>
+          <!-- When NOT to use -->
+          <div class="bg-error-container/20 rounded-xl p-2 shadow-sm">
+            <p class="font-label-sm text-[9px] font-bold text-error uppercase tracking-wider mb-1.5">NO usar embeddings para:</p>
+            <div class="flex flex-col gap-1">
+              <div class="flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-error text-[13px]">cancel</span>
+                <p class="font-body-sm text-[10px] text-on-surface">IDs / códigos exactos</p>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-error text-[13px]">cancel</span>
+                <p class="font-body-sm text-[10px] text-on-surface">Fechas y rangos numéricos</p>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-error text-[13px]">cancel</span>
+                <p class="font-body-sm text-[10px] text-on-surface">Datos estructurados (→ SQL)</p>
+              </div>
+            </div>
+          </div>
+          <!-- Hybrid tip -->
+          <div class="bg-primary-container/10 border border-primary-container/30 rounded-xl p-2">
+            <p class="font-label-sm text-[9px] font-bold text-primary uppercase tracking-wider mb-0.5">Por defecto: Búsqueda Híbrida</p>
+            <p class="font-body-sm text-[9px] text-on-surface-variant">Keywords (BM25) + Embeddings → RRF fusion. El más robusto antes de tener datos de uso reales.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="sticky bottom-0 z-40 w-full bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_-2px_16px_rgba(0,0,0,0.06)]">
+  <div class="w-full max-w-7xl mx-auto px-gutter h-16 flex items-center justify-between">
+    <div class="flex items-center gap-space-sm">
+      <button class="w-10 h-10 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" title="Índice" type="button"><span class="material-symbols-outlined text-[22px]">grid_view</span></button>
+      <div class="h-5 w-[1px] bg-surface-container-high hidden sm:block"></div>
+      <div class="flex items-center px-3 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md font-semibold tracking-wide"><span class="text-primary font-bold mr-1">03</span>/ 08</div>
+    </div>
+    <div class="flex items-center gap-space-sm">
+      <button class="px-4 py-2 rounded-lg bg-surface-container-low text-on-surface hover:bg-surface-container transition-colors flex items-center gap-space-xs font-label-md text-label-md font-semibold shadow-sm" type="button"><span class="material-symbols-outlined text-[18px]">arrow_back</span><span class="hidden sm:inline">Anterior</span></button>
+      <button class="px-5 py-2 rounded-lg bg-primary-container text-on-primary hover:bg-primary transition-colors flex items-center gap-space-xs font-label-md text-label-md font-bold shadow-sm" type="button"><span class="hidden sm:inline">Siguiente</span><span class="material-symbols-outlined text-[18px]">arrow_forward</span></button>
+    </div>
+    <div class="flex items-center gap-space-xs">
+      <button class="w-10 h-10 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" title="Pantalla Completa" type="button"><span class="material-symbols-outlined text-[20px]">fullscreen</span></button>
+    </div>
+  </div>
+</footer>
+
+<!-- DECK-NAV -->
+<style>
+#deck-index-panel,#deck-notes-panel{display:none;position:fixed;z-index:200;top:64px;right:0;bottom:64px;width:320px;background:#fff;box-shadow:-4px 0 24px rgba(0,0,0,0.12);overflow-y:auto;font-family:'Plus Jakarta Sans',sans-serif;}
+#deck-index-panel.open,#deck-notes-panel.open{display:flex;flex-direction:column;}
+.deck-overlay{display:none;position:fixed;inset:0;z-index:199;background:rgba(0,0,0,0.2);}
+.deck-overlay.open{display:block;}
+</style>
+
+<!-- Index Panel -->
+<div id="deck-index-panel">
+  <div style="padding:16px 20px;border-bottom:1px solid #eeeef0;display:flex;align-items:center;justify-content:space-between;">
+    <span style="font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:0.06em;color:#5a4136;">Índice del semestre</span>
+    <button onclick="closePanels()" style="width:28px;height:28px;border:none;background:#eeeef0;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:#5a4136;">✕</button>
+  </div>
+  <div style="padding:8px 0;flex:1;">
+    <a href="1.1_como_piensan_los_llms.html" style="display:flex;align-items:center;gap:12px;padding:10px 20px;text-decoration:none;background:transparent;border-left:3px solid transparent;">
+      <span style="min-width:24px;height:24px;border-radius:50%;background:#eeeef0;color:#5a4136;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;">1</span>
+      <span style="font-size:12px;font-weight:500;color:#1a1c1e;line-height:1.4;">Cómo piensan los LLMs</span>
+    </a>
+    <a href="1.2_tokens_y_context_windows.html" style="display:flex;align-items:center;gap:12px;padding:10px 20px;text-decoration:none;background:transparent;border-left:3px solid transparent;">
+      <span style="min-width:24px;height:24px;border-radius:50%;background:#eeeef0;color:#5a4136;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;">2</span>
+      <span style="font-size:12px;font-weight:500;color:#1a1c1e;line-height:1.4;">Tokens y Context Windows</span>
+    </a>
+    <a href="1.3_embeddings_para_arquitectos.html" style="display:flex;align-items:center;gap:12px;padding:10px 20px;text-decoration:none;background:#ffdbcc;border-left:3px solid #ff6b00;">
+      <span style="min-width:24px;height:24px;border-radius:50%;background:#ff6b00;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;">3</span>
+      <span style="font-size:12px;font-weight:700;color:#a04100;line-height:1.4;">Embeddings para arquitectos</span>
+    </a>
+    <a href="1.4_temperatura_y_determinismo.html" style="display:flex;align-items:center;gap:12px;padding:10px 20px;text-decoration:none;background:transparent;border-left:3px solid transparent;">
+      <span style="min-width:24px;height:24px;border-radius:50%;background:#eeeef0;color:#5a4136;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;">4</span>
+      <span style="font-size:12px;font-weight:500;color:#1a1c1e;line-height:1.4;">Temperatura y determinismo</span>
+    </a>
+    <a href="1.5_finetuning_vs_rag.html" style="display:flex;align-items:center;gap:12px;padding:10px 20px;text-decoration:none;background:transparent;border-left:3px solid transparent;">
+      <span style="min-width:24px;height:24px;border-radius:50%;background:#eeeef0;color:#5a4136;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;">5</span>
+      <span style="font-size:12px;font-weight:500;color:#1a1c1e;line-height:1.4;">Fine-tuning vs RAG</span>
+    </a>
+    <a href="1.6_prompt_engineering_arquitectos.html" style="display:flex;align-items:center;gap:12px;padding:10px 20px;text-decoration:none;background:transparent;border-left:3px solid transparent;">
+      <span style="min-width:24px;height:24px;border-radius:50%;background:#eeeef0;color:#5a4136;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;">6</span>
+      <span style="font-size:12px;font-weight:500;color:#1a1c1e;line-height:1.4;">Prompt Engineering para arquitectos</span>
+    </a>
+    <a href="1.7_coste_real_llm_produccion.html" style="display:flex;align-items:center;gap:12px;padding:10px 20px;text-decoration:none;background:transparent;border-left:3px solid transparent;">
+      <span style="min-width:24px;height:24px;border-radius:50%;background:#eeeef0;color:#5a4136;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;">7</span>
+      <span style="font-size:12px;font-weight:500;color:#1a1c1e;line-height:1.4;">El coste real de un LLM en producción</span>
+    </a>
+    <a href="cierre_anatomia_sistema.html" style="display:flex;align-items:center;gap:12px;padding:10px 20px;text-decoration:none;background:transparent;border-left:3px solid transparent;">
+      <span style="min-width:24px;height:24px;border-radius:50%;background:#eeeef0;color:#5a4136;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;">8</span>
+      <span style="font-size:12px;font-weight:500;color:#1a1c1e;line-height:1.4;">Anatomía de un sistema con LLM</span>
+    </a>
+  </div>
+</div>
+
+<!-- Notes Panel -->
+<div id="deck-notes-panel">
+  <div style="padding:16px 20px;border-bottom:1px solid #eeeef0;display:flex;align-items:center;justify-content:space-between;">
+    <span style="font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:0.06em;color:#5a4136;">Notas del presentador</span>
+    <button onclick="closePanels()" style="width:28px;height:28px;border:none;background:#eeeef0;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:#5a4136;">✕</button>
+  </div>
+  <div style="padding:20px;flex:1;">
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#5a4136;margin-bottom:8px;">Lección 3 / 8</div>
+    <div style="font-size:16px;font-weight:700;color:#1a1c1e;margin-bottom:12px;line-height:1.4;">Embeddings para arquitectos</div>
+    <div style="font-size:13px;color:#5a4136;line-height:1.6;margin-bottom:20px;">Textos como coordenadas: búsqueda semántica, cuándo usarlos, y cuándo NO.</div>
+    <div style="height:1px;background:#eeeef0;margin-bottom:16px;"></div>
+    <div style="font-size:12px;font-weight:600;color:#5a4136;margin-bottom:8px;">Navegación rápida</div>
+    <a href="1.2_tokens_y_context_windows.html" style="display:block;padding:8px 12px;background:#f3f3f6;border-radius:8px;text-decoration:none;font-size:12px;color:#1a1c1e;margin-bottom:6px;">← Tokens y Context Windows</a>
+    <a href="1.4_temperatura_y_determinismo.html" style="display:block;padding:8px 12px;background:#ff6b00;border-radius:8px;text-decoration:none;font-size:12px;color:#fff;font-weight:600;">→ Temperatura y determinismo</a>
+  </div>
+</div>
+
+<!-- Overlay backdrop -->
+<div class="deck-overlay" id="deck-overlay" onclick="closePanels()"></div>
+
+<script>
+(function(){
+  var SLIDES = ["1.1_como_piensan_los_llms.html","1.2_tokens_y_context_windows.html","1.3_embeddings_para_arquitectos.html","1.4_temperatura_y_determinismo.html","1.5_finetuning_vs_rag.html","1.6_prompt_engineering_arquitectos.html","1.7_coste_real_llm_produccion.html","cierre_anatomia_sistema.html"];
+  var IDX = 2;
+  var TOTAL = SLIDES.length;
+
+  function goTo(n){ if(n>=0 && n<TOTAL) window.location.href=SLIDES[n]; }
+
+  function openPanel(id){
+    closePanels();
+    document.getElementById(id).classList.add('open');
+    document.getElementById('deck-overlay').classList.add('open');
+  }
+  window.closePanels = function(){
+    document.getElementById('deck-index-panel').classList.remove('open');
+    document.getElementById('deck-notes-panel').classList.remove('open');
+    document.getElementById('deck-overlay').classList.remove('open');
+  };
+
+  document.addEventListener('DOMContentLoaded', function(){
+    // Progress bar
+    var bar = document.querySelector('.h-full.bg-primary-container.transition-all');
+    if(bar) bar.style.width = ((IDX+1)/TOTAL*100)+'%';
+
+    // Slide counter
+    document.querySelectorAll('*').forEach(function(el){
+      if(el.children.length===0 && /^\d+$/.test(el.textContent.trim()) && el.classList.contains('font-bold')){
+        el.textContent = String(IDX+1).padStart(2,'0');
+      }
+      if(el.children.length===0 && /^\/\s*\d+$/.test(el.textContent.trim())){
+        el.textContent = '/ '+TOTAL;
+      }
+    });
+
+    // Wire nav links: Visor / Índice / Notas
+    document.querySelectorAll('nav a, a[data-path]').forEach(function(a){
+      var txt = a.textContent.trim();
+      var dp  = a.getAttribute('data-path') || '';
+      if(txt === 'Índice' || dp === 'index-thumbnails'){
+        a.href = '#';
+        a.addEventListener('click', function(e){ e.preventDefault(); openPanel('deck-index-panel'); });
+      }
+      if(txt === 'Notas' || dp === 'speaker-notes'){
+        a.href = '#';
+        a.addEventListener('click', function(e){ e.preventDefault(); openPanel('deck-notes-panel'); });
+      }
+      if(txt === 'Visor' || dp === 'slide-viewer'){
+        a.href = '#';
+        a.addEventListener('click', function(e){ e.preventDefault(); closePanels(); });
+      }
+    });
+
+    // Prev/Next buttons
+    document.querySelectorAll('button').forEach(function(btn){
+      btn.querySelectorAll('.material-symbols-outlined').forEach(function(ic){
+        var t = ic.textContent.trim();
+        if(t==='arrow_back'){
+          btn.style.opacity = IDX===0?'0.4':'1';
+          btn.style.cursor  = IDX===0?'not-allowed':'pointer';
+          btn.addEventListener('click', function(){ goTo(IDX-1); });
+        }
+        if(t==='arrow_forward'){
+          btn.style.opacity = IDX===TOTAL-1?'0.4':'1';
+          btn.style.cursor  = IDX===TOTAL-1?'not-allowed':'pointer';
+          btn.addEventListener('click', function(){ goTo(IDX+1); });
+        }
+      });
+    });
+
+    // Keyboard
+    document.addEventListener('keydown', function(e){
+      if(e.key==='Escape'){ closePanels(); return; }
+      if(document.getElementById('deck-index-panel').classList.contains('open')) return;
+      if(document.getElementById('deck-notes-panel').classList.contains('open')) return;
+      if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '){ e.preventDefault(); goTo(IDX+1); }
+      if(e.key==='ArrowLeft'||e.key==='ArrowUp'){ e.preventDefault(); goTo(IDX-1); }
+    });
+  });
+})();
+</script>
+<!-- /DECK-NAV -->
+</body></html>

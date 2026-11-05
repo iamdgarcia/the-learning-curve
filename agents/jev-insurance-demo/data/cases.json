@@ -1,0 +1,386 @@
+[
+  {
+    "imgSrc": "/images/0_F_Breakage.jpg",
+    "label": "F_Breakage",
+    "zone": "frontal",
+    "isDamaged": true,
+    "severityGT": 2,
+    "description": "El vehículo sufrió una colisión con un animal en la calzada, con rotura de faros, paragolpes y rejilla. La parte delantera presenta daños visibles que requieren valoración del perito."
+  },
+  {
+    "imgSrc": "/images/1_F_Breakage.jpg",
+    "label": "F_Breakage",
+    "zone": "frontal",
+    "isDamaged": true,
+    "severityGT": 2,
+    "description": "Vehículo siniestrado por colisión con animal, con rotura de faros, paragolpes fracturado y rejilla delantera deformada. El impacto frontal produjo daños en el tren delantero y en los componentes del frontal del vehículo."
+  },
+  {
+    "imgSrc": "/images/2_F_Breakage.jpg",
+    "label": "F_Breakage",
+    "zone": "frontal",
+    "isDamaged": true,
+    "severityGT": 2,
+    "description": "Durante una maniobra de estacionamiento, el vehículo golpeó un objeto fijo y sufrió daño frontal con faros rotos, paragolpes fracturado y rejilla deformada. No se declaran lesiones y se solicita peritaje para determinar los costos de reparación."
+  },
+  {
+    "imgSrc": "/images/3_F_Breakage.jpg",
+    "label": "F_Breakage",
+    "zone": "frontal",
+    "isDamaged": true,
+    "severityGT": 2,
+    "description": "El vehículo sufrió una colisión contra un animal, generando daños frontales significativos. Se observan faros rotos, paragolpes fracturado y rejilla delantera dañada."
+  },
+  {
+    "imgSrc": "/images/4_F_Breakage.jpg",
+    "label": "F_Breakage",
+    "zone": "frontal",
+    "isDamaged": true,
+    "severityGT": 2,
+    "description": "Siniestro por colisión del vehículo, con faros rotos, paragolpes fracturado y rejilla dañada. El daño se concentra en la parte frontal tras el impacto."
+  },
+  {
+    "imgSrc": "/images/5_F_Breakage.jpg",
+    "label": "F_Breakage",
+    "zone": "frontal",
+    "isDamaged": true,
+    "severityGT": 2,
+    "description": "Vehículo con daños frontales tras colisión contra un animal, con rotura de faros, paragolpes y rejilla. Se solicita peritaje para valorar la reparación por impacto directo en la parte delantera."
+  },
+  {
+    "imgSrc": "/images/6_F_Breakage.jpg",
+    "label": "F_Breakage",
+    "zone": "frontal",
+    "isDamaged": true,
+    "severityGT": 2,
+    "description": "El vehículo sufrió daños frontales tras una colisión con un animal en la calzada, observándose faros rotos, paragolpes fracturado y rejilla deformada. Se solicita la reparación de los elementos delanteros afectados por el impacto."
+  },
+  {
+    "imgSrc": "/images/7_F_Breakage.jpg",
+    "label": "F_Breakage",
+    "zone": "frontal",
+    "isDamaged": true,
+    "severityGT": 2,
+    "description": "El vehículo sufrió una colisión frontal contra un objeto fijo durante la circulación. La inspección muestra faros rotos, paragolpes fracturado y rejilla delantera dañada."
+  },
+  {
+    "imgSrc": "/images/8_F_Crushed.jpg",
+    "label": "F_Crushed",
+    "zone": "frontal",
+    "isDamaged": true,
+    "severityGT": 4,
+    "description": "El siniestro se produjo por una colisión con un animal en la parte frontal. El vehículo presenta carrocería deformada y posible daño en el motor."
+  },
+  {
+    "imgSrc": "/images/9_F_Crushed.jpg",
+    "label": "F_Crushed",
+    "zone": "frontal",
+    "isDamaged": true,
+    "severityGT": 4,
+    "description": "El siniestro consistió en una colisión frontal con un animal en vía pública. La carrocería delantera quedó deformada, con posible afectación al motor."
+  },
+  {
+    "imgSrc": "/images/10_F_Crushed.jpg",
+    "label": "F_Crushed",
+    "zone": "frontal",
+    "isDamaged": true,
+    "severityGT": 4,
+    "description": "Vehículo siniestrado tras colisión frontal contra un ciervo en zona rural durante el amanecer, con aplastamiento total del frontal y deformación severa de la carrocería. La fuerza del impacto sugiere daño directo sobre el bloque motor y el radiador, dejando el vehículo inmovilizado en la calzada."
+  },
+  {
+    "imgSrc": "/images/11_F_Crushed.jpg",
+    "label": "F_Crushed",
+    "zone": "frontal",
+    "isDamaged": true,
+    "severityGT": 4,
+    "description": "El vehículo sufrió un siniestro por impacto con un animal en vía pública. Se observa daño frontal aplastado, carrocería deformada y posible afectación del motor."
+  },
+  {
+    "imgSrc": "/images/12_F_Crushed.jpg",
+    "label": "F_Crushed",
+    "zone": "frontal",
+    "isDamaged": true,
+    "severityGT": 4,
+    "description": "El vehículo presenta daño frontal aplastado, carrocería deformada y posible daño en motor debido a un impacto con un animal en la calzada. Se requiere inspección mecánica para verificar la afectación del radiador, parachoques, faros y componentes del motor."
+  },
+  {
+    "imgSrc": "/images/13_F_Crushed.jpg",
+    "label": "F_Crushed",
+    "zone": "frontal",
+    "isDamaged": true,
+    "severityGT": 4,
+    "description": "Siniestro por impacto contra un animal de gran tamaño, con aplastamiento frontal, deformación de la carrocería y posible afectación del motor. La inspección fotográfica confirma el daño en la parte delantera del vehículo tras la colisión."
+  },
+  {
+    "imgSrc": "/images/14_F_Crushed.jpg",
+    "label": "F_Crushed",
+    "zone": "frontal",
+    "isDamaged": true,
+    "severityGT": 4,
+    "description": "Vehículo presenta daños en paragolpes lateral y puerta trasera por colisión en maniobra de estacionamiento. No se observan daños en mecánica, solo deformaciones en carrocería."
+  },
+  {
+    "imgSrc": "/images/15_F_Crushed.jpg",
+    "label": "F_Crushed",
+    "zone": "frontal",
+    "isDamaged": true,
+    "severityGT": 4,
+    "description": "Vehículo siniestrado por colisión frontal con otro automóvil, con daño aplastado y carrocería deformada en el sector delantero. Se observa posible compromiso del motor, por lo que requiere inspección mecánica."
+  },
+  {
+    "imgSrc": "/images/16_F_Normal.jpg",
+    "label": "F_Normal",
+    "zone": "frontal",
+    "isDamaged": false,
+    "severityGT": 0,
+    "description": "Colisión frontal con un turismo que no presenta daños aparentes, con daños visibles en la parte delantera del vehículo asegurado. Se notifica el siniestro para su valoración por perito."
+  },
+  {
+    "imgSrc": "/images/17_F_Normal.jpg",
+    "label": "F_Normal",
+    "zone": "frontal",
+    "isDamaged": false,
+    "severityGT": 0,
+    "description": "El vehículo asegurado presenta daños frontales causados por colisión con un animal que se cruzó en la vía. No se observan daños en otro vehículo ni lesiones en ocupantes."
+  },
+  {
+    "imgSrc": "/images/18_F_Normal.jpg",
+    "label": "F_Normal",
+    "zone": "frontal",
+    "isDamaged": false,
+    "severityGT": 0,
+    "description": "El vehículo asegurado presenta daños en el frontal tras una colisión en parking. El otro vehículo implicado no presenta daños aparentes."
+  },
+  {
+    "imgSrc": "/images/19_F_Normal.jpg",
+    "label": "F_Normal",
+    "zone": "frontal",
+    "isDamaged": false,
+    "severityGT": 0,
+    "description": "El vehículo presenta daño frontal durante una maniobra de aparcamiento. El otro vehículo implicado no tiene daños aparentes."
+  },
+  {
+    "imgSrc": "/images/20_F_Normal.jpg",
+    "label": "F_Normal",
+    "zone": "frontal",
+    "isDamaged": false,
+    "severityGT": 0,
+    "description": "Accidente en parking por contacto entre dos vehículos: uno presenta daño frontal y el otro sin daños aparentes. La maniobra de estacionamiento originó un golpe leve en el paragolpes delantero del primero."
+  },
+  {
+    "imgSrc": "/images/21_F_Normal.jpg",
+    "label": "F_Normal",
+    "zone": "frontal",
+    "isDamaged": false,
+    "severityGT": 0,
+    "description": "Se declara un siniestro por roce en estacionamiento. El vehículo asegurado presenta daño frontal, sin daños aparentes en el otro vehículo."
+  },
+  {
+    "imgSrc": "/images/22_F_Normal.jpg",
+    "label": "F_Normal",
+    "zone": "frontal",
+    "isDamaged": false,
+    "severityGT": 0,
+    "description": "El vehículo asegurado presenta daños frontales en paragolpes y faro derecho tras un golpe en parking. El otro vehículo implicado no muestra daños aparentes en la inspección visual."
+  },
+  {
+    "imgSrc": "/images/23_F_Normal.jpg",
+    "label": "F_Normal",
+    "zone": "frontal",
+    "isDamaged": false,
+    "severityGT": 0,
+    "description": "Siniestro por colisión en parking con impacto frontal del vehículo asegurado. El otro vehículo implicado no presenta daños aparentes."
+  },
+  {
+    "imgSrc": "/images/24_R_Breakage.jpg",
+    "label": "R_Breakage",
+    "zone": "trasera",
+    "isDamaged": true,
+    "severityGT": 2,
+    "description": "El vehículo presenta daños en la zona trasera por roce en parking, con rotura del piloto y fractura del paragolpes. No se observan daños estructurales adicionales ni terceros identificados."
+  },
+  {
+    "imgSrc": "/images/25_R_Breakage.jpg",
+    "label": "R_Breakage",
+    "zone": "trasera",
+    "isDamaged": true,
+    "severityGT": 2,
+    "description": "Vehículo siniestrado tras colisión por alcance en maniobra de cambio de carril. Presenta pilotos traseros rotos, paragolpes trasero fracturado y deformación del portón trasero."
+  },
+  {
+    "imgSrc": "/images/26_R_Breakage.jpg",
+    "label": "R_Breakage",
+    "zone": "trasera",
+    "isDamaged": true,
+    "severityGT": 2,
+    "description": "El vehículo sufrió una colisión por alcance mientras realizaba una maniobra de parking. Los daños se concentran en la parte trasera, con el piloto roto y el paragolpes trasero fracturado."
+  },
+  {
+    "imgSrc": "/images/27_R_Breakage.jpg",
+    "label": "R_Breakage",
+    "zone": "trasera",
+    "isDamaged": true,
+    "severityGT": 2,
+    "description": "El siniestro se origina por una colisión en maniobra de estacionamiento contra un bordillo fijo, con daño en la parte trasera. El vehículo presenta un piloto trasero roto y paragolpes posterior fracturado."
+  },
+  {
+    "imgSrc": "/images/28_R_Breakage.jpg",
+    "label": "R_Breakage",
+    "zone": "trasera",
+    "isDamaged": true,
+    "severityGT": 2,
+    "description": "El vehículo presenta daños en la parte trasera a causa de una colisión por alcance durante una maniobra de estacionamiento. Se aprecian rotura del piloto trasero y fractura del paragolpes posterior."
+  },
+  {
+    "imgSrc": "/images/29_R_Breakage.jpg",
+    "label": "R_Breakage",
+    "zone": "trasera",
+    "isDamaged": true,
+    "severityGT": 2,
+    "description": "Se declara colisión por alcance producida en vía urbana, donde el vehículo asegurado fue impactado por un tercero en su parte trasera. Como consecuencia se observan daños de consideración con fractura del paragolpes trasero y rotura del piloto izquierdo."
+  },
+  {
+    "imgSrc": "/images/30_R_Breakage.jpg",
+    "label": "R_Breakage",
+    "zone": "trasera",
+    "isDamaged": true,
+    "severityGT": 2,
+    "description": "Siniestro ocurrido en parking al rozar la parte trasera del vehículo contra una columna. Se constata piloto trasero roto y paragolpes trasero fracturado."
+  },
+  {
+    "imgSrc": "/images/31_R_Breakage.jpg",
+    "label": "R_Breakage",
+    "zone": "trasera",
+    "isDamaged": true,
+    "severityGT": 2,
+    "description": "El vehículo presenta daño trasero como consecuencia de una maniobra de aparcamiento, con el piloto trasero roto y el paragolpes trasero fracturado. Las piezas dañadas muestran roturas visibles que afectan a su función de iluminación y protección."
+  },
+  {
+    "imgSrc": "/images/32_R_Crushed.jpg",
+    "label": "R_Crushed",
+    "zone": "trasera",
+    "isDamaged": true,
+    "severityGT": 4,
+    "description": "Vehículo con parte trasera aplastada y maletero deformado por golpe en parking. Se observa posible daño estructural pendiente de peritaje."
+  },
+  {
+    "imgSrc": "/images/33_R_Crushed.jpg",
+    "label": "R_Crushed",
+    "zone": "trasera",
+    "isDamaged": true,
+    "severityGT": 4,
+    "description": "Siniestro por colisión por alcance trasero, con aplastamiento de la parte posterior y deformación del maletero. Se observa posible daño estructural en la carrocería trasera."
+  },
+  {
+    "imgSrc": "/images/34_R_Crushed.jpg",
+    "label": "R_Crushed",
+    "zone": "trasera",
+    "isDamaged": true,
+    "severityGT": 4,
+    "description": "El siniestro se produjo por colisión con un animal, presentando la parte trasera aplastada y el maletero deformado. Se aprecia posible daño estructural en la zona posterior del vehículo."
+  },
+  {
+    "imgSrc": "/images/35_R_Crushed.jpg",
+    "label": "R_Crushed",
+    "zone": "trasera",
+    "isDamaged": true,
+    "severityGT": 4,
+    "description": "Colisión trasera por alcance con otro vehículo, causando aplastamiento de la parte trasera y deformación del maletero. Se observa posible daño estructural que requiere inspección técnica."
+  },
+  {
+    "imgSrc": "/images/36_R_Crushed.jpg",
+    "label": "R_Crushed",
+    "zone": "trasera",
+    "isDamaged": true,
+    "severityGT": 4,
+    "description": "Vehículo siniestrado por impacto en maniobra de aparcamiento contra un objeto fijo, con la parte trasera aplastada y el maletero deformado. Se constata posible daño estructural en la zona afectada por la deformación del portón trasero y los montantes."
+  },
+  {
+    "imgSrc": "/images/37_R_Crushed.jpg",
+    "label": "R_Crushed",
+    "zone": "trasera",
+    "isDamaged": true,
+    "severityGT": 4,
+    "description": "El vehículo sufrió una colisión en parking que originó aplastamiento de la parte trasera y deformación del maletero. Se aprecia posible daño estructural en la zona afectada, pendiente de valoración pericial."
+  },
+  {
+    "imgSrc": "/images/38_R_Crushed.jpg",
+    "label": "R_Crushed",
+    "zone": "trasera",
+    "isDamaged": true,
+    "severityGT": 4,
+    "description": "Vehículo con parte trasera aplastada, maletero deformado y posible daño estructural tras un impacto en maniobra de estacionamiento. Se observan daños localizados en el paragolpes posterior y en la tapa del maletero, sin otros elementos visibles afectados."
+  },
+  {
+    "imgSrc": "/images/39_R_Crushed.jpg",
+    "label": "R_Crushed",
+    "zone": "trasera",
+    "isDamaged": true,
+    "severityGT": 4,
+    "description": "El vehículo sufrió una colisión por alcance que originó aplastamiento de la zona trasera y deformación del maletero. Se observa posible daño estructural en largueros y portón posterior, pendiente de valoración por perito."
+  },
+  {
+    "imgSrc": "/images/40_R_Normal.jpg",
+    "label": "R_Normal",
+    "zone": "trasera",
+    "isDamaged": false,
+    "severityGT": 0,
+    "description": "El vehículo asegurado presenta daños en la parte trasera, principalmente en luneta y portón, tras una granizada. No se observan daños aparentes en otros vehículos."
+  },
+  {
+    "imgSrc": "/images/41_R_Normal.jpg",
+    "label": "R_Normal",
+    "zone": "trasera",
+    "isDamaged": false,
+    "severityGT": 0,
+    "description": "El vehículo sufrió una colisión con un animal que afectó a su parte trasera. La inspección muestra daño trasera, sin otros daños aparentes en el vehículo."
+  },
+  {
+    "imgSrc": "/images/42_R_Normal.jpg",
+    "label": "R_Normal",
+    "zone": "trasera",
+    "isDamaged": false,
+    "severityGT": 0,
+    "description": "El vehículo asegurado presenta daños en la parte trasera a consecuencia de un incidente de parking ocurrido mientras estaba estacionado. Tras la inspección fotográfica, se constata que el impacto fue superficial, quedando el vehículo sin daños aparentes en el resto de su carrocería y elementos luminosos."
+  },
+  {
+    "imgSrc": "/images/43_R_Normal.jpg",
+    "label": "R_Normal",
+    "zone": "trasera",
+    "isDamaged": false,
+    "severityGT": 0,
+    "description": "El vehículo asegurado sufrió daños en la parte trasera por colisión contra un objeto fijo en parking. No se aprecian daños aparentes en el resto del vehículo."
+  },
+  {
+    "imgSrc": "/images/44_R_Normal.jpg",
+    "label": "R_Normal",
+    "zone": "trasera",
+    "isDamaged": false,
+    "severityGT": 0,
+    "description": "El asegurado declaró que el daño trasero fue provocado por un impacto con un animal en la calzada. La fotografía muestra desperfectos en el paragolpes trasero, sin otros daños aparentes en el vehículo."
+  },
+  {
+    "imgSrc": "/images/45_R_Normal.jpg",
+    "label": "R_Normal",
+    "zone": "trasera",
+    "isDamaged": false,
+    "severityGT": 0,
+    "description": "Vehículo con daños en la parte trasera tras un incidente de aparcamiento. El segundo vehículo no presenta daños aparentes."
+  },
+  {
+    "imgSrc": "/images/46_R_Normal.jpg",
+    "label": "R_Normal",
+    "zone": "trasera",
+    "isDamaged": false,
+    "severityGT": 0,
+    "description": "La parte trasera del vehículo resultó dañada tras colisionar con un animal suelto en la vía. No se observan daños aparentes en el resto del vehículo."
+  },
+  {
+    "imgSrc": "/images/47_R_Normal.jpg",
+    "label": "R_Normal",
+    "zone": "trasera",
+    "isDamaged": false,
+    "severityGT": 0,
+    "description": "Siniestro por colisión con animal que produjo daños únicamente en la parte trasera del vehículo asegurado, sin daños aparentes en el resto del turismo. En la documentación fotográfica no se aprecian daños en el vehículo contrario."
+  }
+]

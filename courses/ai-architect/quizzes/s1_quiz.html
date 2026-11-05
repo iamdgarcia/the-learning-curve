@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Quiz S1 — Foundations of LLMs | The Learning Curve</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"background":"#f9f9fc","on-secondary-fixed-variant":"#43455b","surface-dim":"#d9dadc","on-error-container":"#93000a","surface-container-high":"#e8e8ea","on-secondary-container":"#5f6178","on-primary-fixed":"#351000","outline-variant":"#e2bfb0","surface-container":"#eeeef0","inverse-primary":"#ffb693","on-primary":"#ffffff","secondary-container":"#ddddf9","on-secondary-fixed":"#181a2e","surface-container-lowest":"#ffffff","primary":"#a04100","on-tertiary-fixed":"#2a1800","tertiary-fixed":"#ffddb6","on-background":"#1a1c1e","primary-container":"#ff6b00","surface-container-low":"#f3f3f6","secondary-fixed":"#e0e0fc","tertiary-fixed-dim":"#ffb95a","surface-tint":"#a04100","primary-fixed-dim":"#ffb693","surface-bright":"#f9f9fc","primary-fixed":"#ffdbcc","on-tertiary":"#ffffff","on-tertiary-container":"#472b00","on-surface":"#1a1c1e","tertiary-container":"#d08b1f","error-container":"#ffdad6","on-secondary":"#ffffff","surface-container-highest":"#e2e2e5","inverse-surface":"#2f3133","on-surface-variant":"#5a4136","inverse-on-surface":"#f0f0f3","on-tertiary-fixed-variant":"#643f00","tertiary":"#845400","surface":"#f9f9fc","on-primary-container":"#572000","on-error":"#ffffff","error":"#ba1a1a","secondary-fixed-dim":"#c4c4df","outline":"#8e7164","surface-variant":"#e2e2e5","on-primary-fixed-variant":"#7a3000","secondary":"#5b5d74"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"gutter":"1.5rem","gutter-mobile":"0.75rem","space-xl":"2.5rem","margin-mobile":"1rem","space-xs":"0.25rem","space-md":"1rem","space-sm":"0.5rem","space-lg":"1.5rem","margin":"2.5rem"},fontFamily:{"display-hero-mobile":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"headline-lg-mobile":["Plus Jakarta Sans"],"title-md":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"label-lg":["Plus Jakarta Sans"],"display-hero":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"]},fontSize:{"display-hero-mobile":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"800"}],"headline-lg":["40px",{"lineHeight":"48px","letterSpacing":"-0.025em","fontWeight":"700"}],"headline-lg-mobile":["28px",{"lineHeight":"36px","letterSpacing":"-0.02em","fontWeight":"700"}],"title-md":["18px",{"lineHeight":"26px","fontWeight":"600"}],"headline-sm":["22px",{"lineHeight":"30px","fontWeight":"600"}],"label-lg":["14px",{"lineHeight":"18px","letterSpacing":"0.04em","fontWeight":"700"}],"display-hero":["56px",{"lineHeight":"64px","letterSpacing":"-0.03em","fontWeight":"800"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.05em","fontWeight":"600"}],"body-md":["15px",{"lineHeight":"24px","fontWeight":"400"}],"headline-md":["28px",{"lineHeight":"36px","letterSpacing":"-0.015em","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.06em","fontWeight":"600"}],"body-sm":["13px",{"lineHeight":"20px","fontWeight":"400"}]}}}}</script>
+<style>
+  body { font-family: 'Plus Jakarta Sans', sans-serif; }
+  .opt-btn { transition: background 0.15s, border-color 0.15s, color 0.15s; }
+  .opt-btn:disabled { cursor: not-allowed; }
+  .opt-correct { background: #ff6b00 !important; color: #fff !important; border-color: #ff6b00 !important; }
+  .opt-wrong   { background: #e8e8ea !important; color: #6c727a !important; border-color: #e8e8ea !important; }
+  .opt-neutral:hover:not(:disabled) { background: #f3f3f6; border-color: #a04100; }
+  .explanation { display: none; }
+  .explanation.visible { display: flex; }
+  #finish-banner { display: none; }
+  #finish-banner.visible { display: block; }
+</style>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen">
+
+<!-- HEADER -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface/95 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.06)]">
+  <div class="w-full h-16 px-gutter flex items-center justify-between">
+    <div class="flex items-center gap-space-md">
+      <div class="flex items-center gap-space-sm">
+        <div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-on-primary shadow-sm">
+          <span class="material-symbols-outlined text-[20px]">auto_stories</span>
+        </div>
+        <span class="font-bold text-[15px] tracking-tight text-on-surface">The Learning Curve</span>
+      </div>
+      <div class="hidden md:block h-5 w-[1px] bg-surface-container-high"></div>
+      <span class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant text-[11px] font-bold uppercase tracking-wider">
+        <span class="material-symbols-outlined text-[14px]">quiz</span>
+        S1 — Foundations of LLMs
+      </span>
+    </div>
+    <div class="flex items-center gap-space-sm">
+      <span class="text-[12px] text-on-surface-variant font-semibold uppercase tracking-wider">Puntuación</span>
+      <div class="flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container font-bold text-[14px]">
+        <span id="score-current" class="text-primary-container">0</span>
+        <span class="text-on-surface-variant">/</span>
+        <span class="text-on-surface">7</span>
+      </div>
+      <button onclick="resetQuiz()" class="hidden md:flex items-center gap-1 px-3 py-1.5 rounded-lg text-[12px] font-bold text-on-surface-variant hover:bg-surface-container transition-colors">
+        <span class="material-symbols-outlined text-[16px]">refresh</span>
+        Reintentar
+      </button>
+    </div>
+  </div>
+  <!-- Progress bar -->
+  <div class="w-full h-1 bg-surface-container-high">
+    <div id="progress-bar" class="h-full bg-primary-container transition-all duration-500" style="width:0%"></div>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="pt-20 pb-16 px-4 md:px-8 max-w-3xl mx-auto">
+
+  <!-- Hero -->
+  <div class="pt-6 pb-8">
+    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed-variant text-[11px] font-bold uppercase tracking-wider mb-3">
+      <span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse inline-block"></span>
+      Quiz de cierre — Semestre 1
+    </div>
+    <h1 class="text-[28px] font-extrabold tracking-tight mb-2">Foundations of LLMs</h1>
+    <p class="text-on-surface-variant text-[15px]">7 preguntas de decisión de arquitectura — una por lección. Sin definiciones, solo escenarios reales.</p>
+  </div>
+
+  <!-- Questions container -->
+  <div id="questions-container" class="flex flex-col gap-6"></div>
+
+  <!-- Finish banner -->
+  <div id="finish-banner" class="mt-8 rounded-2xl border-2 border-primary-container bg-primary-fixed p-6 text-center">
+    <span class="material-symbols-outlined text-primary-container text-[40px] block mb-2">emoji_events</span>
+    <div class="text-[22px] font-extrabold text-on-surface mb-1">Resultado final</div>
+    <div id="finish-score" class="text-[48px] font-black text-primary-container leading-none mb-3"></div>
+    <div id="finish-msg" class="text-[15px] text-on-surface-variant mb-5"></div>
+    <button onclick="resetQuiz()" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary-container text-on-primary font-bold text-[14px] hover:opacity-90 transition-opacity">
+      <span class="material-symbols-outlined text-[18px]">refresh</span>
+      Reintentar
+    </button>
+    <a href="../index.html" class="ml-3 inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-surface-container text-on-surface font-bold text-[14px] hover:bg-surface-container-high transition-colors">
+      <span class="material-symbols-outlined text-[18px]">home</span>
+      Índice
+    </a>
+  </div>
+
+</main>
+
+<script>
+const QUESTIONS = [
+  {
+    lesson: "1.1 — Cómo piensan los LLMs",
+    q: "Tu pipeline de extracción de datos produce a veces resultados correctos y a veces incorrectos para el mismo input. No has cambiado nada en el código. ¿Cuál es la causa más probable?",
+    options: [
+      "Un bug en el parsing del output",
+      "El LLM samplea de una distribución de probabilidad en cada ejecución, por lo que el output varía aunque el input sea igual",
+      "El modelo fue actualizado sin avisar por el proveedor",
+      "La temperatura está en 0 y eso genera variabilidad aleatoria"
+    ],
+    correct: 1,
+    explanation: "Los LLMs generan tokens muestreando de una distribución de probabilidad. Con temperatura > 0, el output varía entre ejecuciones aunque el input sea idéntico. La solución es fijar temperatura a 0 para tareas que requieren reproducibilidad."
+  },
+  {
+    lesson: "1.2 — Tokens y context window",
+    q: "Tu chatbot de soporte acumula historial de conversación. Después de ~40 turnos, el modelo empieza a ignorar las instrucciones del system prompt. ¿Cuál es la causa y la solución correcta?",
+    options: [
+      "El modelo tiene un bug de memoria interna que acumula estado",
+      "Deberías usar un modelo con más parámetros para mayor retención",
+      "El historial está llenando la context window y desplaza el system prompt fuera del contexto activo; hay que summarizar o truncar el historial",
+      "El system prompt es demasiado largo y compite con el historial"
+    ],
+    correct: 2,
+    explanation: "La context window es finita. Cuando el historial crece, desplaza otras partes del contexto. La solución arquitectónica es summarización del historial o sliding window que preserve siempre el system prompt en posición inicial."
+  },
+  {
+    lesson: "1.3 — Embeddings para arquitectos",
+    q: "Tienes 50.000 artículos técnicos. Los usuarios buscan conceptos como "cómo configurar autenticación OAuth". ¿Qué técnica de búsqueda eliges?",
+    options: [
+      "Búsqueda por keywords exactas (LIKE en SQL)",
+      "Embedding de la query + similitud coseno en un vector DB",
+      "Full-text search con BM25 sobre el texto completo",
+      "Filtrado por categoría de metadatos predefinida"
+    ],
+    correct: 1,
+    explanation: "Los embeddings capturan significado semántico: 'configurar OAuth' y 'implementar autenticación' pueden tener embeddings similares aunque no compartan palabras. BM25 es mejor que keywords pero no razona sobre sinónimos ni conceptos."
+  },
+  {
+    lesson: "1.4 — Temperatura y determinismo",
+    q: "Estás construyendo un sistema que extrae campos estructurados (nombre, fecha, importe) de facturas PDF. ¿Qué temperatura configuras para el LLM?",
+    options: [
+      "0.7 — la default de la mayoría de APIs, equilibrio seguro",
+      "1.0 — para que el modelo explore diferentes formatos de extracción",
+      "0 — hay una respuesta correcta objetiva, queremos siempre la misma",
+      "0.3 — un poco de variabilidad mejora la robustez ante formatos distintos"
+    ],
+    correct: 2,
+    explanation: "Temperatura 0 hace al LLM elegir siempre el token más probable. Para extracción de datos existe una respuesta correcta objetiva; cualquier variabilidad es un error potencial. Guardar la variabilidad para tareas creativas, nunca para extracción."
+  },
+  {
+    lesson: "1.5 — Fine-tuning vs RAG",
+    q: "Tu empresa actualiza sus políticas internas cada semana. Quieres que el chatbot interno responda siempre según las políticas más recientes. ¿Qué arquitectura eliges?",
+    options: [
+      "Fine-tuning del modelo base en cada ciclo de actualización semanal",
+      "RAG con las políticas indexadas en un vector DB, actualizado continuamente",
+      "Incluir todas las políticas en el system prompt de cada request",
+      "Fine-tuning inicial + actualizar el system prompt con los cambios recientes"
+    ],
+    correct: 1,
+    explanation: "RAG separa el conocimiento del modelo: actualizar el vector DB es inmediato y barato. Fine-tuning es costoso, lento, y fija el conocimiento en el momento de entrenamiento. El system prompt no escala con volumen de políticas."
+  },
+  {
+    lesson: "1.6 — Prompt engineering para arquitectos",
+    q: "El LLM de tu pipeline produce outputs inconsistentes: a veces devuelve JSON, a veces texto libre, a veces mezcla ambos. ¿Cuál es el problema más probable?",
+    options: [
+      "El modelo no es lo suficientemente potente para la tarea",
+      "El formato de output no está especificado o es ambiguo en el prompt",
+      "La temperatura está demasiado baja y limita las opciones de formato",
+      "El system prompt es demasiado corto para establecer comportamiento"
+    ],
+    correct: 1,
+    explanation: "Sin especificación clara del formato de salida, el LLM elige el que parece más probable dado el contexto. Especificar el schema JSON exacto en el prompt —o usar structured outputs con validación de schema— elimina la ambigüedad completamente."
+  },
+  {
+    lesson: "1.7 — El coste real de un LLM en producción",
+    q: "Tu pipeline LLM cuesta 10× más de lo esperado. Los logs muestran que el 70% del coste viene de tokens de OUTPUT, no de input. ¿Cuál es la intervención más efectiva?",
+    options: [
+      "Cambiar a un modelo más barato por request",
+      "Reducir el tamaño del system prompt para bajar el coste de input",
+      "Añadir una instrucción que limita la longitud del output y evaluar si la calidad se mantiene",
+      "Implementar caching semántico del input para reducir llamadas"
+    ],
+    correct: 2,
+    explanation: "El problema es output tokens excesivos —el LLM genera más texto del necesario. Limitar la longitud del output es la intervención de mayor ROI. Cambiar de modelo reduce el coste por token pero no ataca la causa raíz de la verbosidad."
+  }
+];
+
+let score = 0;
+let answered = new Array(QUESTIONS.length).fill(false);
+
+function render() {
+  const container = document.getElementById('questions-container');
+  container.innerHTML = '';
+
+  QUESTIONS.forEach((q, qi) => {
+    const card = document.createElement('div');
+    card.className = 'bg-surface-container-lowest rounded-2xl border border-surface-container-high shadow-sm p-6';
+    card.id = 'card-' + qi;
+
+    const lessonBadge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant text-[11px] font-bold uppercase tracking-wider mb-3">
+      <span class="material-symbols-outlined text-[13px]">school</span>${q.lesson}</span>`;
+
+    const qNum = `<span class="text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">Pregunta ${qi + 1} de ${QUESTIONS.length}</span>`;
+
+    const qText = `<p class="text-[15px] font-semibold text-on-surface leading-snug mt-2 mb-4">${q.q}</p>`;
+
+    const optionsHtml = q.options.map((opt, oi) => {
+      const letter = ['A', 'B', 'C', 'D'][oi];
+      return `<button
+        id="opt-${qi}-${oi}"
+        onclick="answer(${qi}, ${oi})"
+        class="opt-btn opt-neutral w-full text-left flex items-start gap-3 px-4 py-3 rounded-xl border border-surface-container-high bg-surface-container-low text-[14px] text-on-surface font-medium mb-2 last:mb-0"
+      >
+        <span class="shrink-0 w-6 h-6 rounded-full bg-surface-container flex items-center justify-center text-[11px] font-bold text-on-surface-variant mt-0.5">${letter}</span>
+        <span class="leading-snug">${opt}</span>
+      </button>`;
+    }).join('');
+
+    const explanationHtml = `<div class="explanation mt-4 items-start gap-2 p-3 rounded-xl bg-primary-fixed" id="exp-${qi}">
+      <span class="material-symbols-outlined text-primary-container text-[20px] shrink-0 mt-0.5">lightbulb</span>
+      <p class="text-[13px] text-on-surface leading-relaxed">${q.explanation}</p>
+    </div>`;
+
+    card.innerHTML = `
+      <div class="flex items-start justify-between gap-2 mb-1">
+        ${lessonBadge}
+        ${qNum}
+      </div>
+      ${qText}
+      <div id="opts-${qi}">${optionsHtml}</div>
+      ${explanationHtml}
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+function answer(qi, chosen) {
+  if (answered[qi]) return;
+  answered[qi] = true;
+
+  const q = QUESTIONS[qi];
+  const isCorrect = chosen === q.correct;
+  if (isCorrect) score++;
+
+  // Style all options
+  for (let oi = 0; oi < 4; oi++) {
+    const btn = document.getElementById('opt-' + qi + '-' + oi);
+    btn.disabled = true;
+    btn.classList.remove('opt-neutral');
+    if (oi === q.correct) {
+      btn.classList.add('opt-correct');
+    } else {
+      btn.classList.add('opt-wrong');
+    }
+  }
+
+  // Show explanation
+  const exp = document.getElementById('exp-' + qi);
+  exp.classList.add('visible');
+
+  // Update score
+  document.getElementById('score-current').textContent = score;
+
+  // Update progress bar
+  const done = answered.filter(Boolean).length;
+  document.getElementById('progress-bar').style.width = (done / QUESTIONS.length * 100) + '%';
+
+  // Check if all answered
+  if (done === QUESTIONS.length) {
+    setTimeout(showFinish, 600);
+  }
+}
+
+function showFinish() {
+  const banner = document.getElementById('finish-banner');
+  const scoreEl = document.getElementById('finish-score');
+  const msgEl = document.getElementById('finish-msg');
+
+  scoreEl.textContent = score + ' / ' + QUESTIONS.length;
+
+  let msg = '';
+  const pct = score / QUESTIONS.length;
+  if (pct === 1)        msg = 'Perfecto. Dominas las decisiones de diseño de fundamentos.';
+  else if (pct >= 0.71) msg = 'Sólido. Revisa las respuestas incorrectas — son las decisiones que más cuestan en producción.';
+  else if (pct >= 0.43) msg = 'A medias. Vuelve a las lecciones de las preguntas falladas antes de continuar al S2.';
+  else                   msg = 'Vuelve al semestre 1. Estos fundamentos son la base de todo lo que sigue.';
+
+  msgEl.textContent = msg;
+  banner.classList.add('visible');
+  banner.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetQuiz() {
+  score = 0;
+  answered = new Array(QUESTIONS.length).fill(false);
+  document.getElementById('score-current').textContent = '0';
+  document.getElementById('progress-bar').style.width = '0%';
+  document.getElementById('finish-banner').classList.remove('visible');
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+render();
+</script>
+</body>
+</html>

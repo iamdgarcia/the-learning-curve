@@ -1,0 +1,16 @@
+[project]
+name = "pipecat-dental"
+version = "0.1.0"
+description = "Dental clinic voice agent PoC"
+requires-python = ">=3.11"
+dependencies = [
+    "pipecat-ai[sdk,runner,si-webrtc,daily,elevenlabs,openai,webrtc]",
+    "python-dotenv",
+    "loguru",
+    "pipecat-backchannel",
+]
+
+[tool.pipecat]
+services = { stt = "elevenlabs_stt", llm = "openai_llm", tts = "elevenlabs_tts" }
+transports = ["smallwebrtc"]
+mode = "cascade"

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Quiz S2 — AI Engineering | The Learning Curve</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<style>
+@layer base{html,body{margin:0;padding:0;}}
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:#f3f3f6;}
+::-webkit-scrollbar-thumb{background:#e2bfb0;border-radius:9999px;}
+</style>
+<script src="https://cdn.tailwindcss.com"></script>
+<script id="tailwind-config">
+tailwind.config={darkMode:"class",theme:{extend:{colors:{"background":"#f9f9fc","on-secondary-fixed-variant":"#43455b","surface-dim":"#d9dadc","on-error-container":"#93000a","surface-container-high":"#e8e8ea","on-secondary-container":"#5f6178","on-primary-fixed":"#351000","outline-variant":"#e2bfb0","surface-container":"#eeeef0","inverse-primary":"#ffb693","on-primary":"#ffffff","secondary-container":"#ddddf9","on-secondary-fixed":"#181a2e","surface-container-lowest":"#ffffff","primary":"#a04100","on-tertiary-fixed":"#2a1800","tertiary-fixed":"#ffddb6","on-background":"#1a1c1e","primary-container":"#ff6b00","surface-container-low":"#f3f3f6","secondary-fixed":"#e0e0fc","tertiary-fixed-dim":"#ffb95a","surface-tint":"#a04100","primary-fixed-dim":"#ffb693","surface-bright":"#f9f9fc","primary-fixed":"#ffdbcc","on-tertiary":"#ffffff","on-tertiary-container":"#472b00","on-surface":"#1a1c1e","tertiary-container":"#d08b1f","error-container":"#ffdad6","on-secondary":"#ffffff","surface-container-highest":"#e2e2e5","inverse-surface":"#2f3133","on-surface-variant":"#5a4136","inverse-on-surface":"#f0f0f3","on-tertiary-fixed-variant":"#643f00","tertiary":"#845400","surface":"#f9f9fc","on-primary-container":"#572000","on-error":"#ffffff","error":"#ba1a1a","secondary-fixed-dim":"#c4c4df","outline":"#8e7164","surface-variant":"#e2e2e5","on-primary-fixed-variant":"#7a3000","secondary":"#5b5d74"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"gutter":"1.5rem","gutter-mobile":"0.75rem","space-xl":"2.5rem","margin-mobile":"1rem","space-xs":"0.25rem","space-md":"1rem","space-sm":"0.5rem","space-lg":"1.5rem","margin":"2.5rem"},fontFamily:{"display-hero-mobile":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"headline-lg-mobile":["Plus Jakarta Sans"],"title-md":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"label-lg":["Plus Jakarta Sans"],"display-hero":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"]},fontSize:{"display-hero-mobile":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"800"}],"headline-lg":["40px",{"lineHeight":"48px","letterSpacing":"-0.025em","fontWeight":"700"}],"headline-lg-mobile":["28px",{"lineHeight":"36px","letterSpacing":"-0.02em","fontWeight":"700"}],"title-md":["18px",{"lineHeight":"26px","fontWeight":"600"}],"headline-sm":["22px",{"lineHeight":"30px","fontWeight":"600"}],"label-lg":["14px",{"lineHeight":"18px","letterSpacing":"0.04em","fontWeight":"700"}],"display-hero":["56px",{"lineHeight":"64px","letterSpacing":"-0.03em","fontWeight":"800"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.05em","fontWeight":"600"}],"body-md":["15px",{"lineHeight":"24px","fontWeight":"400"}],"headline-md":["28px",{"lineHeight":"36px","letterSpacing":"-0.015em","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.06em","fontWeight":"600"}],"body-sm":["13px",{"lineHeight":"20px","fontWeight":"400"}]}}}}
+</script>
+</head>
+<body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen">
+
+<!-- Fixed header -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface/95 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.06)]">
+  <div class="w-full max-w-4xl mx-auto px-gutter h-16 flex items-center justify-between">
+    <div class="flex items-center gap-space-md">
+      <div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-on-primary shadow-sm">
+        <span class="material-symbols-outlined text-[18px]">auto_stories</span>
+      </div>
+      <div class="hidden sm:flex items-center gap-space-sm">
+        <span class="font-body-md text-body-md font-bold text-on-surface tracking-tight">The Learning Curve</span>
+        <div class="h-4 w-px bg-surface-container-high"></div>
+        <span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm uppercase tracking-wider font-bold">S2 · AI Engineering</span>
+      </div>
+    </div>
+    <!-- Score counter -->
+    <div class="flex items-center gap-space-sm">
+      <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-semibold hidden sm:inline">Puntuación</span>
+      <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface-container font-headline-sm text-headline-sm font-bold">
+        <span id="score-correct" class="text-primary-container">0</span>
+        <span class="text-on-surface-variant font-normal">/</span>
+        <span id="score-total" class="text-on-surface">6</span>
+      </div>
+    </div>
+  </div>
+  <!-- Progress bar -->
+  <div class="w-full h-1 bg-surface-container-high">
+    <div id="progress-bar" class="h-full bg-primary-container transition-all duration-500" style="width:0%"></div>
+  </div>
+</header>
+
+<!-- Main content -->
+<main class="pt-20 pb-16 px-gutter-mobile sm:px-gutter">
+  <div class="max-w-4xl mx-auto">
+
+    <!-- Module header -->
+    <div class="mt-6 mb-8">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="material-symbols-outlined text-primary-container text-[22px]">quiz</span>
+        <span class="font-label-md text-label-md uppercase tracking-wider font-bold text-on-surface-variant">Cuestionario de módulo</span>
+      </div>
+      <h1 class="font-headline-lg text-headline-lg-mobile sm:text-headline-lg font-bold text-on-surface tracking-tight mb-1">S2 — AI Engineering</h1>
+      <p class="font-body-md text-body-md text-on-surface-variant">6 preguntas de decisión de arquitectura. Una por lección. Nivel senior.</p>
+    </div>
+
+    <!-- Questions container -->
+    <div id="questions-container" class="flex flex-col gap-6"></div>
+
+    <!-- Final result banner (hidden until all answered) -->
+    <div id="result-banner" class="hidden mt-8 p-6 rounded-2xl bg-surface-container-lowest border border-surface-container-high shadow-sm">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span id="result-icon" class="material-symbols-outlined text-[28px]"></span>
+            <span id="result-title" class="font-headline-sm text-headline-sm font-bold text-on-surface"></span>
+          </div>
+          <p id="result-subtitle" class="font-body-md text-body-md text-on-surface-variant"></p>
+        </div>
+        <button id="retry-btn" onclick="resetQuiz()"
+          class="shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary-container text-on-primary font-label-lg text-label-lg font-bold hover:opacity-90 transition-opacity shadow-sm">
+          <span class="material-symbols-outlined text-[18px]">refresh</span>
+          Reintentar
+        </button>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+const questions = [
+  {
+    lesson: "2.1 — ¿Cuándo usar un LLM?",
+    q: "Tu equipo tiene que clasificar emails entrantes en 5 categorías fijas (soporte, ventas, spam, interno, otro). Las reglas son claras y están bien documentadas. Alguien propone usar un LLM. ¿Qué decides?",
+    options: [
+      "Usar un LLM: es más flexible y se adapta a categorías futuras sin reescribir código.",
+      "Usar código determinista con reglas: las categorías son fijas, las reglas son expresables, cero coste por llamada y output auditable.",
+      "Usar un LLM con temperatura 0 para hacerlo determinista y así tener lo mejor de los dos mundos.",
+      "Fine-tuning de un clasificador especializado: más preciso que un LLM de propósito general para 5 clases."
+    ],
+    correct: 1,
+    explanation: "Cuando el problema tiene categorías fijas y reglas codificables, el código determinista gana en coste (0 tokens), latencia y auditabilidad. El LLM aporta valor real solo cuando el razonamiento es ambiguo o las reglas no se pueden expresar en código."
+  },
+  {
+    lesson: "2.2 — Structured Outputs y Function Calling",
+    q: "Tu pipeline extrae campos de facturas con regex sobre el output del LLM. En producción falla el 8% de las veces por variaciones de formato. El equipo propone mejorar los regex. ¿Cuál es la corrección arquitectónicamente correcta?",
+    options: [
+      "Mejorar los regex hasta cubrir más patrones: el 8% de fallo se puede reducir con suficiente ingeniería.",
+      "Reintentar la llamada automáticamente cuando el regex falla: tres intentos cubren la mayoría de casos.",
+      "Usar structured outputs con JSON schema: el modelo garantiza el formato y el sistema consume directamente sin parsear.",
+      "Añadir un segundo LLM que corrija el formato del output antes de pasarlo al regex."
+    ],
+    correct: 2,
+    explanation: "Structured outputs mueven la responsabilidad del formato al modelo con garantía de schema. Elimina por completo la capa de parsing frágil. Los regex y los reintentos tratan el síntoma; el schema elimina la causa."
+  },
+  {
+    lesson: "2.3 — Tipos de memoria",
+    q: "Tu agente de atención al cliente debe recordar el idioma preferido, el tono y el historial de problemas de cada usuario entre sesiones separadas por días o semanas. ¿Qué tipo de memoria diseñas?",
+    options: [
+      "In-context memory: incluir las preferencias en el system prompt de cada sesión.",
+      "KV cache del proveedor: guardar el estado del modelo entre sesiones para no recomputar.",
+      "No hace falta memoria explícita: el usuario puede re-explicar sus preferencias cuando vuelva.",
+      "External persistent store (base de datos) + retrieval al inicio de cada sesión para inyectar el perfil en el contexto."
+    ],
+    correct: 3,
+    explanation: "Solo la memoria persistente en base de datos sobrevive entre sesiones. El in-context no escala con miles de usuarios (un system prompt por usuario), el KV cache es volátil, y pedir al usuario que repita preferencias es una mala experiencia de usuario."
+  },
+  {
+    lesson: "2.4 — MCP y arquitectura de herramientas",
+    q: "Tienes 5 modelos LLM distintos que necesitan acceder a 8 herramientas internas (CRM, tickets, calendario, documentos, etc.). Sin un protocolo estándar, ¿cuántas integraciones necesitas? ¿Y con MCP?",
+    options: [
+      "Sin protocolo: 13 integraciones (5+8). Con MCP: 40 (5×8). MCP añade complejidad.",
+      "Sin protocolo: 40 integraciones (5×8). Con MCP: 13 (5+8). MCP elimina la explosión combinatoria.",
+      "En ambos casos son las mismas integraciones; MCP solo estandariza el protocolo de comunicación.",
+      "Sin protocolo: 8 integraciones (una por herramienta). Con MCP: 5 (una por modelo)."
+    ],
+    correct: 1,
+    explanation: "Sin estándar necesitas N×M = 40 conectores: cada modelo habla con cada herramienta a su manera. Con MCP cada modelo implementa 1 cliente y cada herramienta 1 servidor: N+M = 13. La reducción escala cuadráticamente al añadir modelos o herramientas."
+  },
+  {
+    lesson: "2.5 — Caching y optimización",
+    q: "Tu API recibe 1.000 queries/hora. El análisis muestra que el 60% son semánticamente equivalentes —'¿cuál es el horario?', '¿a qué hora abren?', '¿cuándo puedo llamar?'— pero con texto diferente en cada caso. ¿Qué tipo de cache implementas?",
+    options: [
+      "Cache exacto por hash del string de la query: el más rápido y sin falsos positivos.",
+      "Semantic cache con embeddings: si la similitud coseno supera un threshold, devuelve la respuesta cacheada sin llamar al LLM.",
+      "No cachear: los usuarios esperan que cada respuesta sea ligeramente diferente.",
+      "Cachear solo el system prompt en el proveedor: ahorra tokens de prefill en cada llamada."
+    ],
+    correct: 1,
+    explanation: "El hash exacto no detecta variantes semánticas del mismo significado. El semantic cache usa embeddings para medir similitud: con threshold ≥ 0.92 agrupa las tres variantes como equivalentes y sirve la respuesta en <5ms sin llamar al LLM ni gastar tokens."
+  },
+  {
+    lesson: "2.6 — Evaluación básica",
+    q: "Tu pipeline genera resúmenes de contratos legales. Hay que evaluar la calidad a escala. El equipo propone revisión humana del 100% de los outputs. ¿Cuál es la estrategia correcta?",
+    options: [
+      "Evaluación humana del 100%: es la única forma de garantizar calidad en documentos legales.",
+      "Evaluación determinista (keywords, regex): más rápida y sin coste de API adicional.",
+      "LLM-as-judge con rúbrica definida para el 100% + evaluación humana de una muestra para calibrar si el juez es fiable.",
+      "Confiar en el modelo base: si el modelo es suficientemente bueno, la evaluación es redundante."
+    ],
+    correct: 2,
+    explanation: "LLM-as-judge con rúbrica escala a millones de outputs y es reproducible. La evaluación humana de una muestra estadística calibra la fiabilidad del juez. Sin calibración no sabes si el juez miente. Sin escala no puedes mejorar el pipeline de forma sistemática."
+  }
+];
+
+let answered = new Array(questions.length).fill(false);
+let score = 0;
+
+function renderQuestions() {
+  const container = document.getElementById('questions-container');
+  container.innerHTML = '';
+
+  questions.forEach((q, qi) => {
+    const card = document.createElement('div');
+    card.id = 'question-' + qi;
+    card.className = 'bg-surface-container-lowest rounded-2xl border border-surface-container-high shadow-sm overflow-hidden transition-all duration-300';
+
+    const optionsHtml = q.options.map((opt, oi) => {
+      return '<button onclick="selectOption(' + qi + ',' + oi + ')" id="opt-' + qi + '-' + oi + '" class="w-full text-left px-4 py-3 rounded-xl border border-surface-container-high bg-surface-container-low hover:bg-surface-container hover:border-outline-variant transition-all duration-150 font-body-sm text-body-sm text-on-surface flex items-start gap-3 group">' +
+        '<span id="opt-icon-' + qi + '-' + oi + '" class="material-symbols-outlined text-[18px] text-on-surface-variant shrink-0 mt-0.5 group-hover:text-on-surface transition-colors">radio_button_unchecked</span>' +
+        '<span>' + opt + '</span>' +
+        '</button>';
+    }).join('');
+
+    card.innerHTML =
+      '<div class="p-5 sm:p-6">' +
+        '<div class="flex items-center gap-2 mb-3">' +
+          '<span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm font-bold uppercase tracking-wider">' + q.lesson + '</span>' +
+          '<span id="q-status-' + qi + '" class="ml-auto material-symbols-outlined text-[20px] text-surface-container-high">circle</span>' +
+        '</div>' +
+        '<p class="font-body-md text-body-md text-on-surface font-semibold mb-4 leading-relaxed">' + q.q + '</p>' +
+        '<div id="options-' + qi + '" class="flex flex-col gap-2">' + optionsHtml + '</div>' +
+        '<div id="explanation-' + qi + '" class="hidden mt-4 flex items-start gap-2.5 p-3.5 rounded-xl bg-surface-container-low border border-surface-container-high">' +
+          '<span class="material-symbols-outlined text-[18px] text-primary-container shrink-0 mt-0.5">info</span>' +
+          '<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">' + q.explanation + '</p>' +
+        '</div>' +
+      '</div>';
+
+    container.appendChild(card);
+  });
+}
+
+function selectOption(qi, selected) {
+  if (answered[qi]) return;
+  answered[qi] = true;
+
+  const q = questions[qi];
+  const isCorrect = selected === q.correct;
+  if (isCorrect) score++;
+
+  // Style all options
+  q.options.forEach((_, oi) => {
+    const btn = document.getElementById('opt-' + qi + '-' + oi);
+    const icon = document.getElementById('opt-icon-' + qi + '-' + oi);
+    btn.disabled = true;
+    btn.classList.remove('hover:bg-surface-container', 'hover:border-outline-variant', 'cursor-pointer');
+    btn.classList.add('cursor-default');
+
+    if (oi === q.correct) {
+      btn.classList.remove('bg-surface-container-low', 'border-surface-container-high');
+      btn.classList.add('bg-primary-fixed', 'border-primary-container', 'text-on-primary-fixed');
+      icon.textContent = 'check_circle';
+      icon.classList.remove('text-on-surface-variant');
+      icon.classList.add('text-primary-container');
+    } else if (oi === selected && !isCorrect) {
+      btn.classList.remove('bg-surface-container-low', 'border-surface-container-high');
+      btn.classList.add('bg-error-container', 'border-error', 'opacity-80');
+      icon.textContent = 'cancel';
+      icon.classList.remove('text-on-surface-variant');
+      icon.classList.add('text-error');
+    } else {
+      btn.classList.add('opacity-50');
+      icon.textContent = 'radio_button_unchecked';
+    }
+  });
+
+  // Show explanation
+  document.getElementById('explanation-' + qi).classList.remove('hidden');
+
+  // Update question status icon
+  const statusIcon = document.getElementById('q-status-' + qi);
+  statusIcon.textContent = isCorrect ? 'check_circle' : 'cancel';
+  statusIcon.className = 'ml-auto material-symbols-outlined text-[20px] ' + (isCorrect ? 'text-primary-container' : 'text-error');
+
+  // Update score display
+  document.getElementById('score-correct').textContent = score;
+
+  // Update progress bar
+  const answeredCount = answered.filter(Boolean).length;
+  document.getElementById('progress-bar').style.width = (answeredCount / questions.length * 100) + '%';
+
+  // Check if all answered
+  if (answeredCount === questions.length) showResult();
+}
+
+function showResult() {
+  const banner = document.getElementById('result-banner');
+  banner.classList.remove('hidden');
+
+  const pct = score / questions.length;
+  let icon, title, subtitle, color;
+
+  if (pct === 1) {
+    icon = 'emoji_events'; title = '¡Perfecto! ' + score + '/' + questions.length;
+    subtitle = 'Dominas las decisiones de AI Engineering. Listo para el S3.';
+    color = 'text-primary-container';
+  } else if (pct >= 0.67) {
+    icon = 'thumb_up'; title = 'Bien: ' + score + '/' + questions.length;
+    subtitle = 'Sólido. Revisa las lecciones donde fallaste antes de seguir.';
+    color = 'text-tertiary-container';
+  } else {
+    icon = 'replay'; title = 'Necesitas repasar: ' + score + '/' + questions.length;
+    subtitle = 'Vuelve a las lecciones marcadas en rojo antes de continuar al S3.';
+    color = 'text-error';
+  }
+
+  const iconEl = document.getElementById('result-icon');
+  iconEl.textContent = icon;
+  iconEl.className = 'material-symbols-outlined text-[28px] ' + color;
+  document.getElementById('result-title').textContent = title;
+  document.getElementById('result-subtitle').textContent = subtitle;
+
+  banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function resetQuiz() {
+  answered = new Array(questions.length).fill(false);
+  score = 0;
+  document.getElementById('score-correct').textContent = '0';
+  document.getElementById('progress-bar').style.width = '0%';
+  document.getElementById('result-banner').classList.add('hidden');
+  renderQuestions();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Init
+renderQuestions();
+</script>
+</body>
+</html>

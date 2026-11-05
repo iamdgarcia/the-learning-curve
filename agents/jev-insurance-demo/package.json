@@ -1,0 +1,8 @@
+{
+  "name": "jev-insurance-demo",
+  "version": "1.0.0",
+  "scripts": {
+    "benchmark": "bun run src/benchmark.ts",
+    "demo": "bun run src/server.ts"
+  }
+}

@@ -1,0 +1,25 @@
+# Credentials — never commit
+.env
+config/client_secrets.json
+config/token.json
+
+# Generated clips
+temp/*.mp4
+temp/*.ass
+temp/uploaded.json
+temp/schedule.json
+temp/failed_uploads.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+*.egg-info/
+
+# Model caches
+~/.cache/yt-clipper/
+~/.cache/whisper/
+
+# OS
+.DS_Store

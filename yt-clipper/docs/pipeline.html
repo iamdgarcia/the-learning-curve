@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>yt-clipper — Arquitectura del Pipeline</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #1c2230;
+    --border: #30363d;
+    --text: #e6edf3;
+    --muted: #7d8590;
+    --accent: #58a6ff;
+    --green: #3fb950;
+    --yellow: #d29922;
+    --red: #f85149;
+    --purple: #bc8cff;
+    --orange: #f0883e;
+    --cyan: #76e3ea;
+    --pink: #ff7eb6;
+    --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --mono: 'Cascadia Code', 'Fira Code', 'JetBrains Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 40px 24px;
+  }
+
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  h1 { font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
+  h2 { font-size: 1.3rem; font-weight: 600; margin: 48px 0 20px; color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+  h3 { font-size: 1rem; font-weight: 600; margin: 24px 0 12px; color: var(--text); }
+
+  .subtitle { color: var(--muted); margin-bottom: 40px; font-size: 1rem; }
+
+  code {
+    font-family: var(--mono);
+    background: var(--surface2);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--orange);
+  }
+
+  /* ── PIPELINE OVERVIEW ─────────────────────────────────────────── */
+  .pipeline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin: 32px 0;
+  }
+
+  .step {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+  }
+
+  .step-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    cursor: default;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+
+  .step-box:hover {
+    border-color: var(--accent);
+    transform: translateX(4px);
+  }
+
+  .step-num {
+    min-width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .step-content { flex: 1; }
+  .step-title { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+  .step-desc { color: var(--muted); font-size: 13px; }
+  .step-model {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: var(--mono);
+  }
+
+  .arrow {
+    width: 2px;
+    height: 24px;
+    background: var(--border);
+    margin: 0 auto;
+    position: relative;
+  }
+  .arrow::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: -4px;
+    border: 5px solid transparent;
+    border-top: 8px solid var(--border);
+  }
+
+  /* colors per step */
+  .c-blue   { background: #1a3a5c; border-color: #1f6feb; color: #79c0ff; }
+  .c-purple { background: #2a1f3c; border-color: #8957e5; color: #d2a8ff; }
+  .c-green  { background: #1a3a2a; border-color: #238636; color: #7ee787; }
+  .c-orange { background: #3a2a1a; border-color: #9e6a03; color: #e3b341; }
+  .c-red    { background: #3a1f1f; border-color: #da3633; color: #ff7b72; }
+  .c-cyan   { background: #1a2f3a; border-color: #1b7c83; color: #76e3ea; }
+  .c-pink   { background: #3a1f2e; border-color: #ad5f7d; color: #ff9ac1; }
+
+  .tag-blue   { background: #1a3a5c; color: #79c0ff; }
+  .tag-purple { background: #2a1f3c; color: #d2a8ff; }
+  .tag-green  { background: #1a3a2a; color: #7ee787; }
+  .tag-orange { background: #3a2a1a; color: #e3b341; }
+  .tag-yellow { background: #3a2e1a; color: #f0c674; }
+  .tag-red    { background: #3a1f1f; color: #ff7b72; }
+  .tag-cyan   { background: #1a2f3a; color: #76e3ea; }
+
+  /* ── DETAIL SECTIONS ─────────────────────────────────────────────── */
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  @media (max-width: 700px) { .detail-grid { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+  }
+
+  .card-title {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  /* ── FLOW DIAGRAM ─────────────────────────────────────────────────── */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 12px 0;
+  }
+
+  .flow-node {
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid;
+  }
+
+  .flow-arrow {
+    color: var(--muted);
+    font-size: 18px;
+    font-weight: 300;
+  }
+
+  /* ── FACE DIAGRAM SVG ─────────────────────────────────────────────── */
+  .layout-diagram {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 16px 0;
+    text-align: center;
+  }
+
+  /* ── MODELS TABLE ─────────────────────────────────────────────────── */
+  table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+
+  th {
+    background: var(--surface2);
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+  }
+
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    vertical-align: top;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--surface2); }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  /* ── TUNING TABLE ─────────────────────────────────────────────────── */
+  .param { font-family: var(--mono); font-size: 12px; color: var(--orange); }
+
+  /* ── SUBTITLE STYLES PREVIEW ─────────────────────────────────────── */
+  .sub-preview {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  @media (max-width: 600px) { .sub-preview { grid-template-columns: 1fr; } }
+
+  .sub-card {
+    background: #000;
+    border-radius: 8px;
+    padding: 20px 16px;
+    text-align: center;
+    border: 1px solid var(--border);
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .sub-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .sub-text { font-size: 22px; font-weight: 700; line-height: 1.3; }
+  .sub-word-active-yellow { color: #FFFF00; }
+  .sub-word-active-orange { background: #ff6600; color: #000; padding: 1px 6px; border-radius: 3px; }
+  .sub-word-active-purple { color: #979BFF; }
+  .sub-word { color: #fff; }
+  .sub-box-bg { background: rgba(255,255,255,0.15); padding: 4px 12px; border-radius: 4px; display: inline-block; }
+
+  /* ── SPEAKER COLORS ─────────────────────────────────────────────── */
+  .speaker-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .speaker-swatch {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .speaker-name { font-weight: 600; font-size: 13px; }
+  .speaker-hex  { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+  /* ── HOOK TEMPLATES ─────────────────────────────────────────────── */
+  .hook-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .hook-preview {
+    background: #111;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    aspect-ratio: 9/5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 12px;
+  }
+
+  .hook-tag {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    font-size: 9px;
+    font-family: var(--mono);
+    background: rgba(0,0,0,0.7);
+    color: var(--muted);
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+
+  /* ── SILENCE VIZ ─────────────────────────────────────────────────── */
+  .timeline {
+    background: var(--surface2);
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-family: var(--mono);
+    font-size: 12px;
+    margin: 12px 0;
+  }
+
+  .tl-row { display: flex; align-items: center; gap: 8px; margin: 6px 0; }
+  .tl-label { width: 80px; color: var(--muted); font-size: 11px; }
+  .tl-bar { flex: 1; height: 20px; border-radius: 4px; position: relative; overflow: hidden; }
+  .tl-audio { background: var(--green); height: 100%; }
+  .tl-silence { background: var(--red); height: 100%; position: absolute; top: 0; opacity: 0.8; }
+  .tl-marks { display: flex; justify-content: space-between; color: var(--muted); font-size: 10px; margin-top: 4px; }
+  .threshold { color: var(--yellow); font-size: 11px; margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <h1>⚡ yt-clipper — Pipeline Architecture</h1>
+  <p class="subtitle">Cómo funciona cada paso del pipeline, qué modelos se usan y qué parámetros controlan cada decisión.</p>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <h2>Pipeline completo</h2>
+
+  <div class="pipeline">
+
+    <div class="step">
+      <div class="step-box">
+        <div class="step-num c-blue">①</div>
+        <div class="step-content">
+          <div class="step-title">Transcript Extraction</div>
+          <div class="step-desc">yt-dlp detecta el idioma del vídeo. Se buscan captions manuales y auto-generadas en ese idioma. Si el vídeo no tiene subtítulos, se descarga el audio completo y se transcribe localmente.</div>
+          <span class="step-model tag-blue">youtube-transcript-api v1</span>
+          <span class="step-model tag-purple">Whisper small (fallback)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow"></div>
+
+    <div class="step">
+      <div class="step-box">
+        <div class="step-num c-purple">②</div>
+        <div class="step-content">
+          <div class="step-title">Two-Agent LLM — Selección de clips</div>
+          <div class="step-desc">Agent 1 (Finder) propone <code>max_clips × 2</code> candidatos con justificación y hook. Agent 2 (Reviewer) puntúa 1–10, rechaza &lt;7, ajusta timestamps ±10s y genera título/descripción/tags en el idioma original.</div>
+          <span class="step-model tag-purple">DeepSeek v3 via Novita.ai</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow"></div>
+
+    <div class="step">
+      <div class="step-box">
+        <div class="step-num c-green">③</div>
+        <div class="step-content">
+          <div class="step-title">Download — yt-dlp HLS</div>
+          <div class="step-desc">Descarga solo el segmento necesario ±10s (padding). Prioriza HLS/m3u8 sobre HTTPS para evitar 403. Selecciona audio en el idioma original del vídeo. Usa cookies de Firefox para bypass de bot-detection.</div>
+          <span class="step-model tag-green">yt-dlp binary + Firefox cookies</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow"></div>
+
+    <div class="step">
+      <div class="step-box">
+        <div class="step-num c-red">④</div>
+        <div class="step-content">
+          <div class="step-title">Silence Check — Rechazo de aire muerto</div>
+          <div class="step-desc">ffmpeg <code>silencedetect</code> analiza el segmento. Si más del 40% del clip es silencio ≥-35dB durante ≥1.5s, el clip se rechaza (stream exit, pausa larga). El pipeline pasa al siguiente candidato.</div>
+          <span class="step-model tag-red">ffmpeg silencedetect</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow"></div>
+
+    <div class="step">
+      <div class="step-box">
+        <div class="step-num c-cyan">⑤</div>
+        <div class="step-content">
+          <div class="step-title">Frame Analysis — Cara + Zona activa</div>
+          <div class="step-desc">Muestrea 12 frames del clip. Detecta la cara con Haar Cascade (mediana robusta). Expande al panel webcam cuadrado. Calcula el centroide de movimiento (frame differencing) para saber dónde está el cursor/ratón.</div>
+          <span class="step-model tag-cyan">OpenCV Haar Cascade</span>
+          <span class="step-model tag-cyan">Frame differencing + Gaussian blur</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow"></div>
+
+    <div class="step">
+      <div class="step-box">
+        <div class="step-num c-orange">⑥</div>
+        <div class="step-content">
+          <div class="step-title">Audio Enhancement — Noise reduction</div>
+          <div class="step-desc">Extrae el audio a WAV 44100Hz. Estima el ruido de fondo con los primeros 0.5s. Aplica filtro de Wiener adaptativo en dominio frecuencial (noisereduce). Recombina con el vídeo.</div>
+          <span class="step-model tag-orange">noisereduce v3 (Wiener filter)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow"></div>
+
+    <div class="step">
+      <div class="step-box">
+        <div class="step-num c-blue">⑦</div>
+        <div class="step-content">
+          <div class="step-title">Vertical Conversion — 1080×1920</div>
+          <div class="step-desc">Un único pase ffmpeg hace todo: trim preciso, crop del panel de cara (cuadrado centrado en la cara), crop de pantalla con zoom ~1.6× centrado en el cursor, vstack de ambos paneles. <code>-t {duration}</code> sincroniza audio y vídeo.</div>
+          <span class="step-model tag-blue">ffmpeg filter_complex + libx264 CRF 18</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow"></div>
+
+    <div class="step">
+      <div class="step-box">
+        <div class="step-num c-purple">⑧</div>
+        <div class="step-content">
+          <div class="step-title">Speaker Diarization — Quién habla cuándo</div>
+          <div class="step-desc">Resemblyzer codifica el audio en embeddings de 256D por ventanas de 1.5s. Estima el número de speakers por similitud coseno. Agglomerative clustering → segmentos por locutor → colores estilo OpusClip.</div>
+          <span class="step-model tag-purple">Resemblyzer GE2E (17M params)</span>
+          <span class="step-model tag-purple">AgglomerativeClustering</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow"></div>
+
+    <div class="step">
+      <div class="step-box">
+        <div class="step-num c-green">⑨</div>
+        <div class="step-content">
+          <div class="step-title">Subtítulos TikTok — Word-by-word</div>
+          <div class="step-desc">Whisper transcribe <em>solo el audio del clip</em> (0..duration, sin drift). Genera eventos ASS con 3 palabras por bloque. La palabra activa se colorea (amarillo, caja naranja, o color del speaker). 4 estilos disponibles.</div>
+          <span class="step-model tag-green">Whisper small — clip audio</span>
+          <span class="step-model tag-green">ASS subtitle format</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow"></div>
+
+    <div class="step">
+      <div class="step-box">
+        <div class="step-num c-orange">⑩</div>
+        <div class="step-content">
+          <div class="step-title">Hook Overlay — Texto animado (3s)</div>
+          <div class="step-desc">Quema el hook generado por el LLM sobre los primeros 3 segundos del clip. 5 templates de estilo (caja amarilla, barra oscura, texto dorado...). Fade in/out de 0.3s. Auto-wrap a 28 caracteres por línea.</div>
+          <span class="step-model tag-orange">ffmpeg drawtext</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow"></div>
+
+    <div class="step">
+      <div class="step-box">
+        <div class="step-num c-pink">⑪</div>
+        <div class="step-content">
+          <div class="step-title">B-Roll — Stock footage IA (opcional)</div>
+          <div class="step-desc">El LLM extrae 3 keywords visuales del transcript. Pexels API busca vídeos verticales HD. Se descarga el primero disponible y se compone encima del panel de pantalla entre los segundos 5–9 del clip.</div>
+          <span class="step-model tag-yellow">DeepSeek v3 (keywords)</span>
+          <span class="step-model tag-yellow">Pexels API + ffmpeg overlay</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /pipeline -->
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <h2>② Dos agentes LLM — Detalle</h2>
+
+  <div class="detail-grid">
+    <div class="card">
+      <div class="card-title">Agent 1 · Finder</div>
+      <p style="color:var(--muted);font-size:13px;margin-bottom:12px">Escanea el transcript completo y propone el doble de candidatos necesarios para dar margen al Reviewer.</p>
+      <div class="flow" style="flex-direction:column;align-items:flex-start;gap:6px;">
+        <div class="flow-node c-purple" style="width:100%">📄 Transcript con timestamps</div>
+        <div class="flow-arrow" style="margin-left:16px">↓</div>
+        <div class="flow-node" style="background:#2a1f3c;border-color:#8957e5;width:100%">
+          DeepSeek v3 · temp 0.3<br>
+          <span style="color:var(--muted);font-size:11px">Busca: hooks fuertes, momentos emocionales,<br>insights sorprendentes, arcos narrativos</span>
+        </div>
+        <div class="flow-arrow" style="margin-left:16px">↓</div>
+        <div class="flow-node" style="background:#1a3a2a;border-color:#238636;width:100%">
+          JSON: candidatos con clip_id,<br>start/end, rationale, hook
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Agent 2 · Reviewer</div>
+      <p style="color:var(--muted);font-size:13px;margin-bottom:12px">Evalúa cada candidato con criterios estrictos. Genera el metadata final para publicar.</p>
+      <div style="margin-bottom:12px">
+        <div style="display:flex;gap:4px;align-items:center;margin:6px 0">
+          <span style="width:40px;height:12px;background:#3fb950;border-radius:2px;display:inline-block"></span>
+          <span style="font-size:12px">Score 8–10 → Rank A</span>
+        </div>
+        <div style="display:flex;gap:4px;align-items:center;margin:6px 0">
+          <span style="width:32px;height:12px;background:#d29922;border-radius:2px;display:inline-block"></span>
+          <span style="font-size:12px">Score 7 → Rank B</span>
+        </div>
+        <div style="display:flex;gap:4px;align-items:center;margin:6px 0">
+          <span style="width:20px;height:12px;background:#f85149;border-radius:2px;display:inline-block"></span>
+          <span style="font-size:12px">Score &lt;7 → Rechazado ✗</span>
+        </div>
+      </div>
+      <p style="color:var(--muted);font-size:12px">Output final: título (≤100c), descripción (≤500c + hashtags), tags[], hook refinado, timestamps ajustados ±10s.</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin:12px 0">
+    <div class="card-title">Modos de extracción</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:4px">
+      <div style="text-align:center;padding:12px;background:var(--surface2);border-radius:8px">
+        <div style="font-size:20px;margin-bottom:6px">⚡</div>
+        <div style="font-weight:600;font-size:13px;margin-bottom:4px">shorts</div>
+        <div style="color:var(--muted);font-size:11px">30–90s · hook en 3s · scroll-stopper</div>
+      </div>
+      <div style="text-align:center;padding:12px;background:var(--surface2);border-radius:8px">
+        <div style="font-size:20px;margin-bottom:6px">🎓</div>
+        <div style="font-weight:600;font-size:13px;margin-bottom:4px">standard</div>
+        <div style="color:var(--muted);font-size:11px">2–8min · setup→insight→payoff</div>
+      </div>
+      <div style="text-align:center;padding:12px;background:var(--surface2);border-radius:8px">
+        <div style="font-size:20px;margin-bottom:6px">😂</div>
+        <div style="font-weight:600;font-size:13px;margin-bottom:4px">emotion</div>
+        <div style="color:var(--muted);font-size:11px">30–90s · picos emocionales, reacciones, "aha!"</div>
+      </div>
+      <div style="text-align:center;padding:12px;background:var(--surface2);border-radius:8px">
+        <div style="font-size:20px;margin-bottom:6px">🎯</div>
+        <div style="font-weight:600;font-size:13px;margin-bottom:4px">topic</div>
+        <div style="color:var(--muted);font-size:11px">30–90s · filtro por tema específico</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <h2>④ Silence Check — Visualización</h2>
+
+  <div class="timeline">
+    <div class="tl-row">
+      <div class="tl-label">Audio</div>
+      <div class="tl-bar" style="background:var(--surface)">
+        <div class="tl-audio" style="position:absolute;left:0;right:0;height:100%;background:linear-gradient(90deg, #3fb950 0%, #3fb950 8.3%, #f85149 8.3%, #f85149 13.5%, #3fb950 13.5%, #3fb950 75%, #f85149 75%, #f85149 100%)"></div>
+      </div>
+    </div>
+    <div class="tl-marks">
+      <span>0s</span><span>10s</span><span>20s</span><span>30s</span><span>40s</span><span>50s</span><span>60s</span>
+    </div>
+    <div style="margin-top:12px;font-size:12px;color:var(--muted)">
+      <span style="color:#3fb950">█</span> Habla &nbsp;
+      <span style="color:#f85149">█</span> Silencio (≥-35dB durante ≥1.5s)
+    </div>
+    <div class="threshold">
+      Ejemplo: 5s + 15s = 20s silencio / 60s total = 33.3% → ✅ bajo el umbral del 40%
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <h2>⑤ Frame Analysis — Layout vertical</h2>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start">
+
+    <div>
+      <h3>Detección de cara — Haar Cascade</h3>
+      <div class="card">
+        <div style="font-size:12px;color:var(--muted);line-height:1.8">
+          12 frames muestreados<br>
+          → por frame: <code>detectMultiScale(scale=1.05, minN=3)</code><br>
+          → minSize = 5% del ancho de frame<br>
+          → queda la <strong>detección más grande</strong> (descarta miniaturas)<br>
+          → <strong>mediana</strong> de todas las hits = bounding box robusto<br>
+          → expandir a cuadrado centrado en la cara<br>
+          → clamp: <code>panel_h = min(panel_w, frame_h)</code>
+        </div>
+      </div>
+      <h3 style="margin-top:16px">Detección de actividad</h3>
+      <div class="card">
+        <div style="font-size:12px;color:var(--muted);line-height:1.8">
+          diff[i] = |frame[i+1] − frame[i]|<br>
+          heat = mean(diffs)<br>
+          → Gaussian blur 31×31 (elimina ruido JPEG)<br>
+          → centroide ponderado top 15% de píxeles<br>
+          → <code>cx = Σ(x × heat) / Σ(heat)</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout-diagram">
+      <svg viewBox="0 0 200 355" width="200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto">
+        <!-- frame -->
+        <rect x="10" y="10" width="180" height="335" rx="8" fill="#1c2230" stroke="#30363d" stroke-width="1.5"/>
+
+        <!-- face panel -->
+        <rect x="10" y="10" width="180" height="127" rx="8" fill="#1a3a5c" stroke="#1f6feb" stroke-width="1.5"/>
+        <text x="100" y="55" text-anchor="middle" fill="#79c0ff" font-size="10" font-weight="600">PANEL CARA</text>
+        <text x="100" y="70" text-anchor="middle" fill="#7d8590" font-size="8">38% = 728px</text>
+        <!-- face icon -->
+        <circle cx="100" cy="95" r="18" fill="none" stroke="#79c0ff" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <text x="100" y="99" text-anchor="middle" fill="#79c0ff" font-size="14">👤</text>
+
+        <!-- divider -->
+        <line x1="10" y1="137" x2="190" y2="137" stroke="#30363d" stroke-width="1"/>
+
+        <!-- screen panel -->
+        <rect x="10" y="137" width="180" height="208" rx="0" fill="#1a2f3a" stroke="none"/>
+        <rect x="10" y="318" width="180" height="27" rx="0" fill="#1a2f3a" stroke="#30363d" stroke-width="1.5" rx="8"/>
+        <text x="100" y="165" text-anchor="middle" fill="#76e3ea" font-size="10" font-weight="600">PANEL PANTALLA</text>
+        <text x="100" y="178" text-anchor="middle" fill="#7d8590" font-size="8">62% = 1192px</text>
+
+        <!-- zoom indicator -->
+        <rect x="40" y="190" width="120" height="70" rx="4" fill="none" stroke="#d29922" stroke-width="1.5" stroke-dasharray="4,2"/>
+        <text x="100" y="222" text-anchor="middle" fill="#d29922" font-size="9">~1.6× zoom</text>
+        <text x="100" y="234" text-anchor="middle" fill="#d29922" font-size="8">centrado en cursor</text>
+
+        <!-- cursor icon -->
+        <text x="85" y="270" fill="#f0c674" font-size="16">🖱</text>
+
+        <!-- activity dot -->
+        <circle cx="90" cy="256" r="4" fill="#f0c674" opacity="0.6"/>
+
+        <!-- labels right -->
+        <text x="196" y="75" fill="#1f6feb" font-size="8" text-anchor="start">↕ 728px</text>
+        <text x="196" y="240" fill="#1b7c83" font-size="8" text-anchor="start">↕ 1192px</text>
+
+        <!-- bottom bar -->
+        <text x="100" y="331" text-anchor="middle" fill="#7d8590" font-size="7">overlay canal · subtítulos</text>
+      </svg>
+      <p style="color:var(--muted);font-size:11px;margin-top:12px">Output: 1080×1920 — Split dinámico por clip</p>
+    </div>
+
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <h2>⑧ Speaker Diarization — Resemblyzer</h2>
+
+  <div class="detail-grid">
+    <div class="card">
+      <div class="card-title">Algoritmo</div>
+      <div class="flow" style="flex-direction:column;align-items:flex-start;gap:4px;font-size:12px">
+        <div class="flow-node" style="background:#1a2f3a;border-color:#1b7c83;width:100%">Audio 16kHz mono</div>
+        <div style="margin-left:12px;color:var(--muted)">↓ ventana 1.5s, paso 0.5s</div>
+        <div class="flow-node" style="background:#2a1f3c;border-color:#8957e5;width:100%">VoiceEncoder → embedding 256D</div>
+        <div style="margin-left:12px;color:var(--muted)">↓ similitud coseno media</div>
+        <div class="flow-node" style="background:#1a3a2a;border-color:#238636;width:100%">Estimación de N speakers</div>
+        <div style="margin-left:12px;color:var(--muted)">↓ AgglomerativeClustering</div>
+        <div class="flow-node" style="background:#3a2a1a;border-color:#9e6a03;width:100%">Segmentos → colores OpusClip</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Colores por speaker (idéntico a OpusClip)</div>
+      <div style="margin-top:4px">
+        <div class="speaker-row">
+          <div class="speaker-swatch" style="background:#979BFF"></div>
+          <div><div class="speaker-name">Speaker 1</div><div class="speaker-hex">#979BFF — Púrpura</div></div>
+        </div>
+        <div class="speaker-row">
+          <div class="speaker-swatch" style="background:#FFDA7D"></div>
+          <div><div class="speaker-name">Speaker 2</div><div class="speaker-hex">#FFDA7D — Amarillo dorado</div></div>
+        </div>
+        <div class="speaker-row">
+          <div class="speaker-swatch" style="background:#C3FF7A"></div>
+          <div><div class="speaker-name">Speaker 3</div><div class="speaker-hex">#C3FF7A — Verde lima</div></div>
+        </div>
+        <div class="speaker-row">
+          <div class="speaker-swatch" style="background:#97F8F8"></div>
+          <div><div class="speaker-name">Speaker 4</div><div class="speaker-hex">#97F8F8 — Cyan</div></div>
+        </div>
+        <div class="speaker-row" style="border:none">
+          <div class="speaker-swatch" style="background:#FF759A"></div>
+          <div><div class="speaker-name">Speaker 5</div><div class="speaker-hex">#FF759A — Rosa</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <h2>⑨ Subtítulos — 4 estilos TikTok</h2>
+
+  <div class="sub-preview">
+
+    <div class="sub-card">
+      <div class="sub-label">karaoke (default)</div>
+      <div class="sub-text">
+        <span class="sub-word">cómo </span>
+        <span class="sub-word">modelo </span>
+        <span class="sub-word-active-yellow">esto</span>
+      </div>
+      <div style="font-size:10px;color:#555;margin-top:6px">palabra activa en amarillo</div>
+    </div>
+
+    <div class="sub-card">
+      <div class="sub-label">wordbox</div>
+      <div class="sub-text">
+        <span class="sub-word">cómo </span>
+        <span class="sub-word">modelo </span>
+        <span class="sub-word-active-orange">esto</span>
+      </div>
+      <div style="font-size:10px;color:#555;margin-top:6px">fondo sólido en palabra activa</div>
+    </div>
+
+    <div class="sub-card">
+      <div class="sub-label">clean</div>
+      <div class="sub-text">
+        <span class="sub-word">cómo modelo esto</span>
+      </div>
+      <div style="font-size:10px;color:#555;margin-top:6px">texto blanco, sin highlight</div>
+    </div>
+
+    <div class="sub-card">
+      <div class="sub-label">emoji</div>
+      <div class="sub-text">
+        <span class="sub-word">modelo </span>
+        <span class="sub-word-active-yellow">ia</span>
+        <span class="sub-word"> 🤖</span>
+      </div>
+      <div style="font-size:10px;color:#555;margin-top:6px">karaoke + emoji automático por keyword</div>
+    </div>
+
+  </div>
+
+  <div class="card" style="margin-top:12px">
+    <div class="card-title">Posicionamiento en el frame 1080×1920</div>
+    <div style="font-size:12px;color:var(--muted);font-family:var(--mono);line-height:2">
+      PlayResX: 1080 &nbsp;·&nbsp; PlayResY: 1920 &nbsp;·&nbsp; Alignment: 2 (centrado-abajo)<br>
+      MarginV: <strong style="color:var(--orange)">400px</strong> desde el fondo &nbsp;→&nbsp; y ≈ 1520px<br>
+      Fontsize: 85 &nbsp;·&nbsp; Bold: yes &nbsp;·&nbsp; Outline: 5 &nbsp;·&nbsp; Shadow: 2<br>
+      Palabras por bloque: <strong style="color:var(--orange)">3</strong> (WORDS_PER_PHRASE)
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <h2>⑩ Hook Overlay — 5 templates</h2>
+
+  <div class="hook-grid">
+
+    <div class="hook-preview" style="background:#111">
+      <div class="hook-tag">hook-01</div>
+      <div style="text-align:center;font-size:16px;font-weight:800;color:#fff;text-shadow: 0 0 4px #000, 0 0 4px #000, 0 0 4px #000">
+        ¡IA juega Flappy<br>Bird en mi GPU!
+      </div>
+    </div>
+
+    <div class="hook-preview" style="background:#111">
+      <div class="hook-tag">hook-02</div>
+      <div style="background:#F1C329;padding:8px 12px;border-radius:4px;color:#000;font-size:14px;font-weight:800;text-align:center">
+        ¡IA juega Flappy<br>Bird en mi GPU!
+      </div>
+    </div>
+
+    <div class="hook-preview" style="background:#111;justify-content:flex-start;align-items:flex-start;padding:10px">
+      <div class="hook-tag">hook-03</div>
+      <div style="background:rgba(0,0,0,0.7);color:#fff;font-size:12px;font-weight:800;padding:6px 10px;border-radius:4px;text-transform:uppercase;width:100%;text-align:center;margin-top:22px">
+        ¡IA JUEGA FLAPPY BIRD!
+      </div>
+    </div>
+
+    <div class="hook-preview" style="background:#111">
+      <div class="hook-tag">hook-04</div>
+      <div style="color:#F1C329;font-size:16px;font-weight:800;text-shadow:0 0 6px #000;text-align:center">
+        ¡IA juega Flappy<br>Bird en mi GPU!
+      </div>
+    </div>
+
+    <div class="hook-preview" style="background:#111">
+      <div class="hook-tag">hook-05</div>
+      <div style="background:rgba(0,0,0,0.75);color:#fff;font-size:14px;font-weight:800;padding:8px 14px;border-radius:4px;text-align:center">
+        ¡IA juega Flappy<br>Bird en mi GPU!
+      </div>
+    </div>
+
+  </div>
+  <p style="color:var(--muted);font-size:12px;margin-top:8px">Fade in 0.3s → visible 2.4s → fade out 0.3s. Auto-wrap a 28 caracteres.</p>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <h2>Modelos y servicios — Tabla completa</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Paso</th>
+        <th>Modelo / Servicio</th>
+        <th>Tamaño / Coste</th>
+        <th>Parámetros clave</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Idioma del vídeo</td>
+        <td><span class="badge tag-green">yt-dlp</span> <code>%(language)s</code></td>
+        <td>Gratis</td>
+        <td>Binary en <code>~/.local/bin/</code></td>
+      </tr>
+      <tr>
+        <td>Captions YouTube</td>
+        <td><span class="badge tag-blue">youtube-transcript-api</span> v1</td>
+        <td>Gratis</td>
+        <td>manual &gt; auto, preferred_lang</td>
+      </tr>
+      <tr>
+        <td>Transcripción fallback</td>
+        <td><span class="badge tag-purple">Whisper</span> <code>small</code></td>
+        <td>244M params · GPU recomendada</td>
+        <td><code>word_timestamps=True</code></td>
+      </tr>
+      <tr>
+        <td>Selección clips (Finder)</td>
+        <td><span class="badge tag-purple">DeepSeek v3</span> via Novita.ai</td>
+        <td>~$0.0007/1K tokens</td>
+        <td>temp=0.3, JSON manual</td>
+      </tr>
+      <tr>
+        <td>Scoring/metadata (Reviewer)</td>
+        <td><span class="badge tag-purple">DeepSeek v3</span> via Novita.ai</td>
+        <td>~$0.0007/1K tokens</td>
+        <td>score 1-10, rechaza &lt;7</td>
+      </tr>
+      <tr>
+        <td>Descarga de vídeo</td>
+        <td><span class="badge tag-green">yt-dlp</span> + Firefox cookies</td>
+        <td>Gratis</td>
+        <td>HLS priority, <code>language^={lang}</code></td>
+      </tr>
+      <tr>
+        <td>Detección de silencio</td>
+        <td><span class="badge tag-red">ffmpeg</span> <code>silencedetect</code></td>
+        <td>Gratis</td>
+        <td>-35dB, 1.5s, 40% max</td>
+      </tr>
+      <tr>
+        <td>Detección de cara</td>
+        <td><span class="badge tag-cyan">OpenCV</span> Haar Cascade</td>
+        <td>~930KB XML</td>
+        <td>scale=1.05, minN=3, minSize=5%fw</td>
+      </tr>
+      <tr>
+        <td>Detección cursor/actividad</td>
+        <td><span class="badge tag-cyan">Frame differencing</span> + Gaussian blur</td>
+        <td>CPU, sin modelo</td>
+        <td>kernel 31×31, percentil 85</td>
+      </tr>
+      <tr>
+        <td>Mejora de audio</td>
+        <td><span class="badge tag-orange">noisereduce</span> v3 Wiener filter</td>
+        <td>CPU · sin GPU</td>
+        <td>prop_decrease=0.85, non-stationary</td>
+      </tr>
+      <tr>
+        <td>Conversión vertical</td>
+        <td><span class="badge tag-blue">ffmpeg</span> filter_complex + libx264</td>
+        <td>Gratis</td>
+        <td>CRF=18, 4M bitrate floor, <code>-t duration</code></td>
+      </tr>
+      <tr>
+        <td>Diarización speakers</td>
+        <td><span class="badge tag-purple">Resemblyzer</span> GE2E encoder</td>
+        <td>17M params · CPU</td>
+        <td>256D embeddings, ventana 1.5s</td>
+      </tr>
+      <tr>
+        <td>Clustering speakers</td>
+        <td><span class="badge tag-purple">AgglomerativeClustering</span></td>
+        <td>scikit-learn</td>
+        <td>metric=cosine, linkage=average</td>
+      </tr>
+      <tr>
+        <td>Subtítulos del clip</td>
+        <td><span class="badge tag-purple">Whisper</span> <code>small</code> + ASS</td>
+        <td>244M params · GPU recomendada</td>
+        <td>solo audio del clip (0..duration)</td>
+      </tr>
+      <tr>
+        <td>Hook overlay</td>
+        <td><span class="badge tag-orange">ffmpeg</span> <code>drawtext</code></td>
+        <td>Gratis</td>
+        <td>5 templates, fade 0.3s, 3s duración</td>
+      </tr>
+      <tr>
+        <td>B-roll keywords</td>
+        <td><span class="badge tag-purple">DeepSeek v3</span> via Novita.ai</td>
+        <td>~$0.0002/clip</td>
+        <td>3 keywords visuales del transcript</td>
+      </tr>
+      <tr>
+        <td>B-roll footage</td>
+        <td><span class="badge tag-yellow">Pexels API</span></td>
+        <td>Gratis (200 req/h)</td>
+        <td>orientation=portrait, HD</td>
+      </tr>
+      <tr>
+        <td>Upload YouTube</td>
+        <td><span class="badge tag-green">YouTube Data API v3</span></td>
+        <td>1,600 unidades/upload</td>
+        <td>resumable, 10,000 unidades/día</td>
+      </tr>
+      <tr>
+        <td>Analytics</td>
+        <td><span class="badge tag-green">YouTube Analytics API v2</span></td>
+        <td>Gratis (quota separada)</td>
+        <td>channel, video, traffic, devices</td>
+      </tr>
+      <tr>
+        <td>Scheduling</td>
+        <td><span class="badge tag-green">YouTube Data API v3</span></td>
+        <td>50 unidades/update</td>
+        <td><code>private + publishAt UTC</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <h2>Parámetros tuneables</h2>
+
+  <table>
+    <thead>
+      <tr><th>Constante</th><th>Archivo</th><th>Default</th><th>Qué controla</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="param">PADDING</td><td>video_cutter.py</td><td>10</td><td>Segundos extra descargados a cada lado del clip para trim preciso</td></tr>
+      <tr><td class="param">FACE_RATIO</td><td>video_cutter.py</td><td>0.38</td><td>Fracción de la altura 1920px dedicada al panel de cara (38% = 728px)</td></tr>
+      <tr><td class="param">SILENCE_DB</td><td>video_cutter.py</td><td>-35</td><td>Threshold de volumen para considerar silencio (dB)</td></tr>
+      <tr><td class="param">SILENCE_DUR</td><td>video_cutter.py</td><td>1.5</td><td>Duración mínima de un tramo para contar como silencio (segundos)</td></tr>
+      <tr><td class="param">SILENCE_MAX</td><td>video_cutter.py</td><td>0.40</td><td>Fracción máxima del clip que puede ser silencio antes de rechazarlo</td></tr>
+      <tr><td class="param">WORDS_PER_PHRASE</td><td>subtitle_generator.py</td><td>3</td><td>Palabras mostradas simultáneamente en el bloque de subtítulos</td></tr>
+      <tr><td class="param">MIN_GAP_DAYS</td><td>schedule_clips.py</td><td>2</td><td>Días mínimos de separación entre publicaciones consecutivas</td></tr>
+      <tr><td class="param">PREFERRED_SLOTS</td><td>schedule_clips.py</td><td>Dom/Vie/Jue 14:00</td><td>Slots preferidos de publicación (hora Madrid)</td></tr>
+      <tr><td class="param">whisper model</td><td>video_cutter.py</td><td>"small"</td><td>Modelo Whisper: tiny/base/small/medium/large (precisión vs velocidad)</td></tr>
+      <tr><td class="param">prop_decrease</td><td>audio_enhancer.py</td><td>0.85</td><td>Agresividad del noise reduction (0=nada, 1=máximo)</td></tr>
+      <tr><td class="param">CRF</td><td>video_cutter.py</td><td>18</td><td>Calidad H.264 (18=alta, 23=media, 28=baja)</td></tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:40px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-size:12px;color:var(--muted);text-align:center">
+    Generado automáticamente · <strong style="color:var(--text)">yt-clipper</strong> · 
+    Ver código fuente en <code>src/</code> · 
+    Actualizar con <code>python docs/generate_docs.py</code>
+  </div>
+
+</div><!-- /container -->
+</body>
+</html>

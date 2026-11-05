@@ -1,0 +1,21 @@
+{
+  "channel_handle": "@TheLearningCurveAI",
+  "channel_niche": "IA · LLMs · Agentes",
+
+  "accent_color":     "#FF6719",
+  "bg_color":         "#FAFAF9",
+  "grid_color":       "#E8E4DC",
+  "grid_size":        54,
+  "text_color":       "#1C1B1F",
+  "card_text_color":  "#FFFFFF",
+
+  "font_bold":    "assets/fonts/InterDisplay-Bold.ttf",
+  "font_regular": "assets/fonts/Inter-Medium.ttf",
+
+  "tts_voice":        "es-ES-Neural2-B",
+  "tts_rate":         "+0%",
+  "default_privacy":  "unlisted",
+  "tiktok_enabled":   false,
+  "youtube_channel_url": "https://www.youtube.com/@TheLearningCurveAI",
+  "logo_path": "assets/logos/tlc_logo.png"
+}

@@ -1,0 +1,15 @@
+# Python
+.env
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ruff_cache/
+
+# Generated at runtime — prewarm backchannel clips
+server/.clip_cache/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/

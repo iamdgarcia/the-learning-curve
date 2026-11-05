@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Quiz S4 — AI Architect | The Learning Curve</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<style>
+@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior-x:none;}}
+::-webkit-scrollbar{width:6px;background:transparent;}
+::-webkit-scrollbar-thumb{background:#e2bfb0;border-radius:3px;}
+.opt-btn{transition:background .15s,border-color .15s,color .15s;}
+.opt-btn:disabled{cursor:default;}
+</style>
+<script src="https://cdn.tailwindcss.com"></script>
+<script id="tailwind-config">
+tailwind.config={darkMode:"class",theme:{extend:{colors:{"background":"#f9f9fc","on-secondary-fixed-variant":"#43455b","surface-dim":"#d9dadc","on-error-container":"#93000a","surface-container-high":"#e8e8ea","on-secondary-container":"#5f6178","on-primary-fixed":"#351000","outline-variant":"#e2bfb0","surface-container":"#eeeef0","inverse-primary":"#ffb693","on-primary":"#ffffff","secondary-container":"#ddddf9","on-secondary-fixed":"#181a2e","surface-container-lowest":"#ffffff","primary":"#a04100","on-tertiary-fixed":"#2a1800","tertiary-fixed":"#ffddb6","on-background":"#1a1c1e","primary-container":"#ff6b00","surface-container-low":"#f3f3f6","secondary-fixed":"#e0e0fc","tertiary-fixed-dim":"#ffb95a","surface-tint":"#a04100","primary-fixed-dim":"#ffb693","surface-bright":"#f9f9fc","primary-fixed":"#ffdbcc","on-tertiary":"#ffffff","on-tertiary-container":"#472b00","on-surface":"#1a1c1e","tertiary-container":"#d08b1f","error-container":"#ffdad6","on-secondary":"#ffffff","surface-container-highest":"#e2e2e5","inverse-surface":"#2f3133","on-surface-variant":"#5a4136","inverse-on-surface":"#f0f0f3","on-tertiary-fixed-variant":"#643f00","tertiary":"#845400","surface":"#f9f9fc","on-primary-container":"#572000","on-error":"#ffffff","error":"#ba1a1a","secondary-fixed-dim":"#c4c4df","outline":"#8e7164","surface-variant":"#e2e2e5","on-primary-fixed-variant":"#7a3000","secondary":"#5b5d74"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"gutter":"1.5rem","gutter-mobile":"0.75rem","space-xl":"2.5rem","margin-mobile":"1rem","space-xs":"0.25rem","space-md":"1rem","space-sm":"0.5rem","space-lg":"1.5rem","margin":"2.5rem"},fontFamily:{"display-hero-mobile":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"headline-lg-mobile":["Plus Jakarta Sans"],"title-md":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"label-lg":["Plus Jakarta Sans"],"display-hero":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"]},fontSize:{"display-hero-mobile":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"800"}],"headline-lg":["40px",{"lineHeight":"48px","letterSpacing":"-0.025em","fontWeight":"700"}],"headline-lg-mobile":["28px",{"lineHeight":"36px","letterSpacing":"-0.02em","fontWeight":"700"}],"title-md":["18px",{"lineHeight":"26px","fontWeight":"600"}],"headline-sm":["22px",{"lineHeight":"30px","fontWeight":"600"}],"label-lg":["14px",{"lineHeight":"18px","letterSpacing":"0.04em","fontWeight":"700"}],"display-hero":["56px",{"lineHeight":"64px","letterSpacing":"-0.03em","fontWeight":"800"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.05em","fontWeight":"600"}],"body-md":["15px",{"lineHeight":"24px","fontWeight":"400"}],"headline-md":["28px",{"lineHeight":"36px","letterSpacing":"-0.015em","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.06em","fontWeight":"600"}],"body-sm":["13px",{"lineHeight":"20px","fontWeight":"400"}]}}}}
+</script>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen flex flex-col">
+
+<!-- Header fijo -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface/95 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.06)]">
+  <div class="w-full max-w-4xl mx-auto px-gutter h-16 flex items-center justify-between">
+    <div class="flex items-center gap-space-md">
+      <div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-on-primary shadow-sm">
+        <span class="material-symbols-outlined text-[18px]">auto_stories</span>
+      </div>
+      <div class="flex items-center gap-space-sm">
+        <span class="font-bold text-[15px] tracking-tight text-on-surface">The Learning Curve</span>
+        <span class="hidden sm:block h-4 w-px bg-surface-container-high"></span>
+        <span class="hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant text-[11px] font-bold uppercase tracking-wider">S4 · AI Architect</span>
+      </div>
+    </div>
+    <!-- Score counter -->
+    <div class="flex items-center gap-space-sm">
+      <div class="flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded-xl">
+        <span class="material-symbols-outlined text-[18px] text-primary-container">emoji_events</span>
+        <span class="text-[13px] font-semibold text-on-surface-variant">Puntos:</span>
+        <span id="score-display" class="text-[15px] font-extrabold text-primary-container">0</span>
+        <span class="text-[13px] text-on-surface-variant font-semibold">/ 8</span>
+      </div>
+      <div id="progress-pills" class="hidden sm:flex items-center gap-1"></div>
+    </div>
+  </div>
+  <!-- Progress bar -->
+  <div class="w-full h-0.5 bg-surface-container-high">
+    <div id="progress-bar" class="h-full bg-primary-container transition-all duration-500" style="width:0%"></div>
+  </div>
+</header>
+
+<!-- Main content -->
+<main class="flex-1 pt-20 pb-16 px-gutter-mobile md:px-gutter">
+  <div class="max-w-4xl mx-auto">
+
+    <!-- Intro -->
+    <div class="mb-8 pt-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-fixed text-primary text-[11px] font-bold uppercase tracking-wider mb-3">
+        <span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>
+        Cuestionario de arquitectura
+      </div>
+      <h1 class="text-[28px] font-extrabold tracking-tight text-on-surface mb-1">S4 — AI Architect</h1>
+      <p class="text-[15px] text-on-surface-variant">8 decisiones de diseño. Una por lección. Nivel senior: no memorizar definiciones, sino elegir correctamente en un escenario real.</p>
+    </div>
+
+    <!-- Questions container -->
+    <div id="questions-container" class="flex flex-col gap-5"></div>
+
+    <!-- Result banner (hidden until all answered) -->
+    <div id="result-banner" class="hidden mt-8 rounded-2xl bg-surface-container-lowest border border-outline-variant p-6 text-center shadow-sm">
+      <div id="result-icon" class="w-14 h-14 rounded-full mx-auto mb-3 flex items-center justify-center">
+        <span id="result-icon-sym" class="material-symbols-outlined text-[32px]"></span>
+      </div>
+      <div id="result-title" class="text-[22px] font-extrabold text-on-surface mb-1"></div>
+      <div id="result-subtitle" class="text-[15px] text-on-surface-variant mb-5"></div>
+      <button onclick="resetQuiz()" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary-container text-on-primary font-bold text-[14px] hover:opacity-90 transition-opacity shadow-sm">
+        <span class="material-symbols-outlined text-[18px]">refresh</span>
+        Reintentar
+      </button>
+    </div>
+
+  </div>
+</main>
+
+<script>
+const questions = [
+  {
+    lesson: "4.1 — Graph Engineering",
+    q: "Tu pipeline actual ejecuta 5 pasos siempre en secuencia. Los pasos 2 y 3 son independientes entre sí y cada uno tarda ~3 segundos. ¿Qué ventaja inmediata aporta modelarlo como grafo?",
+    options: [
+      "El código resulta más legible y fácil de mantener.",
+      "Los pasos 2 y 3 pueden ejecutarse en paralelo: el tiempo total pasa de t1+t2+t3+t4+t5 a t1+max(t2,t3)+t4+t5.",
+      "El grafo permite reintentar pasos individuales sin repetir los anteriores.",
+      "El grafo es más fácil de testear unitariamente que el pipeline secuencial."
+    ],
+    correct: 1,
+    explanation: "La ventaja estructural del grafo es el paralelismo implícito: dos nodos sin dependencia entre sí se ejecutan a la vez. Con t2=t3=3s, el pipeline secuencial paga 6s; el grafo paga 3s. Las otras opciones son beneficios reales pero secundarios o también aplicables a pipelines."
+  },
+  {
+    lesson: "4.2 — Dependency Graphs",
+    q: "Estás construyendo el grafo de dependencias de un sistema de informes. 'Redacción' depende de 'Análisis', y 'Análisis' depende de 'Búsqueda'. Añades por error una arista de 'Redacción' de vuelta a 'Búsqueda'. ¿Qué problema acabas de introducir?",
+    options: [
+      "Un camino más largo pero topológicamente válido.",
+      "Un ciclo que convierte el DAG en un grafo cíclico: ya no existe un orden de ejecución definido.",
+      "Un nodo con demasiadas dependencias de entrada, lo que crea un bottleneck.",
+      "Ninguno: los ciclos permiten modelar iteración y refinamiento progresivo."
+    ],
+    correct: 1,
+    explanation: "Un DAG (Directed Acyclic Graph) prohíbe ciclos por definición. Un ciclo significa que el nodo A depende (directa o indirectamente) de sí mismo, lo que hace imposible determinar el orden topológico de ejecución. Los ciclos son un error de diseño, no un patrón de iteración."
+  },
+  {
+    lesson: "4.3 — Execution Graphs",
+    q: "En runtime, un nodo de tu grafo falla. El sistema debe decidir qué hacer. ¿Cuál es la política correcta?",
+    options: [
+      "Siempre reintentar 3 veces con backoff exponencial antes de abortar.",
+      "Clasificar el fallo: timeout → retry con backoff; output inválido → nodo fallback; error fatal (auth, OOM) → abort y notificación.",
+      "Abortar siempre en el primer fallo: cualquier error en producción debe investigarse antes de continuar.",
+      "Reintentar indefinidamente con delays crecientes hasta recuperar el servicio."
+    ],
+    correct: 1,
+    explanation: "El tipo de fallo determina la estrategia. Los timeouts son retriables (el servicio puede recuperarse). Los outputs inválidos no se resuelven reintentando; necesitan un path alternativo. Los errores fatales deben abortar inmediatamente para no consumir recursos ni enmascarar el problema."
+  },
+  {
+    lesson: "4.4 — Workflow Design",
+    q: "Diseñas un agente de soporte al cliente con 6 herramientas predefinidas. El LLM decide en cada turno cuál usar. ¿En qué nivel del espectro determinista-dinámico estás, y por qué es la zona de producción robusta?",
+    options: [
+      "Nivel 1 (pipeline determinista): el flujo está codificado y el LLM solo genera texto.",
+      "Nivel 2 (LLM elige entre herramientas finitas): el espacio de acción está acotado y es completamente auditable.",
+      "Nivel 4 (LLM genera nuevos pasos en runtime): el agente puede crear herramientas ad-hoc.",
+      "Nivel 5 (control recursivo): el LLM gestiona el sistema de forma autónoma y recursiva."
+    ],
+    correct: 1,
+    explanation: "Nivel 2: el LLM toma decisiones (qué herramienta usar) pero dentro de un conjunto finito y predefinido. Esto da flexibilidad al sistema sin sacrificar auditabilidad: cada acción posible está catalogada, los logs son interpretables y el comportamiento es predecible dentro de los bounds del tool set."
+  },
+  {
+    lesson: "4.5 — Task Decomposition",
+    q: "Tienes que descomponer 'analizar la competencia de nuestra empresa' para un sistema multi-agente. ¿Cuál es la granularidad correcta de las subtareas?",
+    options: [
+      "Una sola tarea: 'hacer el análisis completo' delegada a un agente general con acceso a internet.",
+      "100 microtareas: una por cada empresa competidora potencial del mercado.",
+      "4-6 subtareas con outputs concretos: identificar competidores, analizar producto por competidor, comparar pricing, sintetizar hallazgos.",
+      "Descomponer hasta que cada subtarea sea exactamente una llamada a API o una búsqueda web."
+    ],
+    correct: 2,
+    explanation: "El criterio correcto: cada subtarea debe tener un output concreto y verificable, puede asignarse a un agente especializado, y no es tan pequeña que el overhead de coordinación supere el valor. Una tarea única es inauditable; cientos de microtareas generan overhead de orquestación que supera el valor del paralelismo."
+  },
+  {
+    lesson: "4.6 — Concurrencia",
+    q: "Tu sistema necesita analizar un documento desde tres perspectivas distintas usando tres llamadas a LLMs independientes entre sí. ¿Cómo las ejecutas en Python?",
+    options: [
+      "Secuencialmente: más simple de depurar cuando algo falla.",
+      "Con asyncio.gather(): las tres llamadas corren en paralelo y el tiempo total es max(t1,t2,t3).",
+      "Con threading.Thread(): los threads son más adecuados para operaciones I/O-bound.",
+      "En paralelo solo si cada llamada individual tarda más de 5 segundos; si no, el overhead no vale la pena."
+    ],
+    correct: 1,
+    explanation: "Las llamadas a APIs de LLM son I/O-bound: el proceso espera la respuesta de red. asyncio.gather() ejecuta todas las coroutines en el mismo event loop sin crear threads, lo que es eficiente para I/O-bound. La latencia total es max(t1,t2,t3) en lugar de t1+t2+t3. El argumento 'solo si >5s' es incorrecto: la ganancia es proporcional a las duraciones individuales, no tiene umbral."
+  },
+  {
+    lesson: "4.7 — Distributed Context",
+    q: "Dos agentes paralelos leen el campo 'items_procesados' del estado compartido, lo incrementan en +1, y lo escriben de vuelta. Ambos leen el valor 10 simultáneamente. ¿Qué valor queda escrito y cómo lo evitas?",
+    options: [
+      "Se escribe 12: los dos incrementos se aplican correctamente porque el runtime los serializa.",
+      "Se escribe 11: el segundo write sobreescribe el del primero. Mitigación: lock explícito o estado append-only con merge posterior.",
+      "Se escribe 10: los writes concurrentes se cancelan entre sí para preservar consistencia.",
+      "El problema no existe si los agentes usan variables locales en lugar de estado compartido."
+    ],
+    correct: 1,
+    explanation: "Race condition clásica: ambos leen 10, ambos calculan 11, el segundo write sobreescribe el primero → resultado 11 en lugar de 12. Las mitigaciones son: lock (simple, crea bottleneck), append-only log con merge (escalable), o particionar el estado por agente (elimina la compartición). Usar variables locales no ayuda si el estado compartido existe."
+  },
+  {
+    lesson: "4.8 — Diseñar para el fallo",
+    q: "Tu agente depende de un proveedor externo de LLM que ha sufrido 3 outages de 5-15 minutos en los últimos 7 días. ¿Qué patrón implementas para que los outages no tumben tu servicio?",
+    options: [
+      "Retry con backoff exponencial: hasta 3 reintentos antes de devolver error al usuario.",
+      "Circuit breaker: tras N fallos consecutivos, abre el circuito, usa proveedor alternativo durante T tiempo, y sondea periódicamente si el original se recuperó.",
+      "Devolver error 503 al usuario en el primer fallo: los outages deben ser visibles para gestión.",
+      "Reintentar indefinidamente en background y encolar la request del usuario hasta que el servicio vuelva."
+    ],
+    correct: 1,
+    explanation: "El retry no ayuda durante un outage: si el proveedor está caído, los reintentos solo añaden latencia antes del error inevitable. El circuit breaker 'abre' tras detectar el patrón de fallos, evita llamadas que sabemos que van a fallar, activa un fallback funcional, y 'cierra' gradualmente cuando detecta recuperación. Es el patrón estándar para dependencias externas poco fiables."
+  }
+];
+
+let answered = new Array(questions.length).fill(false);
+let score = 0;
+
+function renderQuestions() {
+  const container = document.getElementById('questions-container');
+  const pills = document.getElementById('progress-pills');
+  pills.innerHTML = '';
+
+  questions.forEach((q, i) => {
+    // Progress pill
+    const pill = document.createElement('div');
+    pill.id = 'pill-' + i;
+    pill.className = 'w-2 h-2 rounded-full bg-surface-container-high transition-colors duration-300';
+    pills.appendChild(pill);
+
+    // Question card
+    const card = document.createElement('div');
+    card.id = 'card-' + i;
+    card.className = 'bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm overflow-hidden';
+
+    // Build options HTML
+    const optsHtml = q.options.map((opt, oi) => `
+      <button
+        class="opt-btn w-full text-left px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-[14px] font-semibold text-on-surface hover:bg-surface-container hover:border-outline transition-all"
+        onclick="answer(${i}, ${oi})"
+        id="opt-${i}-${oi}"
+      >${String.fromCharCode(65+oi)}. ${opt}</button>
+    `).join('');
+
+    card.innerHTML = `
+      <div class="p-5 md:p-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant text-[11px] font-bold uppercase tracking-wider">${q.lesson}</span>
+          <span id="badge-${i}" class="hidden items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider"></span>
+        </div>
+        <p class="text-[16px] font-bold text-on-surface mb-4 leading-snug">${q.q}</p>
+        <div class="flex flex-col gap-2">${optsHtml}</div>
+        <div id="explanation-${i}" class="hidden mt-4 flex items-start gap-2.5 px-4 py-3 rounded-xl bg-surface-container-low border-l-4 border-primary-container">
+          <span class="material-symbols-outlined text-[18px] text-primary-container shrink-0 mt-0.5">lightbulb</span>
+          <p class="text-[13px] text-on-surface-variant leading-relaxed"></p>
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function answer(qi, oi) {
+  if (answered[qi]) return;
+  answered[qi] = true;
+
+  const q = questions[qi];
+  const isCorrect = oi === q.correct;
+  if (isCorrect) score++;
+
+  // Update score display
+  document.getElementById('score-display').textContent = score;
+
+  // Style all options
+  for (let i = 0; i < q.options.length; i++) {
+    const btn = document.getElementById('opt-' + qi + '-' + i);
+    btn.disabled = true;
+    btn.classList.remove('hover:bg-surface-container', 'hover:border-outline');
+    if (i === q.correct) {
+      btn.className = 'opt-btn w-full text-left px-4 py-3 rounded-xl border-2 border-primary-container bg-primary-fixed text-on-surface text-[14px] font-semibold transition-all';
+      btn.innerHTML = '<span class="inline-flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-primary-container">check_circle</span>' + String.fromCharCode(65+i) + '. ' + q.options[i] + '</span>';
+    } else if (i === oi && !isCorrect) {
+      btn.className = 'opt-btn w-full text-left px-4 py-3 rounded-xl border border-error bg-error-container text-on-surface text-[14px] font-semibold transition-all opacity-80';
+    } else {
+      btn.className = 'opt-btn w-full text-left px-4 py-3 rounded-xl border border-surface-container-high bg-surface-container text-on-surface-variant text-[14px] font-semibold transition-all opacity-50';
+    }
+  }
+
+  // Show explanation
+  const expDiv = document.getElementById('explanation-' + qi);
+  expDiv.classList.remove('hidden');
+  expDiv.classList.add('flex');
+  expDiv.querySelector('p').textContent = q.explanation;
+
+  // Result badge
+  const badge = document.getElementById('badge-' + qi);
+  badge.classList.remove('hidden');
+  badge.classList.add('inline-flex');
+  if (isCorrect) {
+    badge.className = 'inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary-fixed text-primary text-[11px] font-bold uppercase tracking-wider';
+    badge.innerHTML = '<span class="material-symbols-outlined text-[12px]">check</span> Correcto';
+  } else {
+    badge.className = 'inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-error-container text-error text-[11px] font-bold uppercase tracking-wider';
+    badge.innerHTML = '<span class="material-symbols-outlined text-[12px]">close</span> Incorrecto';
+  }
+
+  // Progress pill
+  const pill = document.getElementById('pill-' + qi);
+  pill.className = 'w-2 h-2 rounded-full transition-colors duration-300 ' + (isCorrect ? 'bg-primary-container' : 'bg-error');
+
+  // Update progress bar
+  const answeredCount = answered.filter(Boolean).length;
+  document.getElementById('progress-bar').style.width = (answeredCount / questions.length * 100) + '%';
+
+  // Check if all answered
+  if (answeredCount === questions.length) {
+    setTimeout(showResult, 400);
+  }
+}
+
+function showResult() {
+  const banner = document.getElementById('result-banner');
+  banner.classList.remove('hidden');
+  const pct = score / questions.length;
+  const iconEl = document.getElementById('result-icon');
+  const iconSym = document.getElementById('result-icon-sym');
+  const title = document.getElementById('result-title');
+  const subtitle = document.getElementById('result-subtitle');
+
+  if (pct >= 0.875) {
+    iconEl.className = 'w-14 h-14 rounded-full mx-auto mb-3 flex items-center justify-center bg-primary-fixed';
+    iconSym.className = 'material-symbols-outlined text-[32px] text-primary-container';
+    iconSym.textContent = 'workspace_premium';
+    title.textContent = score + ' / 8 — Arquitecto de producción';
+    subtitle.textContent = 'Dominas las decisiones de diseño de sistemas multi-agente. Listo para el siguiente semestre.';
+  } else if (pct >= 0.625) {
+    iconEl.className = 'w-14 h-14 rounded-full mx-auto mb-3 flex items-center justify-center bg-surface-container';
+    iconSym.className = 'material-symbols-outlined text-[32px] text-tertiary-container';
+    iconSym.textContent = 'trending_up';
+    title.textContent = score + ' / 8 — Buen progreso';
+    subtitle.textContent = 'Tienes las bases. Repasa las lecciones de los fallos y vuelve a intentarlo.';
+  } else {
+    iconEl.className = 'w-14 h-14 rounded-full mx-auto mb-3 flex items-center justify-center bg-error-container';
+    iconSym.className = 'material-symbols-outlined text-[32px] text-error';
+    iconSym.textContent = 'replay';
+    title.textContent = score + ' / 8 — Repasa el semestre';
+    subtitle.textContent = 'Los conceptos de grafos y fallos en sistemas distribuidos necesitan más trabajo. Sin prisa.';
+  }
+
+  banner.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetQuiz() {
+  answered = new Array(questions.length).fill(false);
+  score = 0;
+  document.getElementById('score-display').textContent = '0';
+  document.getElementById('progress-bar').style.width = '0%';
+  document.getElementById('result-banner').classList.add('hidden');
+  document.getElementById('questions-container').innerHTML = '';
+  renderQuestions();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+renderQuestions();
+</script>
+</body>
+</html>

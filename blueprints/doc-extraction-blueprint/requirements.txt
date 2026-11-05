@@ -1,0 +1,4 @@
+fastapi
+mangum
+uvicorn[standard]
+python-multipart

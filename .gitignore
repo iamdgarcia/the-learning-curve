@@ -1,6 +1,20 @@
 # Agent working context — never commit
 agents.md
 
+# Local production content — never publish
+content/
+conversational-demo-pipecat/
+
+# Raw video recordings and edits
+**/video/
+
+# Video production slides (not code/course content)
+*/slides/
+
+# Thumbnails y assets de producción local
+thumbnail.png
+youtube-upload.json
+
 # Python
 __pycache__/
 *.py[cod]

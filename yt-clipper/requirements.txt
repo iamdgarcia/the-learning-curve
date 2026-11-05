@@ -1,0 +1,32 @@
+# ── LLM / API ────────────────────────────────────────────────────────────────
+openai>=1.54.0                    # OpenAI-compatible client (Novita, OpenAI)
+pydantic>=2.9.0
+pydantic-settings>=2.6.0
+
+# ── YouTube ───────────────────────────────────────────────────────────────────
+youtube-transcript-api>=1.0.0     # Fetch YT captions (v1.x API — instance-based)
+google-api-python-client>=2.150.0 # YouTube Data API v3 + Analytics API v2
+google-auth-oauthlib>=1.2.0       # OAuth 2.0 flow
+google-auth-httplib2>=0.2.0
+
+# ── Video download ────────────────────────────────────────────────────────────
+# NOTE: install the BINARY too — pip version is outdated and gets 403s:
+#   curl -sL https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp \
+#     -o ~/.local/bin/yt-dlp && chmod +x ~/.local/bin/yt-dlp
+yt-dlp>=2024.11.0
+
+# ── Speech / audio ────────────────────────────────────────────────────────────
+openai-whisper>=20240930           # Local Whisper (GPU recommended, CUDA)
+noisereduce>=3.0.0                 # Audio noise reduction
+soundfile>=0.12.0                  # WAV I/O for noisereduce
+librosa>=0.10.0                    # Audio loading for resemblyzer
+
+# ── Computer vision ───────────────────────────────────────────────────────────
+opencv-python-headless>=4.8.0     # Face detection (Haar cascade)
+resemblyzer>=0.1.4                 # Speaker diarization (voice embeddings)
+
+# ── B-roll (optional) ─────────────────────────────────────────────────────────
+python-pexels>=1.1                 # Pexels stock footage API
+
+# ── Utilities ────────────────────────────────────────────────────────────────
+python-dotenv>=1.0.0

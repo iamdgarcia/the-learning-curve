@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_standard" name="shell-type"/>
+<title>The Learning Curve | S4 · Descomponer bien: la habilidad que separa al AI Architect</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style>
+<script src="https://cdn.tailwindcss.com"></script>
+<script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"background":"#f9f9fc","on-secondary-fixed-variant":"#43455b","surface-dim":"#d9dadc","on-error-container":"#93000a","surface-container-high":"#e8e8ea","on-secondary-container":"#5f6178","on-primary-fixed":"#351000","outline-variant":"#e2bfb0","surface-container":"#eeeef0","inverse-primary":"#ffb693","on-primary":"#ffffff","secondary-container":"#ddddf9","on-secondary-fixed":"#181a2e","surface-container-lowest":"#ffffff","primary":"#a04100","on-tertiary-fixed":"#2a1800","tertiary-fixed":"#ffddb6","on-background":"#1a1c1e","primary-container":"#ff6b00","surface-container-low":"#f3f3f6","secondary-fixed":"#e0e0fc","tertiary-fixed-dim":"#ffb95a","surface-tint":"#a04100","primary-fixed-dim":"#ffb693","surface-bright":"#f9f9fc","primary-fixed":"#ffdbcc","on-tertiary":"#ffffff","on-tertiary-container":"#472b00","on-surface":"#1a1c1e","tertiary-container":"#d08b1f","error-container":"#ffdad6","on-secondary":"#ffffff","surface-container-highest":"#e2e2e5","inverse-surface":"#2f3133","on-surface-variant":"#5a4136","inverse-on-surface":"#f0f0f3","on-tertiary-fixed-variant":"#643f00","tertiary":"#845400","surface":"#f9f9fc","on-primary-container":"#572000","on-error":"#ffffff","error":"#ba1a1a","secondary-fixed-dim":"#c4c4df","outline":"#8e7164","surface-variant":"#e2e2e5","on-primary-fixed-variant":"#7a3000","secondary":"#5b5d74"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"gutter":"1.5rem","gutter-mobile":"0.75rem","space-xl":"2.5rem","margin-mobile":"1rem","space-xs":"0.25rem","space-md":"1rem","space-sm":"0.5rem","space-lg":"1.5rem","margin":"2.5rem"},fontFamily:{"display-hero-mobile":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"headline-lg-mobile":["Plus Jakarta Sans"],"title-md":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"label-lg":["Plus Jakarta Sans"],"display-hero":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"]},fontSize:{"display-hero-mobile":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"800"}],"headline-lg":["40px",{"lineHeight":"48px","letterSpacing":"-0.025em","fontWeight":"700"}],"headline-lg-mobile":["28px",{"lineHeight":"36px","letterSpacing":"-0.02em","fontWeight":"700"}],"title-md":["18px",{"lineHeight":"26px","fontWeight":"600"}],"headline-sm":["22px",{"lineHeight":"30px","fontWeight":"600"}],"label-lg":["14px",{"lineHeight":"18px","letterSpacing":"0.04em","fontWeight":"700"}],"display-hero":["56px",{"lineHeight":"64px","letterSpacing":"-0.03em","fontWeight":"800"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.05em","fontWeight":"600"}],"body-md":["15px",{"lineHeight":"24px","fontWeight":"400"}],"headline-md":["28px",{"lineHeight":"36px","letterSpacing":"-0.015em","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.06em","fontWeight":"600"}],"body-sm":["13px",{"lineHeight":"20px","fontWeight":"400"}]}}}}</script>
+</head>
+<body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen flex flex-col justify-between selection:bg-primary-fixed selection:text-on-primary-fixed">
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+  <div class="w-full h-16 px-gutter flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="flex items-center gap-space-sm">
+        <div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-on-primary shadow-sm">
+          <span class="material-symbols-outlined text-[20px]">auto_stories</span>
+        </div>
+        <span class="font-bold tracking-tight text-on-surface text-[15px]">The Learning Curve</span>
+      </div>
+      <div class="hidden md:block h-5 w-[1px] bg-surface-container-high"></div>
+      <div class="hidden md:flex items-center gap-space-sm">
+        <span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm uppercase tracking-wider font-bold">SEMESTRE 4</span>
+        <span class="text-body-md text-on-surface-variant font-semibold">AI Architect</span>
+      </div>
+    </div>
+    <div class="flex items-center gap-space-sm">
+      <div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary text-[13px] font-bold shadow-sm">IA</div>
+    </div>
+  </div>
+  <div class="w-full h-1 bg-surface-container-high">
+    <div class="h-full bg-primary-container transition-all duration-300" style="width:0%"></div>
+  </div>
+</header>
+
+<main class="w-full pt-16 bg-surface flex-1 flex flex-col justify-center items-center px-4 md:px-6 py-3">
+  <div class="w-full max-w-[1200px] mx-auto flex flex-col items-center justify-center flex-1">
+    <div class="relative w-full aspect-video bg-surface-container-lowest rounded-xl shadow-xl overflow-hidden flex flex-col p-5">
+      <div class="absolute -right-20 -top-20 w-72 h-72 rounded-full bg-primary-fixed/20 blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-16 -bottom-16 w-56 h-56 rounded-full bg-secondary-fixed/15 blur-3xl pointer-events-none"></div>
+      <div class="relative z-10 shrink-0 flex items-start justify-between mb-2">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-primary font-label-sm text-label-sm uppercase tracking-wider font-bold inline-flex items-center gap-1 shadow-sm">
+              <span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse inline-block"></span>
+              S4 · LECCIÓN 4.5
+            </span>
+          </div>
+          <h1 class="font-bold text-on-surface text-[17px] leading-tight tracking-tight">Descomponer bien: la habilidad que separa al AI Architect</h1>
+          <p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Árbol de descomposición — Análisis competitivo de mercado</p>
+        </div>
+      </div>
+      <div class="relative z-10 flex-1 min-h-0 overflow-hidden">
+        <div class="h-full flex gap-3">
+    <div class="flex-[3] min-h-0 flex flex-col items-center justify-center gap-1">
+      <div class="px-4 py-1.5 rounded-lg bg-primary-container text-on-primary font-bold text-[11px] shadow-md">Generar análisis competitivo de mercado X</div>
+      <div class="flex gap-8">
+        <span class="material-symbols-outlined text-primary text-[13px]">arrow_downward</span>
+        <span class="material-symbols-outlined text-primary text-[13px]">arrow_downward</span>
+        <span class="material-symbols-outlined text-primary text-[13px]">arrow_downward</span>
+      </div>
+      <div class="flex gap-2 items-start">
+        <div class="flex flex-col items-center gap-1">
+          <div class="px-2.5 py-1 rounded-lg bg-secondary-fixed text-secondary font-bold text-[10px]">1. Recolección</div>
+          <span class="material-symbols-outlined text-primary text-[12px]">arrow_downward</span>
+          <div class="flex flex-col gap-1">
+            <div class="bg-surface-container rounded p-1.5 max-w-[130px]"><p class="font-bold text-[9px] text-on-surface">Extraer menciones</p><p class="text-[8px] text-on-surface-variant">IN: fuentes → OUT: JSON menciones</p></div>
+            <div class="bg-surface-container rounded p-1.5 max-w-[130px]"><p class="font-bold text-[9px] text-on-surface">Obtener precios</p><p class="text-[8px] text-on-surface-variant">IN: URLs → OUT: tabla precio-fecha</p></div>
+          </div>
+        </div>
+        <div class="flex flex-col items-center gap-1">
+          <div class="px-2.5 py-1 rounded-lg bg-secondary-fixed text-secondary font-bold text-[10px]">2. Análisis</div>
+          <span class="material-symbols-outlined text-primary text-[12px]">arrow_downward</span>
+          <div class="flex flex-col gap-1">
+            <div class="bg-surface-container rounded p-1.5 max-w-[130px]"><p class="font-bold text-[9px] text-on-surface">Comparar posicionamiento</p><p class="text-[8px] text-on-surface-variant">IN: precios → OUT: matriz 2×2</p></div>
+            <div class="bg-surface-container rounded p-1.5 max-w-[130px]"><p class="font-bold text-[9px] text-on-surface">Identificar gaps</p><p class="text-[8px] text-on-surface-variant">IN: matriz → OUT: lista gaps</p></div>
+          </div>
+        </div>
+        <div class="flex flex-col items-center gap-1">
+          <div class="px-2.5 py-1 rounded-lg bg-secondary-fixed text-secondary font-bold text-[10px]">3. Síntesis</div>
+          <span class="material-symbols-outlined text-primary text-[12px]">arrow_downward</span>
+          <div class="flex flex-col gap-1">
+            <div class="bg-surface-container rounded p-1.5 max-w-[130px]"><p class="font-bold text-[9px] text-on-surface">Redactar resumen</p><p class="text-[8px] text-on-surface-variant">IN: gaps+matriz → OUT: 200-300 palabras</p></div>
+            <div class="bg-surface-container rounded p-1.5 max-w-[130px]"><p class="font-bold text-[9px] text-on-surface">Recomendar posición</p><p class="text-[8px] text-on-surface-variant">IN: gaps+perfil → OUT: 3 opciones</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-[1] min-h-0 flex flex-col justify-center gap-2">
+      <div class="bg-error-container/30 border border-dashed border-error rounded-lg p-2.5">
+        <p class="font-bold text-[10px] text-error mb-1">⚠ Antipatrón</p>
+        <p class="text-[10px] text-on-surface-variant italic">"Resume y analiza todos los documentos"</p>
+        <p class="text-[10px] text-error mt-1 font-semibold">Sin input acotado<br>Sin output verificable</p>
+      </div>
+      <div class="bg-surface-container-low rounded-lg p-2.5">
+        <p class="font-bold text-[10px] text-on-surface mb-1.5">✓ Tarea bien definida</p>
+        <div class="space-y-1">
+          <div class="flex items-center gap-1"><span class="material-symbols-outlined text-secondary text-[12px]">check</span><span class="text-[10px] text-on-surface-variant">Objetivo claro</span></div>
+          <div class="flex items-center gap-1"><span class="material-symbols-outlined text-secondary text-[12px]">check</span><span class="text-[10px] text-on-surface-variant">Input definido</span></div>
+          <div class="flex items-center gap-1"><span class="material-symbols-outlined text-secondary text-[12px]">check</span><span class="text-[10px] text-on-surface-variant">Output verificable</span></div>
+          <div class="flex items-center gap-1"><span class="material-symbols-outlined text-secondary text-[12px]">check</span><span class="text-[10px] text-on-surface-variant">Sin dependencias externas ocultas</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+      </div>
+      
+      <div class="relative z-10 shrink-0 mt-2 flex items-center gap-2 px-3 py-1.5 bg-primary-fixed/30 rounded-lg">
+        <span class="material-symbols-outlined text-primary text-[14px]">tips_and_updates</span>
+        <p class="font-label-sm text-label-sm text-on-surface font-semibold">Test clave: ¿puedes escribir el verifier sin ver el proceso interno del agente? Sí → bien definida. No → rediseña.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="sticky bottom-0 z-40 w-full bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_-2px_16px_rgba(0,0,0,0.06)]">
+  <div class="w-full max-w-7xl mx-auto px-gutter h-16 flex items-center justify-between">
+    <div class="flex items-center gap-space-sm">
+      <button class="w-10 h-10 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" type="button">
+        <span class="material-symbols-outlined text-[22px]">grid_view</span>
+      </button>
+      <div class="h-5 w-[1px] bg-surface-container-high hidden sm:block"></div>
+      <div class="flex items-center px-3 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md font-semibold tracking-wide">
+        <span class="text-primary font-bold mr-1">05</span>/ 9
+      </div>
+    </div>
+    <div class="flex items-center gap-space-sm">
+      <button class="px-4 py-2 rounded-lg bg-surface-container-low text-on-surface hover:bg-surface-container transition-colors flex items-center gap-space-xs font-label-md text-label-md font-semibold shadow-sm" type="button">
+        <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+        <span class="hidden sm:inline">Anterior</span>
+      </button>
+      <button class="px-5 py-2 rounded-lg bg-primary-container text-on-primary hover:bg-primary transition-colors flex items-center gap-space-xs font-label-md text-label-md font-bold shadow-sm" type="button">
+        <span class="hidden sm:inline">Siguiente</span>
+        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+      </button>
+    </div>
+    <div class="flex items-center gap-space-xs">
+      <button class="w-10 h-10 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" type="button">
+        <span class="material-symbols-outlined text-[20px]">keyboard</span>
+      </button>
+      <button class="w-10 h-10 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" type="button">
+        <span class="material-symbols-outlined text-[20px]">fullscreen</span>
+      </button>
+    </div>
+  </div>
+</footer>
+
+<!-- DECK-NAV -->
+<style>
+#deck-index-panel,#deck-notes-panel{display:none;position:fixed;z-index:200;top:64px;right:0;bottom:64px;width:320px;background:#fff;box-shadow:-4px 0 24px rgba(0,0,0,0.12);overflow-y:auto;font-family:'Plus Jakarta Sans',sans-serif;}
+#deck-index-panel.open,#deck-notes-panel.open{display:flex;flex-direction:column;}
+.deck-overlay{display:none;position:fixed;inset:0;z-index:199;background:rgba(0,0,0,0.2);}
+.deck-overlay.open{display:block;}
+</style>
+
+<!-- Index Panel -->
+<div id="deck-index-panel">
+  <div style="padding:16px 20px;border-bottom:1px solid #eeeef0;display:flex;align-items:center;justify-content:space-between;">
+    <span style="font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:0.06em;color:#5a4136;">Índice del semestre</span>
+    <button onclick="closePanels()" style="width:28px;height:28px;border:none;background:#eeeef0;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:#5a4136;">✕</button>
+  </div>
+  <div style="padding:8px 0;flex:1;">
+    <a href="4.1_graph_engineering_intro.html" style="display:flex;align-items:center;gap:12px;padding:10px 20px;text-decoration:none;background:transparent;border-left:3px solid transparent;">
+      <span style="min-width:24px;height:24px;border-radius:50%;background:#eeeef0;color:#5a4136;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;">1</span>
+      <span style="font-size:12px;font-weight:500;color:#1a1c1e;line-height:1.4;">Por qué el grafo es el modelo correcto</span>
+    </a>
+    <a href="4.2_dependency_graphs.html" style="display:flex;align-items:center;gap:12px;padding:10px 20px;text-decoration:none;background:transparent;border-left:3px solid transparent;">
+      <span style="min-width:24px;height:24px;border-radius:50%;background:#eeeef0;color:#5a4136;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;">2</span>
+      <span style="font-size:12px;font-weight:500;color:#1a1c1e;line-height:1.4;">El grafo de dependencias: artefacto antes del código</span>
+    </a>
+    <a href="4.3_execution_graphs.html" style="display:flex;align-items:center;gap:12px;padding:10px 20px;text-decoration:none;background:transparent;border-left:3px solid transparent;">
+      <span style="min-width:24px;height:24px;border-radius:50%;background:#eeeef0;color:#5a4136;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;">3</span>
+      <span style="font-size:12px;font-weight:500;color:#1a1c1e;line-height:1.4;">El grafo de ejecución: lo que pasa en runtime</span>
+    </a>
+    <a href="4.4_workflow_design.html" style="display:flex;align-items:center;gap:12px;padding:10px 20px;text-decoration:none;background:transparent;border-left:3px solid transparent;">
+      <span style="min-width:24px;height:24px;border-radius:50%;background:#eeeef0;color:#5a4136;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;">4</span>
+      <span style="font-size:12px;font-weight:500;color:#1a1c1e;line-height:1.4;">El espectro de dinamismo: 5 niveles</span>
+    </a>
+    <a href="4.5_task_decomposition.html" style="display:flex;align-items:center;gap:12px;padding:10px 20px;text-decoration:none;background:#ffdbcc;border-left:3px solid #ff6b00;">
+      <span style="min-width:24px;height:24px;border-radius:50%;background:#ff6b00;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;">5</span>
+      <span style="font-size:12px;font-weight:700;color:#a04100;line-height:1.4;">Descomponer bien: la habilidad que separa al AI Architect</span>
+    </a>
+    <a href="4.6_concurrencia_agentes.html" style="display:flex;align-items:center;gap:12px;padding:10px 20px;text-decoration:none;background:transparent;border-left:3px solid transparent;">
+      <span style="min-width:24px;height:24px;border-radius:50%;background:#eeeef0;color:#5a4136;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;">6</span>
+      <span style="font-size:12px;font-weight:500;color:#1a1c1e;line-height:1.4;">Patrones de ejecución paralela</span>
+    </a>
+    <a href="4.7_distributed_context.html" style="display:flex;align-items:center;gap:12px;padding:10px 20px;text-decoration:none;background:transparent;border-left:3px solid transparent;">
+      <span style="min-width:24px;height:24px;border-radius:50%;background:#eeeef0;color:#5a4136;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;">7</span>
+      <span style="font-size:12px;font-weight:500;color:#1a1c1e;line-height:1.4;">El contexto distribuido: decisión de arquitectura</span>
+    </a>
+    <a href="4.8_disenar_para_el_fallo.html" style="display:flex;align-items:center;gap:12px;padding:10px 20px;text-decoration:none;background:transparent;border-left:3px solid transparent;">
+      <span style="min-width:24px;height:24px;border-radius:50%;background:#eeeef0;color:#5a4136;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;">8</span>
+      <span style="font-size:12px;font-weight:500;color:#1a1c1e;line-height:1.4;">Los agentes van a fallar. El sistema no debería.</span>
+    </a>
+    <a href="cierre_multiagente_completo.html" style="display:flex;align-items:center;gap:12px;padding:10px 20px;text-decoration:none;background:transparent;border-left:3px solid transparent;">
+      <span style="min-width:24px;height:24px;border-radius:50%;background:#eeeef0;color:#5a4136;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;">9</span>
+      <span style="font-size:12px;font-weight:500;color:#1a1c1e;line-height:1.4;">El sistema que un AI Architect diseña para producción</span>
+    </a>
+  </div>
+</div>
+
+<!-- Notes Panel -->
+<div id="deck-notes-panel">
+  <div style="padding:16px 20px;border-bottom:1px solid #eeeef0;display:flex;align-items:center;justify-content:space-between;">
+    <span style="font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:0.06em;color:#5a4136;">Notas del presentador</span>
+    <button onclick="closePanels()" style="width:28px;height:28px;border:none;background:#eeeef0;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:#5a4136;">✕</button>
+  </div>
+  <div style="padding:20px;flex:1;">
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#5a4136;margin-bottom:8px;">Lección 5 / 9</div>
+    <div style="font-size:16px;font-weight:700;color:#1a1c1e;margin-bottom:12px;line-height:1.4;">Descomponer bien: la habilidad que separa al AI Architect</div>
+    <div style="font-size:13px;color:#5a4136;line-height:1.6;margin-bottom:20px;">Árbol de descomposición — Análisis competitivo de mercado</div>
+    <div style="height:1px;background:#eeeef0;margin-bottom:16px;"></div>
+    <div style="font-size:12px;font-weight:600;color:#5a4136;margin-bottom:8px;">Navegación rápida</div>
+    <a href="4.4_workflow_design.html" style="display:block;padding:8px 12px;background:#f3f3f6;border-radius:8px;text-decoration:none;font-size:12px;color:#1a1c1e;margin-bottom:6px;">← El espectro de dinamismo: 5 niveles</a>
+    <a href="4.6_concurrencia_agentes.html" style="display:block;padding:8px 12px;background:#ff6b00;border-radius:8px;text-decoration:none;font-size:12px;color:#fff;font-weight:600;">→ Patrones de ejecución paralela</a>
+  </div>
+</div>
+
+<!-- Overlay backdrop -->
+<div class="deck-overlay" id="deck-overlay" onclick="closePanels()"></div>
+
+<script>
+(function(){
+  var SLIDES = ["4.1_graph_engineering_intro.html","4.2_dependency_graphs.html","4.3_execution_graphs.html","4.4_workflow_design.html","4.5_task_decomposition.html","4.6_concurrencia_agentes.html","4.7_distributed_context.html","4.8_disenar_para_el_fallo.html","cierre_multiagente_completo.html"];
+  var IDX = 4;
+  var TOTAL = SLIDES.length;
+
+  function goTo(n){ if(n>=0 && n<TOTAL) window.location.href=SLIDES[n]; }
+
+  function openPanel(id){
+    closePanels();
+    document.getElementById(id).classList.add('open');
+    document.getElementById('deck-overlay').classList.add('open');
+  }
+  window.closePanels = function(){
+    document.getElementById('deck-index-panel').classList.remove('open');
+    document.getElementById('deck-notes-panel').classList.remove('open');
+    document.getElementById('deck-overlay').classList.remove('open');
+  };
+
+  document.addEventListener('DOMContentLoaded', function(){
+    // Progress bar
+    var bar = document.querySelector('.h-full.bg-primary-container.transition-all');
+    if(bar) bar.style.width = ((IDX+1)/TOTAL*100)+'%';
+
+    // Slide counter
+    document.querySelectorAll('*').forEach(function(el){
+      if(el.children.length===0 && /^\d+$/.test(el.textContent.trim()) && el.classList.contains('font-bold')){
+        el.textContent = String(IDX+1).padStart(2,'0');
+      }
+      if(el.children.length===0 && /^\/\s*\d+$/.test(el.textContent.trim())){
+        el.textContent = '/ '+TOTAL;
+      }
+    });
+
+    // Wire nav links: Visor / Índice / Notas
+    document.querySelectorAll('nav a, a[data-path]').forEach(function(a){
+      var txt = a.textContent.trim();
+      var dp  = a.getAttribute('data-path') || '';
+      if(txt === 'Índice' || dp === 'index-thumbnails'){
+        a.href = '#';
+        a.addEventListener('click', function(e){ e.preventDefault(); openPanel('deck-index-panel'); });
+      }
+      if(txt === 'Notas' || dp === 'speaker-notes'){
+        a.href = '#';
+        a.addEventListener('click', function(e){ e.preventDefault(); openPanel('deck-notes-panel'); });
+      }
+      if(txt === 'Visor' || dp === 'slide-viewer'){
+        a.href = '#';
+        a.addEventListener('click', function(e){ e.preventDefault(); closePanels(); });
+      }
+    });
+
+    // Prev/Next buttons
+    document.querySelectorAll('button').forEach(function(btn){
+      btn.querySelectorAll('.material-symbols-outlined').forEach(function(ic){
+        var t = ic.textContent.trim();
+        if(t==='arrow_back'){
+          btn.style.opacity = IDX===0?'0.4':'1';
+          btn.style.cursor  = IDX===0?'not-allowed':'pointer';
+          btn.addEventListener('click', function(){ goTo(IDX-1); });
+        }
+        if(t==='arrow_forward'){
+          btn.style.opacity = IDX===TOTAL-1?'0.4':'1';
+          btn.style.cursor  = IDX===TOTAL-1?'not-allowed':'pointer';
+          btn.addEventListener('click', function(){ goTo(IDX+1); });
+        }
+      });
+    });
+
+    // Keyboard
+    document.addEventListener('keydown', function(e){
+      if(e.key==='Escape'){ closePanels(); return; }
+      if(document.getElementById('deck-index-panel').classList.contains('open')) return;
+      if(document.getElementById('deck-notes-panel').classList.contains('open')) return;
+      if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '){ e.preventDefault(); goTo(IDX+1); }
+      if(e.key==='ArrowLeft'||e.key==='ArrowUp'){ e.preventDefault(); goTo(IDX-1); }
+    });
+  });
+})();
+</script>
+<!-- /DECK-NAV -->
+</body></html>

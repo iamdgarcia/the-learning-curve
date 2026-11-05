@@ -2,7 +2,7 @@
 name = "speculative-prefill-example"
 version = "0.1.0"
 description = "Speculative KV-cache prefill demo — ElevenLabs STT/TTS + local LLM"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 
 dependencies = [
     # Core pipecat + ElevenLabs + WebRTC runner

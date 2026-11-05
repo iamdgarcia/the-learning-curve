@@ -87,6 +87,13 @@ async def run_bot(transport: BaseTransport, runner_args: RunnerArguments) -> Non
             ),
             temperature=0.7,
             max_tokens=256,
+            top_p=None,
+            top_k=None,
+            frequency_penalty=None,
+            presence_penalty=None,
+            seed=None,
+            filter_incomplete_user_turns=None,
+            user_turn_completion_config=None,
         ),
     )
 

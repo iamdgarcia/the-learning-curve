@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AI Architect Academy — The Learning Curve</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: { extend: { colors: {
+    "primary": "#a04100", "primary-container": "#ff6b00", "on-primary": "#ffffff",
+    "surface": "#f9f9fc", "surface-container-low": "#f3f3f6", "surface-container": "#eeeef0",
+    "surface-container-lowest": "#ffffff", "on-surface": "#1a1c1e", "on-surface-variant": "#5a4136",
+    "primary-fixed": "#ffdbcc", "on-primary-fixed-variant": "#7a3000",
+  }, fontFamily: { sans: ["Plus Jakarta Sans", "sans-serif"] } } }
+}
+</script>
+<style>
+  body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f9f9fc; }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 12px 32px -8px rgba(160,65,0,0.15); }
+  .card { transition: transform .2s, box-shadow .2s; }
+</style>
+</head>
+<body class="min-h-screen text-[#1a1c1e]">
+
+<!-- Header -->
+<header class="bg-white border-b border-[#eeeef0] px-8 py-4 flex items-center gap-4">
+  <div class="w-9 h-9 rounded-xl bg-[#ff6b00] flex items-center justify-center">
+    <span class="material-symbols-outlined text-white text-[22px]">auto_stories</span>
+  </div>
+  <div>
+    <div class="font-bold text-lg leading-tight">AI Architect Academy</div>
+    <div class="text-sm text-[#5a4136]">The Learning Curve</div>
+  </div>
+</header>
+
+<!-- Hero -->
+<div class="max-w-5xl mx-auto px-8 pt-12 pb-6">
+  <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#ffdbcc] text-[#7a3000] text-xs font-bold uppercase tracking-wider mb-4">
+    <span class="w-1.5 h-1.5 rounded-full bg-[#ff6b00] animate-pulse inline-block"></span>
+    Curso técnico en español
+  </div>
+  <h1 class="text-4xl font-extrabold tracking-tight leading-tight mb-3">De software engineer<br>a <span class="text-[#ff6b00]">AI architect</span></h1>
+  <p class="text-[#5a4136] text-lg max-w-2xl">Para engineers que ya saben construir sistemas y quieren entender cómo los LLMs cambian las reglas del diseño.</p>
+</div>
+
+<!-- Grid de semestres -->
+<main class="max-w-5xl mx-auto px-8 pb-16">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+    <!-- S1 -->
+    <a href="semester_1_foundations/slides/1.1_como_piensan_los_llms.html" class="card block bg-white rounded-2xl p-6 border border-[#eeeef0] no-underline">
+      <div class="flex items-center justify-between mb-4">
+        <span class="px-2.5 py-0.5 rounded-full bg-[#ffdbcc] text-[#7a3000] text-xs font-bold uppercase tracking-wider">Semestre 1</span>
+        <span class="text-xs text-[#5a4136] font-semibold">8 slides</span>
+      </div>
+      <div class="w-10 h-10 rounded-xl bg-[#ff6b00] flex items-center justify-center mb-3">
+        <span class="material-symbols-outlined text-white text-[22px]">psychology</span>
+      </div>
+      <h2 class="font-bold text-lg mb-1">Foundations of LLMs</h2>
+      <p class="text-sm text-[#5a4136] leading-relaxed">Cómo piensan los LLMs, tokens, embeddings, temperatura, fine-tuning vs RAG, coste real.</p>
+      <div class="mt-4 flex items-center gap-1 text-[#ff6b00] text-sm font-bold">
+        <span>Empezar</span>
+        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+      </div>
+    </a>
+
+    <!-- S2 -->
+    <a href="semester_2_ai_engineering/slides/2.1_cuando_usar_llm.html" class="card block bg-white rounded-2xl p-6 border border-[#eeeef0] no-underline">
+      <div class="flex items-center justify-between mb-4">
+        <span class="px-2.5 py-0.5 rounded-full bg-[#ffdbcc] text-[#7a3000] text-xs font-bold uppercase tracking-wider">Semestre 2</span>
+        <span class="text-xs text-[#5a4136] font-semibold">7 slides</span>
+      </div>
+      <div class="w-10 h-10 rounded-xl bg-[#ff6b00] flex items-center justify-center mb-3">
+        <span class="material-symbols-outlined text-white text-[22px]">account_tree</span>
+      </div>
+      <h2 class="font-bold text-lg mb-1">AI Engineering</h2>
+      <p class="text-sm text-[#5a4136] leading-relaxed">Pipelines de IA fiables, structured outputs, memoria, MCP, caching y evaluación.</p>
+      <div class="mt-4 flex items-center gap-1 text-[#ff6b00] text-sm font-bold">
+        <span>Empezar</span>
+        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+      </div>
+    </a>
+
+    <!-- S3 -->
+    <a href="semester_3_agent_engineering/slides/3.1_que_es_un_agente.html" class="card block bg-white rounded-2xl p-6 border border-[#eeeef0] no-underline">
+      <div class="flex items-center justify-between mb-4">
+        <span class="px-2.5 py-0.5 rounded-full bg-[#ffdbcc] text-[#7a3000] text-xs font-bold uppercase tracking-wider">Semestre 3</span>
+        <span class="text-xs text-[#5a4136] font-semibold">8 slides</span>
+      </div>
+      <div class="w-10 h-10 rounded-xl bg-[#ff6b00] flex items-center justify-center mb-3">
+        <span class="material-symbols-outlined text-white text-[22px]">smart_toy</span>
+      </div>
+      <h2 class="font-bold text-lg mb-1">Agent Engineering</h2>
+      <p class="text-sm text-[#5a4136] leading-relaxed">Skills, verifiers, supervisores, self-correction, memoria de agentes y patrones de comunicación.</p>
+      <div class="mt-4 flex items-center gap-1 text-[#ff6b00] text-sm font-bold">
+        <span>Empezar</span>
+        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+      </div>
+    </a>
+
+    <!-- S4 -->
+    <a href="semester_4_ai_architect/slides/4.1_graph_engineering_intro.html" class="card block bg-white rounded-2xl p-6 border border-[#eeeef0] no-underline">
+      <div class="flex items-center justify-between mb-4">
+        <span class="px-2.5 py-0.5 rounded-full bg-[#ffdbcc] text-[#7a3000] text-xs font-bold uppercase tracking-wider">Semestre 4</span>
+        <span class="text-xs text-[#5a4136] font-semibold">9 slides</span>
+      </div>
+      <div class="w-10 h-10 rounded-xl bg-[#ff6b00] flex items-center justify-center mb-3">
+        <span class="material-symbols-outlined text-white text-[22px]">hub</span>
+      </div>
+      <h2 class="font-bold text-lg mb-1">AI Architect</h2>
+      <p class="text-sm text-[#5a4136] leading-relaxed">Graph engineering, dependency graphs, workflow design, task decomposition, concurrencia y resiliencia.</p>
+      <div class="mt-4 flex items-center gap-1 text-[#ff6b00] text-sm font-bold">
+        <span>Empezar</span>
+        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+      </div>
+    </a>
+
+    <!-- S5 -->
+    <a href="semester_5_context_engineering/slides/5.1_que_es_context_engineering.html" class="card block bg-white rounded-2xl p-6 border border-[#eeeef0] no-underline">
+      <div class="flex items-center justify-between mb-4">
+        <span class="px-2.5 py-0.5 rounded-full bg-[#ffdbcc] text-[#7a3000] text-xs font-bold uppercase tracking-wider">Semestre 5</span>
+        <span class="text-xs text-[#5a4136] font-semibold">8 slides</span>
+      </div>
+      <div class="w-10 h-10 rounded-xl bg-[#ff6b00] flex items-center justify-center mb-3">
+        <span class="material-symbols-outlined text-white text-[22px]">layers</span>
+      </div>
+      <h2 class="font-bold text-lg mb-1">Context Engineering</h2>
+      <p class="text-sm text-[#5a4136] leading-relaxed">RAG, chunking, reranking, compresión de contexto, poisoning, drift y evaluación.</p>
+      <div class="mt-4 flex items-center gap-1 text-[#ff6b00] text-sm font-bold">
+        <span>Empezar</span>
+        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+      </div>
+    </a>
+
+    <!-- Bonus -->
+    <a href="bonus_production_essentials/slides/b1_tracing_observabilidad.html" class="card block bg-white rounded-2xl p-6 border border-[#eeeef0] no-underline">
+      <div class="flex items-center justify-between mb-4">
+        <span class="px-2.5 py-0.5 rounded-full bg-[#eeeef0] text-[#5a4136] text-xs font-bold uppercase tracking-wider">Bonus</span>
+        <span class="text-xs text-[#5a4136] font-semibold">4 slides</span>
+      </div>
+      <div class="w-10 h-10 rounded-xl bg-[#1a1c1e] flex items-center justify-center mb-3">
+        <span class="material-symbols-outlined text-white text-[22px]">rocket_launch</span>
+      </div>
+      <h2 class="font-bold text-lg mb-1">Production Essentials</h2>
+      <p class="text-sm text-[#5a4136] leading-relaxed">Tracing, testing no determinista, seguridad y guardrails, latencia y escalado.</p>
+      <div class="mt-4 flex items-center gap-1 text-[#ff6b00] text-sm font-bold">
+        <span>Empezar</span>
+        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- Quizzes -->  
+  <div class="mt-14">
+    <h2 class="text-xl font-bold mb-1">Cuestionarios</h2>
+    <p class="text-sm text-[#5a4136] mb-5">Una pregunta por lección, nivel senior. Haz click en una opción para revelar la respuesta y la explicación técnica.</p>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+      <a href="quizzes/s1_quiz.html" class="card block bg-white rounded-xl p-4 border border-[#eeeef0] no-underline text-center">
+        <div class="text-2xl font-extrabold text-[#ff6b00] mb-1">7</div>
+        <div class="text-xs font-bold text-[#5a4136] uppercase tracking-wider">S1 · Foundations</div>
+      </a>
+      <a href="quizzes/s2_quiz.html" class="card block bg-white rounded-xl p-4 border border-[#eeeef0] no-underline text-center">
+        <div class="text-2xl font-extrabold text-[#ff6b00] mb-1">6</div>
+        <div class="text-xs font-bold text-[#5a4136] uppercase tracking-wider">S2 · AI Eng.</div>
+      </a>
+      <a href="quizzes/s3_quiz.html" class="card block bg-white rounded-xl p-4 border border-[#eeeef0] no-underline text-center">
+        <div class="text-2xl font-extrabold text-[#ff6b00] mb-1">7</div>
+        <div class="text-xs font-bold text-[#5a4136] uppercase tracking-wider">S3 · Agents</div>
+      </a>
+      <a href="quizzes/s4_quiz.html" class="card block bg-white rounded-xl p-4 border border-[#eeeef0] no-underline text-center">
+        <div class="text-2xl font-extrabold text-[#ff6b00] mb-1">8</div>
+        <div class="text-xs font-bold text-[#5a4136] uppercase tracking-wider">S4 · Architect</div>
+      </a>
+      <a href="quizzes/s5_quiz.html" class="card block bg-white rounded-xl p-4 border border-[#eeeef0] no-underline text-center">
+        <div class="text-2xl font-extrabold text-[#ff6b00] mb-1">7</div>
+        <div class="text-xs font-bold text-[#5a4136] uppercase tracking-wider">S5 · Context</div>
+      </a>
+      <a href="quizzes/bonus_quiz.html" class="card block bg-white rounded-xl p-4 border border-[#eeeef0] no-underline text-center">
+        <div class="text-2xl font-extrabold text-[#1a1c1e] mb-1">4</div>
+        <div class="text-xs font-bold text-[#5a4136] uppercase tracking-wider">Bonus · Prod.</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Ejercicios de código -->
+  <div class="mt-10">
+    <h2 class="text-xl font-bold mb-1">Ejercicios de código</h2>
+    <p class="text-sm text-[#5a4136] mb-5">4 ejercicios por módulo con starter code, docstrings y tests con <code class="px-1 py-0.5 rounded bg-[#eeeef0] font-mono text-xs">assert</code>. Implementa las funciones y verifica que los tests pasan.</p>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+      <a href="exercises/s1_ejercicios.ipynb" class="card block bg-white rounded-xl p-4 border border-[#eeeef0] no-underline text-center">
+        <span class="material-symbols-outlined text-[#ff6b00] text-[24px] mb-1 block">terminal</span>
+        <div class="text-xs font-bold text-[#5a4136] uppercase tracking-wider">S1 · 4 ejercicios</div>
+      </a>
+      <a href="exercises/s2_ejercicios.ipynb" class="card block bg-white rounded-xl p-4 border border-[#eeeef0] no-underline text-center">
+        <span class="material-symbols-outlined text-[#ff6b00] text-[24px] mb-1 block">terminal</span>
+        <div class="text-xs font-bold text-[#5a4136] uppercase tracking-wider">S2 · 4 ejercicios</div>
+      </a>
+      <a href="exercises/s3_ejercicios.ipynb" class="card block bg-white rounded-xl p-4 border border-[#eeeef0] no-underline text-center">
+        <span class="material-symbols-outlined text-[#ff6b00] text-[24px] mb-1 block">terminal</span>
+        <div class="text-xs font-bold text-[#5a4136] uppercase tracking-wider">S3 · 4 ejercicios</div>
+      </a>
+      <a href="exercises/s4_ejercicios.ipynb" class="card block bg-white rounded-xl p-4 border border-[#eeeef0] no-underline text-center">
+        <span class="material-symbols-outlined text-[#ff6b00] text-[24px] mb-1 block">terminal</span>
+        <div class="text-xs font-bold text-[#5a4136] uppercase tracking-wider">S4 · 4 ejercicios</div>
+      </a>
+      <a href="exercises/s5_ejercicios.ipynb" class="card block bg-white rounded-xl p-4 border border-[#eeeef0] no-underline text-center">
+        <span class="material-symbols-outlined text-[#ff6b00] text-[24px] mb-1 block">terminal</span>
+        <div class="text-xs font-bold text-[#5a4136] uppercase tracking-wider">S5 · 4 ejercicios</div>
+      </a>
+      <a href="exercises/bonus_ejercicios.ipynb" class="card block bg-white rounded-xl p-4 border border-[#eeeef0] no-underline text-center">
+        <span class="material-symbols-outlined text-[#1a1c1e] text-[24px] mb-1 block">terminal</span>
+        <div class="text-xs font-bold text-[#5a4136] uppercase tracking-wider">Bonus · 4 ejercicios</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Keyboard hint -->
+  <div class="mt-10 flex items-center justify-center gap-2 text-sm text-[#5a4136]">
+    <span class="material-symbols-outlined text-[18px]">keyboard</span>
+    <span>Dentro de cada presentación navega con <kbd class="px-1.5 py-0.5 rounded bg-[#eeeef0] font-mono text-xs">←</kbd> <kbd class="px-1.5 py-0.5 rounded bg-[#eeeef0] font-mono text-xs">→</kbd> o <kbd class="px-1.5 py-0.5 rounded bg-[#eeeef0] font-mono text-xs">Space</kbd></span>
+  </div>
+</main>
+
+</body>
+</html>
