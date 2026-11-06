@@ -265,17 +265,16 @@ Code: [voice-agents-playground](https://github.com/iamdgarcia/voice-agents-playg
 
 ## 🛠️ Recommended Stack
 
+The tools used across every project in this repo — organised by what you need, not what they sell.
 
+→ **[Full stack guide with context and free tiers](./STACK.md)**
 
-The tools we use across every project in this repo. These are genuine picks — links are affiliate/referral and help keep the community free.
-
-
-
-| Tool | What for | Link |
-|---|---|---|
-| **Netlify** | Deploy every blueprint for free | [Free account →](https://join.netlify.com/uk2itht31g7b) |
-| **Novita AI** | Affordable, fast LLM inference (OpenAI-compatible API) | [Try Novita →](https://novita.ai/?ref=mzblm2z&utm_source=affiliate) |
-| **Railway** | Deploy backends, databases, and agents with one click | [Try Railway →](https://railway.com?referralCode=6Lguh2) |
+| I need… | Tool | Link |
+|---------|------|---------|
+| AI voice (TTS + transcription) | ElevenLabs | [↗](https://try.elevenlabs.io/5rwirobe89kq) |
+| LLM inference (cheap, OpenAI-compatible) | Novita AI | [↗](https://novita.ai/?ref=mzblm2z&utm_source=affiliate) |
+| Deploy a frontend / serverless | Netlify | [↗](https://join.netlify.com/uk2itht31g7b) |
+| Deploy a backend / database / agent | Railway | [↗](https://railway.com?referralCode=6Lguh2) |
 
 
 
