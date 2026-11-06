@@ -129,7 +129,7 @@ One GCP project, one OAuth client, covers both TTS and YouTube upload.
 | `NOVITA_API_KEY` | LLM (script writing) | [novita.ai](https://novita.ai) |
 | Google OAuth | GCP TTS + YouTube | GCP Console (see above) |
 | `PEXELS_API_KEY` | B-roll in Pipeline A | [pexels.com/api](https://www.pexels.com/api/) — optional |
-| `ELEVENLABS_API_KEY` | Pipeline D transcription | [elevenlabs.io](https://elevenlabs.io) — optional |
+| `ELEVENLABS_API_KEY` | Pipeline D transcription | [elevenlabs.io](https://try.elevenlabs.io/5rwirobe89kq) — optional, recommended for best timing |
 | `GROQ_API_KEY` | Pipeline D transcription | [console.groq.com](https://console.groq.com) — optional |
 
 ---
