@@ -1,0 +1,27 @@
+{
+  "_comment": "Copy to config/tts.json and pick a provider. tts.json takes precedence over faceless_brand.json tts_voice.",
+
+  "provider": "gcp_studio",
+  "speaking_rate": 0.95,
+  "gender": "male",
+
+  "_providers": {
+    "gcp_studio":  "Best quality WITH native timestamps (SSML marks). Recommended default.",
+    "gcp_chirp3":  "Highest quality, most natural. No native timestamps → Whisper used for subtitles.",
+    "gcp_chirp":   "Very high quality. No native timestamps → Whisper used for subtitles.",
+    "gcp_neural2": "Previous default. Good quality, native timestamps.",
+    "edge_tts":    "Free Microsoft Neural TTS. Fallback when GCP is unavailable."
+  },
+
+  "voices": {
+    "gcp_studio":  { "male": "es-ES-Studio-F",          "female": "es-ES-Studio-C"           },
+    "gcp_chirp3":  { "male": "es-ES-Chirp3-HD-Schedar", "female": "es-ES-Chirp3-HD-Zephyr"   },
+    "gcp_chirp":   { "male": "es-ES-Chirp-HD-D",        "female": "es-ES-Chirp-HD-F"         },
+    "gcp_neural2": { "male": "es-ES-Neural2-G",          "female": "es-ES-Neural2-A"          },
+    "edge_tts":    { "male": "es-ES-AlvaroNeural",       "female": "es-ES-ElviraNeural"       }
+  },
+
+  "_chirp3_all_male":   ["Sadaltager", "Schedar", "Umbriel", "Zubenelgenubi"],
+  "_chirp3_all_female": ["Sulafat", "Vindemiatrix", "Zephyr"],
+  "_note_chirp3_voices": "Prefix any name with 'es-ES-Chirp3-HD-' to use it."
+}

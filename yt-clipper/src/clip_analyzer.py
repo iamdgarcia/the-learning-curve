@@ -239,7 +239,7 @@ def analyze(
     transcript_text: str,
     max_clips: int = 5,
     mode: ClipMode = ClipMode.shorts,
-    channel_context: str = "AI/tech educational channel (TheLearningCurveAI)",
+    channel_context: str = "",
     language: str = "Spanish",
     topic: str = "",   # used when mode=topic
 ) -> ClipsResponse:

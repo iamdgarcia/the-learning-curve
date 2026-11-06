@@ -27,7 +27,7 @@ def parse_args():
                    help="Clip mode: shorts/standard/emotion/topic (default: %(default)s)")
     p.add_argument("--topic", default="",
                    help="Topic to focus on when --mode topic (e.g. 'probabilidades LLM')")
-    p.add_argument("--channel-context", default="AI/tech educational channel (TheLearningCurveAI)",
+    p.add_argument("--channel-context", default="",  # auto-read from config/faceless_brand.json if empty
                    help="Brief channel description to guide the LLM")
     p.add_argument("--caption-style", default="karaoke",
                    choices=[s.value for s in CaptionStyle],
@@ -87,7 +87,7 @@ def main():
     log.info(f"Found {len(clips)} clips.")
 
     # Build channel handle from URL for the footer
-    _channel = "@TheLearningCurveAI"  # ponytail: hardcode is fine, changes rarely
+    _channel = brand.channel_handle if hasattr(brand, "channel_handle") else ""
 
     def _description(clip) -> str:
         footer = (

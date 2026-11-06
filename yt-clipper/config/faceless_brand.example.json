@@ -1,0 +1,47 @@
+{
+  "_readme": "Copy this file to faceless_brand.json and fill in your channel details. faceless_brand.json is gitignored.",
+
+  "channel_handle":      "@YourChannel",
+  "channel_owner":       "Your Name",
+  "channel_niche":       "AI · Dev Tools · Python",
+  "channel_description": "Educational shorts for developers. Practical AI tutorials, tools and concepts.",
+  "channel_topics":      "LLMs, RAG, embeddings, MCP, agents, LangChain, fine-tuning, prompt engineering",
+  "channel_language":    "en",
+  "youtube_channel_url": "https://www.youtube.com/@YourChannel",
+
+  "accent_color":    "#0047FF",
+  "bg_color":        "#FFFFFF",
+  "grid_color":      "#E5E5E5",
+  "grid_size":       54,
+  "text_color":      "#0D0D0D",
+  "card_text_color": "#FFFFFF",
+  "font_bold":       "assets/fonts/InterDisplay-Bold.ttf",
+  "font_regular":    "assets/fonts/Inter-Medium.ttf",
+  "logo_path":       "assets/logos/your_logo.png",
+
+  "cta_url":          "yourchannel.substack.com",
+  "cta_button_text":  "Subscribe free",
+  "cta_tagline":      "One idea a week. Practical, no fluff.",
+  "cta_logo":         "assets/logos/your_logo.png",
+  "cta_screenshot":   "",
+
+  "default_privacy":  "unlisted",
+  "tiktok_enabled":   false,
+
+  "_example_tlc": {
+    "_note": "This is the TheLearningCurveAI config — use as inspiration",
+    "channel_handle":      "@TheLearningCurveAI",
+    "channel_owner":       "Daniel García",
+    "channel_niche":       "IA · LLMs · Agentes",
+    "channel_description": "Aprende IA como un ingeniero, no como un gurú de YouTube. Contenido técnico para developers hispanohablantes.",
+    "channel_topics":      "LLMs, agentes IA, RAG, embeddings, MCP, LangChain, fine-tuning, transformers, Python, OpenAI, Anthropic",
+    "channel_language":    "es",
+    "accent_color":        "#FF6719",
+    "bg_color":            "#FAFAF9",
+    "grid_color":          "#E8E4DC",
+    "text_color":          "#1C1B1F",
+    "cta_url":             "iamdgarcia.substack.com",
+    "cta_button_text":     "Suscríbete gratis",
+    "cta_tagline":         "Aprende IA como un ingeniero,<br>no como un gurú de YouTube."
+  }
+}

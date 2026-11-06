@@ -11,14 +11,21 @@ import logging
 from openai import OpenAI
 from src.config import settings
 
+from src.brand_config import load as load_brand
+
 log = logging.getLogger(__name__)
 
-_CHANNEL_CONTEXT = """
-Canal: TheLearningCurveAI (Daniel García, España).
-Nicho: LLMs, agentes IA, Python, herramientas de IA, tutoriales prácticos.
-Audiencia: desarrolladores y makers hispanohablantes.
-Formato: Short faceless 45-60s, en español de España.
-"""
+
+def _channel_context() -> str:
+    b = load_brand()
+    parts = [f"Channel: {b.channel_handle}"]
+    if b.channel_owner:      parts.append(f"Owner: {b.channel_owner}")
+    if b.channel_niche:      parts.append(f"Niche: {b.channel_niche}")
+    if b.channel_description: parts.append(b.channel_description)
+    if b.channel_topics:     parts.append(f"Topic areas: {b.channel_topics}")
+    if b.channel_language:   parts.append(f"Language: {b.channel_language}")
+    parts.append("Format: faceless Short 45-60s")
+    return "\n".join(parts)
 
 _FORMATS = [
     "X vs Y — cuál elegir y por qué",
@@ -43,18 +50,18 @@ def get_trending_topics(n: int = 5) -> list[dict]:
         messages=[{
             "role": "user",
             "content": (
-                f"Eres un estratega de contenido para YouTube Shorts en español.\n"
-                f"Contexto del canal:\n{_CHANNEL_CONTEXT}\n"
-                f"Formatos efectivos: {json.dumps(_FORMATS, ensure_ascii=False)}\n\n"
-                f"Genera {n} ideas de Short sobre tendencias actuales en IA/LLMs/agentes "
-                f"(últimos 30 días). Prioriza temas con debate, comparaciones o datos sorprendentes.\n\n"
-                f"Devuelve JSON array. Cada item:\n"
-                f"  topic: tema concreto (ej: 'Claude 3.5 Sonnet vs GPT-4o')\n"
-                f"  format: formato elegido de la lista\n"
-                f"  hook: primera frase de gancho (<15 palabras, impacto inmediato)\n"
-                f"  score: viralidad estimada 1-10\n"
-                f"  keywords: array 3-5 palabras clave en inglés para buscar stock footage\n"
-                f"JSON puro, sin markdown, sin texto extra."
+                f"You are a content strategist for YouTube Shorts.\n"
+                f"Channel context:\n{_channel_context()}\n"
+                f"Effective formats: {json.dumps(_FORMATS, ensure_ascii=False)}\n\n"
+                f"Generate {n} Short ideas about current trending topics for this channel "
+                f"(last 30 days). Prioritise debate, comparisons or surprising data.\n\n"
+                f"Return a JSON array. Each item:\n"
+                f"  topic: specific topic (e.g. 'Claude 3.5 Sonnet vs GPT-4o')\n"
+                f"  format: chosen format from the list\n"
+                f"  hook: opening hook sentence (<15 words, immediate impact)\n"
+                f"  score: estimated virality 1-10\n"
+                f"  keywords: array of 3-5 English keywords for stock footage search\n"
+                f"Pure JSON, no markdown, no extra text."
             )
         }],
         temperature=0.85,

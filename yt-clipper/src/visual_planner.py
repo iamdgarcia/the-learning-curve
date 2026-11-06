@@ -82,7 +82,7 @@ Devuelve JSON con esta estructura exacta (sin markdown):
     }},
     {{
       "title": "SÍGUEME",
-      "card": {{"type": "stat", "visual_text": "SÍGUEME", "visual_subtitle": "@TheLearningCurveAI"}}
+      "card": {{"type": "stat", "visual_text": "SÍGUEME", "visual_subtitle": "" + brand.channel_handle + ""}}
     }}
   ]
 }}

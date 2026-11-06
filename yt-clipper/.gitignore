@@ -2,6 +2,11 @@
 .env
 config/client_secrets.json
 config/token.json
+config/tts_token.json
+
+# Brand config — personal, copy from config/faceless_brand.example.json
+config/faceless_brand.json
+config/tts.json
 
 # Generated clips
 temp/*.mp4

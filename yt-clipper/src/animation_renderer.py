@@ -62,17 +62,23 @@ def _build_brief(
     html_path: Path,
 ) -> str:
     """Minimal brief — shorter = faster Claude generation (~100s vs 360s+)."""
+    from src.brand_config import load as _lb
+    b = _lb()
+    lang = b.channel_language or "en"
     total = sections[-1]["end_s"] if sections else 55
     timeline = "\n".join(
         f"{s['start_s']}s-{s['end_s']}s: {s['title']} — {s['text'][:80]}"
         for s in sections
     )
+    handle = channel_handle or b.channel_handle
     return (
-        f"Create a 1080x1920px animated HTML explainer (YouTube Short, {total}s) in Spanish about: {topic}\n"
-        f"Style: warm white bg #FAFAF9, 54px grid lines #E8E4DC, orange accent #FF6719, dark text #1C1B1F.\n"
-        f"Inter + Fira Code fonts from Google. Diagram nodes: white boxes #1C1B1F border, orange glow on active.\n"
-        f"SVG arrows in #FF6719, JS setTimeout timeline, stroke-dashoffset animations, orange flash on state changes.\n"
-        f"Orange #FF6719 progress bar at y=1910-1920. {channel_handle} watermark top-right (small, #FF6719).\n"
+        f"Create a 1080x1920px animated HTML explainer (YouTube Short, {total}s) "
+        f"in {lang} about: {topic}\n"
+        f"Style: bg {b.bg_color}, {b.grid_size}px grid lines {b.grid_color}, "
+        f"accent {b.accent_color}, text {b.text_color}.\n"
+        f"Inter + Fira Code fonts from Google. Diagram nodes: white boxes {b.text_color} border, accent glow on active.\n"
+        f"SVG arrows in {b.accent_color}, JS setTimeout timeline, stroke-dashoffset animations, accent flash on state changes.\n"
+        f"{b.accent_color} progress bar at y=1910-1920. {handle} watermark top-right (small, {b.accent_color}).\n"
         f"Nothing below y=1900 except progress bar.\n\n"
         f"TIMELINE:\n{timeline}\n\n"
         f"The animation ends at {total}s. Do NOT include a CTA or subscribe slide — that is added separately.\n"
@@ -300,7 +306,7 @@ def render(
     audio_path: Path,
     audio_duration: float,
     output_path: Path,
-    channel_handle: str = "@TheLearningCurveAI",
+    channel_handle: str = "",  # defaults to brand.channel_handle if empty
     work_dir: Path | None = None,
     cta_start_s: float | None = None,
     word_events: list[dict] | None = None,

@@ -45,14 +45,17 @@ def _logo_b64(label: str, on_dark: bool = True) -> str:
 
 # ── Brief builder ─────────────────────────────────────────────────────────────
 
-_BRAND_GUIDE = """
+def _brand_guide() -> str:
+    from src.brand_config import load as _lb
+    b = _lb()
+    return f"""
 BRAND GUIDE:
-  Background: #FAFAF9 (warm white)
-  Grid: 54px CSS grid with #E8E4DC 1px lines — subtle, not distracting
-  Accent color: #FF6719 (Substack orange)
-  Text: #1C1B1F (near black)
+  Background: {b.bg_color}
+  Grid: {b.grid_size}px CSS grid with {b.grid_color} 1px lines — subtle, not distracting
+  Accent color: {b.accent_color}
+  Text: {b.text_color}
   Font: Inter from Google Fonts (weights 400, 600, 700, 800, 900)
-  Handle: @TheLearningCurveAI
+  Handle: {b.channel_handle}""" + """
 
 LAYOUT ZONES (pixel-exact, 1080×1920):
   y=0   – 100 : TOP BAR — niche label bold orange LEFT, @handle bold orange RIGHT
@@ -145,7 +148,7 @@ def _make_brief(
 
     return f"""You are a world-class UI designer creating YouTube Shorts slides.
 
-{_BRAND_GUIDE}
+{_brand_guide()}
 
 SLIDE CONTENT:
   Topic label (top bar): {topic_label}
@@ -163,7 +166,7 @@ Write a complete, self-contained 1080×1920px HTML file to:
 Requirements:
   1. Load Inter from Google Fonts
   2. body: width=1080px, height=1920px, overflow=hidden
-  3. CSS grid background (54px, color #E8E4DC, 1px lines)
+  3. CSS grid background (see brand guide for size and color, 1px lines)
   4. Exact layout zones as specified
   5. y=1350 to y=1920: ABSOLUTELY NOTHING — not a pixel, not a shadow, not padding
   6. Make it look PREMIUM. This is the quality bar: think Stripe product cards, Linear.app aesthetics, Vercel marketing

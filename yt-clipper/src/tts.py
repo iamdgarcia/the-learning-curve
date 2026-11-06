@@ -1,46 +1,74 @@
 """
-Text-to-speech — Google Cloud Neural2 (primary) + edge-tts fallback.
+Text-to-speech with configurable GCP provider.
 
-Priority:
-  1. Google Cloud TTS Neural2 (es-ES-Neural2-B male, es-ES-Neural2-F female)
-     Requires: google-cloud-texttospeech + API enabled in GCP project.
-     Word timestamps via SSML <mark> tags → perfect subtitle sync.
-  2. edge-tts (Microsoft Neural, free) — used if GCP TTS is unavailable.
-     Word timestamps via WordBoundary events.
+Provider priority (resolved from config/tts.json):
+  gcp_studio   — GCP Studio voices, highest quality WITH native timestamps. Default.
+  gcp_chirp3   — GCP Chirp3-HD, most natural. No native timestamps → Whisper in compose.
+  gcp_chirp    — GCP Chirp-HD, very natural. No native timestamps → Whisper in compose.
+  gcp_neural2  — GCP Neural2, previous default. Native timestamps.
+  edge_tts     — Microsoft Neural (free). Native timestamps via WordBoundary.
+
+Config: config/tts.json  (copy from config/tts.example.json)
+  { "provider": "gcp_studio", "speaking_rate": 0.95, "gender": "male", "voices": {...} }
+
+Providers with native timestamps (SSML marks): gcp_studio, gcp_neural2
+Providers without (Whisper fallback in compose): gcp_chirp3, gcp_chirp
 
 Usage:
-  generate(text, path)                    → MP3
-  generate_with_timestamps(text, path)    → (MP3, word_events)
+  generate(text, path)                 → MP3
+  generate_with_timestamps(text, path) → (MP3, word_events)
+    word_events = [] for chirp providers → compose uses Whisper automatically
 
 word_events: [{"word": "Un", "start": 0.10, "end": 0.31}, ...]
-
-to_whisper_segments(word_events) → Whisper-compatible segment dicts
-    for subtitle_generator.generate(has_word_timestamps=True)
 """
 from __future__ import annotations
 
 import asyncio
+import json
 import logging
-import re
 from pathlib import Path
 
 log = logging.getLogger(__name__)
 
-# ── Config ────────────────────────────────────────────────────────────────────
+GCP_LANGUAGE = "es-ES"
+EDGE_RATE    = "+0%"
 
-GCP_VOICE_MALE   = "es-ES-Neural2-B"
-GCP_VOICE_FEMALE = "es-ES-Neural2-F"
-GCP_LANGUAGE     = "es-ES"
-GCP_RATE         = 0.95   # slightly slower than 1.0 — more natural for explainers
+_CONFIG_FILE = Path(__file__).parent.parent / "config" / "tts.json"
+_TTS_SCOPES  = ["https://www.googleapis.com/auth/cloud-platform"]
+_SECRETS_FILE = Path(__file__).parent.parent / "config" / "client_secrets.json"
+_TTS_TOKEN    = Path(__file__).parent.parent / "config" / "tts_token.json"
 
-EDGE_VOICE_MALE   = "es-ES-AlvaroNeural"
-EDGE_VOICE_FEMALE = "es-ES-ElviraNeural"
-EDGE_RATE         = "+0%"
-
-DEFAULT_VOICE = "es-ES-Neural2-B"   # GCP Neural2 male (Spain)
+# Providers that support SSML mark timepoints
+_SSML_MARK_PROVIDERS = {"gcp_studio", "gcp_neural2"}
 
 
-# ── GCP TTS ───────────────────────────────────────────────────────────────────
+# ── Config loader ─────────────────────────────────────────────────────────────
+
+def _load_config() -> dict:
+    if _CONFIG_FILE.exists():
+        return json.loads(_CONFIG_FILE.read_text())
+    # Legacy fallback: Neural2 behaviour before tts.json existed
+    return {
+        "provider": "gcp_neural2",
+        "speaking_rate": 0.95,
+        "gender": "male",
+        "voices": {
+            "gcp_neural2": {"male": "es-ES-Neural2-G", "female": "es-ES-Neural2-A"},
+            "edge_tts":    {"male": "es-ES-AlvaroNeural", "female": "es-ES-ElviraNeural"},
+        },
+    }
+
+
+def _resolve_voice(cfg: dict) -> tuple[str, str]:
+    """Return (provider, voice_name) from config."""
+    provider = cfg.get("provider", "gcp_neural2")
+    gender   = cfg.get("gender", "male")
+    voices   = cfg.get("voices", {})
+    voice    = voices.get(provider, {}).get(gender, "es-ES-Neural2-G")
+    return provider, voice
+
+
+# ── GCP helpers ───────────────────────────────────────────────────────────────
 
 def _gcp_available() -> bool:
     try:
@@ -50,29 +78,7 @@ def _gcp_available() -> bool:
         return False
 
 
-def _build_ssml_with_marks(text: str) -> tuple[str, list[str]]:
-    """
-    Wrap each word in an SSML <mark> so GCP returns per-word timestamps.
-    Returns (ssml_string, ordered_mark_names).
-    """
-    words = text.split()
-    marks: list[str] = []
-    parts = ["<speak>"]
-    for i, w in enumerate(words):
-        mark = f"w{i}"
-        marks.append(mark)
-        parts.append(f'<mark name="{mark}"/>{w}')
-    parts.append("</speak>")
-    return " ".join(parts), marks
-
-
-_TTS_SCOPES   = ["https://www.googleapis.com/auth/cloud-platform"]
-_SECRETS_FILE = Path(__file__).parent.parent / "config" / "client_secrets.json"
-_TTS_TOKEN    = Path(__file__).parent.parent / "config" / "tts_token.json"
-
-
 def _gcp_credentials():
-    """OAuth2 credentials for GCP TTS, using client_secrets.json."""
     from google.oauth2.credentials import Credentials
     from google.auth.transport.requests import Request
     from google_auth_oauthlib.flow import InstalledAppFlow
@@ -90,49 +96,45 @@ def _gcp_credentials():
     return creds
 
 
-def _gcp_synthesize(text: str, out: Path, voice_name: str) -> list[dict]:
-    """
-    Call GCP TTS via REST API using OAuth2 from client_secrets.json,
-    save MP3, return word_events from SSML mark timepoints.
-    """
+def _build_ssml_with_marks(text: str) -> str:
+    parts = ["<speak>"]
+    for i, w in enumerate(text.split()):
+        parts.append(f'<mark name="w{i}"/>{w}')
+    parts.append("</speak>")
+    return " ".join(parts)
+
+
+def _gcp_synthesize_with_marks(text: str, out: Path, voice_name: str, rate: float) -> list[dict]:
+    """GCP TTS with SSML marks → native word timestamps. For Studio and Neural2."""
     import base64, json as _json, subprocess, urllib.request
+    from google.auth.transport.requests import Request as _Req
 
     creds = _gcp_credentials()
-
-    ssml, _ = _build_ssml_with_marks(text)
     words = text.split()
+    ssml  = _build_ssml_with_marks(text)
 
     body = _json.dumps({
         "input": {"ssml": ssml},
         "voice": {"languageCode": GCP_LANGUAGE, "name": voice_name},
-        "audioConfig": {"audioEncoding": "MP3", "speakingRate": GCP_RATE},
+        "audioConfig": {"audioEncoding": "MP3", "speakingRate": rate},
         "enableTimePointing": ["SSML_MARK"],
     }).encode()
 
-    from google.auth.transport.requests import Request as _Req
     creds.refresh(_Req())
-
     req = urllib.request.Request(
         "https://texttospeech.googleapis.com/v1beta1/text:synthesize",
         data=body,
-        headers={
-            "Authorization": f"Bearer {creds.token}",
-            "Content-Type": "application/json",
-        },
+        headers={"Authorization": f"Bearer {creds.token}", "Content-Type": "application/json"},
     )
     resp = _json.loads(urllib.request.urlopen(req, timeout=30).read())
 
-    audio_bytes = base64.b64decode(resp["audioContent"])
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_bytes(audio_bytes)
+    out.write_bytes(base64.b64decode(resp["audioContent"]))
 
-    # Build word_events from SSML mark timepoints
     timepoints = sorted(
         [(tp["markName"], tp["timeSeconds"]) for tp in resp.get("timepoints", [])],
         key=lambda x: x[1],
     )
-
-    # Total duration from ffprobe
     probe = subprocess.run(
         ["ffprobe", "-v", "quiet", "-print_format", "json", "-show_streams", str(out)],
         capture_output=True, text=True,
@@ -141,19 +143,42 @@ def _gcp_synthesize(text: str, out: Path, voice_name: str) -> list[dict]:
 
     word_events: list[dict] = []
     for idx, (mark_name, start_s) in enumerate(timepoints):
-        word_idx = int(mark_name[1:])  # "w3" → 3
+        word_idx = int(mark_name[1:])
         if word_idx >= len(words):
             continue
         end_s = timepoints[idx + 1][1] if idx + 1 < len(timepoints) else total_dur
-        word_events.append({
-            "word":  words[word_idx],
-            "start": round(start_s, 3),
-            "end":   round(end_s, 3),
-        })
+        word_events.append({"word": words[word_idx], "start": round(start_s, 3), "end": round(end_s, 3)})
 
-    log.info(f"[TTS/GCP] {out.name} ({out.stat().st_size // 1024}KB) "
-             f"voice={voice_name} words={len(word_events)}")
+    log.info(f"[TTS/GCP] {out.name} ({out.stat().st_size // 1024}KB) voice={voice_name} words={len(word_events)}")
     return word_events
+
+
+def _gcp_synthesize_simple(text: str, out: Path, voice_name: str, rate: float) -> list[dict]:
+    """GCP TTS without SSML marks. For Chirp/Chirp3 voices (no timepoint support).
+    Returns [] — compose step uses Whisper for subtitle timestamps automatically."""
+    import base64, json as _json, urllib.request
+    from google.auth.transport.requests import Request as _Req
+
+    creds = _gcp_credentials()
+    body  = _json.dumps({
+        "input": {"text": text},
+        "voice": {"languageCode": GCP_LANGUAGE, "name": voice_name},
+        "audioConfig": {"audioEncoding": "MP3", "speakingRate": rate},
+    }).encode()
+
+    creds.refresh(_Req())
+    req = urllib.request.Request(
+        "https://texttospeech.googleapis.com/v1/text:synthesize",
+        data=body,
+        headers={"Authorization": f"Bearer {creds.token}", "Content-Type": "application/json"},
+    )
+    resp = _json.loads(urllib.request.urlopen(req, timeout=30).read())
+
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_bytes(base64.b64decode(resp["audioContent"]))
+
+    log.info(f"[TTS/GCP] {out.name} ({out.stat().st_size // 1024}KB) voice={voice_name} (no timestamps → Whisper)")
+    return []  # compose will run Whisper
 
 
 # ── edge-tts fallback ─────────────────────────────────────────────────────────
@@ -174,15 +199,8 @@ async def _edge_synth(text: str, out: Path, voice: str, rate: str) -> list[dict]
             })
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_bytes(audio_bytes)
-    log.info(f"[TTS/edge] {out.name} ({out.stat().st_size // 1024}KB) "
-             f"voice={voice} words={len(word_events)}")
+    log.info(f"[TTS/edge] {out.name} ({out.stat().st_size // 1024}KB) voice={voice} words={len(word_events)}")
     return word_events
-
-
-def _edge_voice_for(gcp_voice: str) -> str:
-    """Map a GCP voice name to the nearest edge-tts equivalent."""
-    female = "Female" in gcp_voice or gcp_voice.endswith(("-A", "-C", "-D", "-E", "-F"))
-    return EDGE_VOICE_FEMALE if female else EDGE_VOICE_MALE
 
 
 # ── Public API ────────────────────────────────────────────────────────────────
@@ -190,37 +208,40 @@ def _edge_voice_for(gcp_voice: str) -> str:
 def generate_with_timestamps(
     text: str,
     output_path: str,
-    voice: str = DEFAULT_VOICE,
+    voice: str | None = None,   # None → read from config/tts.json
     rate: str = EDGE_RATE,
 ) -> tuple[Path, list[dict]]:
     """
-    Generate MP3 + exact word timestamps.
-    Uses GCP Neural2 if available, otherwise falls back to edge-tts.
-    Returns (path, word_events).
+    Generate MP3 + word timestamps. Provider and voice resolved from config/tts.json.
+    voice= overrides the config voice (legacy callers passing a GCP voice name still work).
+    Returns (path, word_events).  word_events=[] for chirp providers → Whisper in compose.
     """
-    out = Path(output_path)
+    cfg              = _load_config()
+    provider, cfg_voice = _resolve_voice(cfg)
+    speaking_rate    = float(cfg.get("speaking_rate", 0.95))
+    resolved_voice   = voice or cfg_voice  # explicit override wins
+    out              = Path(output_path)
 
-    # Try GCP first
-    if _gcp_available() and voice.startswith("es-ES-Neural2"):
+    # Legacy callers may pass a Neural2 voice name directly — honour it
+    if resolved_voice.startswith("es-ES-Neural2"):
+        provider = "gcp_neural2"
+
+    if _gcp_available() and provider != "edge_tts":
         try:
-            word_events = _gcp_synthesize(text, out, voice)
-            return out, word_events
+            if provider in _SSML_MARK_PROVIDERS:
+                return out, _gcp_synthesize_with_marks(text, out, resolved_voice, speaking_rate)
+            else:
+                return out, _gcp_synthesize_simple(text, out, resolved_voice, speaking_rate)
         except Exception as e:
             log.warning(f"[TTS] GCP failed ({e}) — falling back to edge-tts")
 
-    # edge-tts fallback (also used for non-Neural2 voices)
-    edge_voice = _edge_voice_for(voice) if voice.startswith("es-ES-Neural2") else voice
-    word_events = asyncio.run(_edge_synth(text, out, edge_voice, rate))
-    return out, word_events
+    edge_cfg   = cfg.get("voices", {}).get("edge_tts", {})
+    gender     = cfg.get("gender", "male")
+    edge_voice = edge_cfg.get(gender, "es-ES-AlvaroNeural")
+    return out, asyncio.run(_edge_synth(text, out, edge_voice, EDGE_RATE))
 
 
-def generate(
-    text: str,
-    output_path: str,
-    voice: str = DEFAULT_VOICE,
-    rate: str = EDGE_RATE,
-) -> Path:
-    """Generate MP3. Returns the output Path."""
+def generate(text: str, output_path: str, voice: str | None = None, rate: str = EDGE_RATE) -> Path:
     path, _ = generate_with_timestamps(text, output_path, voice, rate)
     return path
 
@@ -228,21 +249,15 @@ def generate(
 # ── Word events → Whisper segment format ─────────────────────────────────────
 
 def to_whisper_segments(word_events: list[dict], pause_s: float = 0.45) -> list[dict]:
-    """
-    Group word_events into sentence-like segments split on pauses ≥ pause_s.
-    Returns Whisper-compatible dicts with word-level timestamps.
-    """
+    """Group word_events into sentence-like segments. Returns Whisper-compatible dicts."""
     if not word_events:
         return []
-
     segments: list[dict] = []
-    current: list[dict] = []
-
+    current:  list[dict] = []
     for i, w in enumerate(word_events):
         current.append({"word": " " + w["word"], "start": w["start"], "end": w["end"]})
-        is_last   = i == len(word_events) - 1
+        is_last    = i == len(word_events) - 1
         long_pause = not is_last and (word_events[i + 1]["start"] - w["end"]) >= pause_s
-
         if is_last or long_pause:
             segments.append({
                 "start": current[0]["start"],
@@ -251,5 +266,4 @@ def to_whisper_segments(word_events: list[dict], pause_s: float = 0.45) -> list[
                 "words": current,
             })
             current = []
-
     return segments

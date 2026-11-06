@@ -26,14 +26,20 @@ from src import tts as tts_module
 from src.brand_config import load as load_brand
 
 
-_TOPIC_PROMPT = """
-Sugiere UN tema para un YouTube Short educativo sobre IA en español.
-Canal: @TheLearningCurveAI (Daniel García) — nicho: LLMs, agentes, RAG, embeddings, transformers, 
-modelos de lenguaje, APIs de IA, herramientas como LangChain/MCP/OpenAI.
-Elige algo técnico pero accesible, trending en la comunidad IA/dev hispana.
-Formato: pregunta de entrevista o concepto clave que un dev de IA debería saber.
-Responde SOLO con el tema. Ej: "¿Cómo funciona la atención en un Transformer?"
-"""
+def _topic_prompt() -> str:
+    from src.brand_config import load as _lb
+    b = _lb()
+    ctx = f"Channel: {b.channel_handle}"
+    if b.channel_description: ctx += f"\n{b.channel_description}"
+    if b.channel_topics:      ctx += f"\nTopic areas: {b.channel_topics}"
+    lang = b.channel_language or "en"
+    return (
+        f"Suggest ONE topic for an educational YouTube Short.\n"
+        f"{ctx}\n"
+        f"Language: {lang}. Choose something technical but accessible, currently trending.\n"
+        f"Format: an interview question or key concept the audience should know.\n"
+        f"Reply with ONLY the topic. E.g. \"How does attention work in a Transformer?\""
+    )
 
 
 def _pick_topic() -> str:
@@ -42,7 +48,7 @@ def _pick_topic() -> str:
     client = OpenAI(api_key=settings.novita_api_key, base_url=settings.novita_base_url)
     r = client.chat.completions.create(
         model=settings.novita_model,
-        messages=[{"role": "user", "content": _TOPIC_PROMPT}],
+        messages=[{"role": "user", "content": _topic_prompt()}],
         temperature=0.9, max_tokens=30,
     )
     return r.choices[0].message.content.strip().strip('"')

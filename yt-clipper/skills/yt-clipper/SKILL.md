@@ -1,7 +1,7 @@
 ---
 name: yt-clipper
 description: >
-  Three pipelines for short-form video content at TheLearningCurveAI (@TheLearningCurveAI).
+  Four pipelines for short-form video content at TheLearningCurveAI (@TheLearningCurveAI).
 
   Pipeline A — yt-clipper: clip existing YouTube videos into viral Shorts.
   Takes a URL, two-agent LLM finds best moments, downloads segments, converts
@@ -9,16 +9,25 @@ description: >
   Use when: "clip this video", "extract shorts from", "make clips from [URL]".
 
   Pipeline B — faceless: original branded Shorts from trending AI topics.
-  LLM picks topic → script → visual plan → slide_agent (Claude Code writes HTML
-  → Playwright renders PNGs) → TTS → karaoke subtitles → upload.
+  LLM picks topic → viral-video-writing hook rules → script (auto-scored, up to 3× retry)
+  → visual plan → slide_agent (Claude Code writes HTML → Playwright renders PNGs)
+  → TTS → karaoke subtitles → upload.
   Use when: "generate a faceless short", "create content on [topic]", "faceless video".
 
   Pipeline C — interview: animated CS/AI explainer Shorts, like KodeKloud/ByteByteGo.
-  LLM picks AI concept → script → Claude Code writes animated HTML (JS timeline,
-  SVG diagrams) → Playwright records video → GCP Neural2 TTS → karaoke subtitles
-  → fixed CTA slide → upload.
+  LLM picks AI concept → script (auto-scored, up to 3× retry) → Claude Code writes
+  animated HTML (JS timeline, SVG diagrams) → Playwright records video → GCP Neural2 TTS
+  → karaoke subtitles → fixed CTA slide → upload.
   Use when: "make an animated explainer", "interview question video", "explain [AI concept]",
   "dynamic video like KodeKloud".
+
+  Pipeline D — reel: talking-head clip → finished 9:16 reel (famous-reel-editor style).
+  Raw MP4 → transcribe → EDL (auto-cut pauses) → silence-trim → animated cards (hyperframes)
+  → karaoke captions → compose (face + cards + music). Interactive review at EDL and crop_y steps.
+  Use when: "turn this talking-head clip into a reel", "edit my raw clip", "famous-reel style".
+
+  Pipelines B+C use the viral-video-writing skill: scripts are auto-scored (90+/no hard fails)
+  and rewritten up to 3× before proceeding.
 
   All content in Spanish. Substack palette (#FF6719 orange, #FAFAF9 warm white).
   Always Spanish, always @TheLearningCurveAI brand.
@@ -36,7 +45,7 @@ metadata:
 
 # yt-clipper — Content pipelines for @TheLearningCurveAI
 
-Three pipelines, one brand. All videos share:
+Four pipelines, one brand. All videos share:
 - **Palette**: Substack orange `#FF6719`, warm white `#FAFAF9`, grid `#E8E4DC`
 - **Logo**: `assets/logos/tlc_logo.png` injected bottom-right via Playwright on every frame
 - **CTA**: fixed slide — `src/cta_slide.py` — same in every video:
@@ -254,6 +263,49 @@ python schedule_clips.py --from-file temp/uploaded.json
 
 ---
 
+---
+
+## Pipeline D — Reel from talking-head clip (famous-reel-editor style)
+
+Raw vertical MP4 → 9:16 reel: face in bottom half, animated green cards in top half,
+karaoke one-word subtitles, background music. Style: Ambra/green-glass (jesserurka, emilsystems).
+
+```bash
+python reel_gen.py --clip path/to/raw.mp4 [--name myname] [--transcriber groq|local|elevenlabs]
+```
+
+**Flags:** `--clip` (required), `--name` (default: clip stem), `--transcriber` (default: elevenlabs),
+`--step N` (resume from step N), `--upload`, `--privacy`
+
+**Pipeline steps:**
+1. Transcribe raw clip (ElevenLabs Scribe, Groq whisper-large-v3, or local Whisper)
+2. Build EDL — auto-removes pauses ≥0.20s → **review `edl.json`** before continuing
+3. Silence-trim EDL
+4. Cut & join → `cutF.mp4` → **review/patch `cutF_cap.json`** (fix transcriber errors)
+5. Generate animated cards HTML (`gen.py`) + render (`npx hyperframes render`)
+6. Burn karaoke captions (`captions.py`, Montserrat weight 900)
+7. Compose final reel (`compose.sh`: face + cards + captions + music)
+8. Upload to YouTube (optional, `--upload`)
+
+**Skills used:** `skills/famous-reel-editor/` (scripts, assets, style reference)
+
+**Transcriber API keys:**
+- ElevenLabs: `ELEVENLABS_API_KEY` env var (best timing)
+- Groq: `GROQ_API_KEY` env var (near-free, fast)
+- Local: no key needed (`pip install faster-whisper`, ~1.5 GB model on first run)
+
+**Output:** `temp/reels/<name>/<name>-FINAL.mp4`
+
+**Troubleshooting:**
+| Error | Fix |
+|-------|-----|
+| `npx hyperframes` not found | Needs Node.js — `sudo apt install nodejs npm` |
+| Captions out of sync | Patch `cutF_cap.json` and rerun from `--step 6` |
+| Wrong crop_y | Re-run from `--step 7` and enter a different value |
+| Upload fails | Check `config/token.json` and YouTube quota |
+
+---
+
 ## Key files
 
 | File | Purpose |
@@ -278,5 +330,8 @@ python schedule_clips.py --from-file temp/uploaded.json
 | `src/visual_planner.py` | LLM visual plan (tabs, card types, logos) |
 | `src/slide_reviewer.py` | Batch slide review + pixel sanity check |
 | `src/logo_agent.py` | Brand logo resolver (simple-icons + LLM fallback) |
-| `src/interview_writer.py` | Animated explainer script writer |
+| `src/interview_writer.py` | Animated explainer script writer (scores narration, retries 3×) |
 | `src/faceless_composer.py` | Faceless video assembly (sections → bg → audio → subs) |
+| `reel_gen.py` | Pipeline D entry point (famous-reel-editor) |
+| `skills/viral-video-writing/` | Hook rules + score.py checker (used by B+C writers) |
+| `skills/famous-reel-editor/` | Reel scripts + style reference (used by Pipeline D) |
