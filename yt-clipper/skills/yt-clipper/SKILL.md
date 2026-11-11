@@ -1,46 +1,21 @@
 ---
 name: yt-clipper
 description: >
-  Four pipelines for short-form video content at TheLearningCurveAI (@TheLearningCurveAI).
-
-  Pipeline A — yt-clipper: clip existing YouTube videos into viral Shorts.
-  Takes a URL, two-agent LLM finds best moments, downloads segments, converts
-  to 1080x1920 vertical (face + zoomed screen), burns karaoke subtitles, uploads.
-  Use when: "clip this video", "extract shorts from", "make clips from [URL]".
-
-  Pipeline B — faceless: original branded Shorts from trending AI topics.
-  LLM picks topic → viral-video-writing hook rules → script (auto-scored, up to 3× retry)
-  → visual plan → slide_agent (Claude Code writes HTML → Playwright renders PNGs)
-  → TTS → karaoke subtitles → upload.
-  Use when: "generate a faceless short", "create content on [topic]", "faceless video".
-
-  Pipeline C — interview: animated CS/AI explainer Shorts, like KodeKloud/ByteByteGo.
-  LLM picks AI concept → script (auto-scored, up to 3× retry) → Claude Code writes
-  animated HTML (JS timeline, SVG diagrams) → Playwright records video → GCP Neural2 TTS
-  → karaoke subtitles → fixed CTA slide → upload.
-  Use when: "make an animated explainer", "interview question video", "explain [AI concept]",
-  "dynamic video like KodeKloud".
-
-  Pipeline D — reel: talking-head clip → finished 9:16 reel (famous-reel-editor style).
-  Raw MP4 → transcribe → EDL (auto-cut pauses) → silence-trim → animated cards (hyperframes)
-  → karaoke captions → compose (face + cards + music). Interactive review at EDL and crop_y steps.
-  Use when: "turn this talking-head clip into a reel", "edit my raw clip", "famous-reel style".
-
-  Pipelines B+C use the viral-video-writing skill: scripts are auto-scored (90+/no hard fails)
-  and rewritten up to 3× before proceeding.
-
-  All content in Spanish. Substack palette (#FF6719 orange, #FAFAF9 warm white).
-  Always Spanish, always @TheLearningCurveAI brand.
+  Create and operate TheLearningCurveAI's Spanish short-form video pipelines:
+  clip YouTube videos into viral Shorts (Pipeline A), generate branded faceless
+  AI Shorts (B), produce animated AI explainers (C), or edit talking-head reels
+  (D). Use for requests to clip a YouTube URL, extract viral moments, create
+  faceless/trending AI content, animate a technical explainer, or turn raw
+  talking-head footage into a reel. Applies TLC branding and karaoke captions;
+  Pipeline A can upload and schedule when requested. Do not use for ordinary
+  long-form editing or audio-only extraction.
 
 license: MIT
-compatibility: >
-  Python 3.10+, ffmpeg, yt-dlp at ~/.local/bin/yt-dlp, Firefox (yt-dlp cookies),
-  edge-tts, google-cloud-texttospeech, google-auth-oauthlib, playwright, claude CLI.
-  Run from /home/developer/proyectos/tlc/yt-clipper. PATH="$HOME/.local/bin:$PATH".
 metadata:
   author: TheLearningCurveAI (Daniel García — iamdgarcia)
-  version: 3.0.0
+  version: 3.2.0
   project-path: /home/developer/proyectos/tlc/yt-clipper
+  compatibility: Python 3.10+, ffmpeg, yt-dlp, Firefox, edge-tts, Google Cloud TTS, Playwright, Claude CLI, manim, Node.js
 ---
 
 # yt-clipper — Content pipelines for @TheLearningCurveAI
@@ -48,10 +23,9 @@ metadata:
 Four pipelines, one brand. All videos share:
 - **Palette**: Substack orange `#FF6719`, warm white `#FAFAF9`, grid `#E8E4DC`
 - **Logo**: `assets/logos/tlc_logo.png` injected bottom-right via Playwright on every frame
-- **CTA**: fixed slide — `src/cta_slide.py` — same in every video:
-  orange bg, TLC logo, tagline, Substack screenshot, "Suscríbete gratis →", `iamdgarcia.substack.com`
-- **Voice**: Google Cloud Neural2 `es-ES-Neural2-B` (primary) → edge-tts fallback
-- **Subtitles**: karaoke style, word timestamps from TTS engine (no Whisper for TTS audio)
+- **CTA**: fixed slide — `src/cta_slide.py` — orange bg, TLC logo, tagline, Substack screenshot, "Suscríbete gratis →", `iamdgarcia.substack.com`
+- **Voice**: Google Cloud Neural2 `es-ES-Neural2-B` (primary) → `es-ES-AlvaroNeural` edge-tts fallback
+- **Subtitles**: karaoke style — Pipeline C derives timing from the **narration script text** directly (not Whisper re-transcription)
 
 ---
 
@@ -67,15 +41,15 @@ python main.py \
   --channel-context "TheLearningCurveAI, Daniel García, Python, LLMs, live coding" \
   --auto-upload \
   --privacy unlisted
-```
 
-**Schedule after upload:**
-```bash
+# Schedule after upload:
 python schedule_clips.py --from-file temp/uploaded.json --dry-run
 python schedule_clips.py --from-file temp/uploaded.json
 ```
 
-**Flags:** `--url` (required), `--max-clips` (5), `--mode` (shorts|standard), `--auto-upload`, `--privacy`
+**Flags:** `--url` (required), `--max-clips` (5), `--mode` (shorts|standard), `--auto-upload`, `--privacy`, `--caption-style` (use `none` when source captions already burned in), `--caption-replace OLD=NEW`
+
+**QA before upload:** inspect frames at beginning/middle/end; confirm one subtitle layer; confirm lips and captions agree with audio.
 
 ---
 
@@ -90,57 +64,156 @@ python faceless_gen.py --dry-run                            # script preview
 python faceless_gen.py --upload --privacy unlisted
 ```
 
-**Agents in the pipeline:**
-1. `src/trend_finder.py` — LLM picks trending AI topic
-2. `src/script_writer.py` — script + 5 sections with visual specs
-3. `src/visual_planner.py` — LLM designs tabs, card types, logos per slide
-4. `src/slide_reviewer.py` — batch reviews all slides (1-2 LLM calls), fixes issues
-5. `src/slide_agent.py` — Claude Code (`--allowedTools Write`) writes HTML → Playwright PNG
-6. `src/cta_slide.py` — fixed CTA PNG replaces last slide (always identical)
-7. `src/tts.py` — GCP Neural2 TTS with word timestamps
-8. `src/faceless_composer.py` — Whisper section timing → FFmpeg concat → burn subtitles
+Steps: `trend_finder` → `script_writer` → `visual_planner` → `slide_reviewer` → `slide_agent` (Claude Code HTML→PNG) → `cta_slide` → `tts` → `faceless_composer`
 
-**Card types** (visual_planner decides):
-- `comparison` — two branded logo cards side by side
-- `stat` — full-width orange card with key data
-- `logo_single` — one brand card centered
-
-**Logo agent** (`src/logo_agent.py`): resolves brand name → simple-icons SVG via GitHub → cairosvg → PNG.
-Seed map for common AI brands (LangChain, Anthropic, OpenAI, etc.). LLM resolves unknowns.
-Cache: `temp/logos/slugs.json` + `temp/logos/*.png`.
+**Card types**: `comparison` (two logos), `stat` (full-width data), `logo_single` (centered brand)
 
 ---
 
-## Pipeline C — Animated AI explainer (interview style)
+## Pipeline C — Animated AI explainer
 
-Animated HTML + SVG diagrams, recorded by Playwright. KodeKloud/ByteByteGo aesthetic.
-Substack palette (warm white bg, orange accent — NOT dark mode).
+Animated diagrams recorded by Playwright. KodeKloud/ByteByteGo aesthetic. Warm white bg, orange accent — NOT dark mode.
 
 ```bash
-python interview_gen.py                                           # LLM picks AI topic
-python interview_gen.py --topic "¿Qué es RAG en LLMs?"           # custom topic
+cd /home/developer/proyectos/tlc/yt-clipper && export PATH="$HOME/.local/bin:$PATH"
+
+# Default HTML style (ByteByteGo / KodeKloud):
+python interview_gen.py --topic "¿Qué es RAG en LLMs?"
+
+# 3Blue1Brown math/CS style (requires: pip install manim):
+python interview_gen.py --topic "Cómo funciona la atención en Transformers" --style manim
+
+# React whiteboard / Rough.js hand-drawn (requires: Node.js):
+python interview_gen.py --topic "Arquitectura de agentes IA" --style remotion
+
+# Other flags:
 python interview_gen.py --topic "..." --upload --privacy unlisted
-python interview_gen.py --dry-run                                 # script only
+python interview_gen.py --dry-run   # script only, no render
 ```
 
-**Pipeline steps:**
-1. `src/interview_writer.py` — LLM writes 5-section narration + timing (INTRO/PROBLEMA/CÓMO FUNCIONA/RESULTADO/CTA)
-2. `src/tts.py` — GCP Neural2 TTS → MP3 + exact word timestamps (SSML marks, v1beta1 API)
-3. `src/animation_renderer.py` → `generate_html()`:
-   - Writes brief to temp file, runs `claude --print --dangerously-skip-permissions --allowedTools Write`
-   - Claude Code writes the animated HTML (SVG diagrams, JS setTimeout timeline, stroke-dashoffset arrows)
-   - Polls for file existence (stdout=PIPE + drain thread to avoid deadlock)
-   - Timeout: 480s (complex HTML takes 150-450s)
-4. Playwright records animation as WebM (real-time, `record_video_dir`)
-5. FFmpeg: trim animation at `cta_start_s` → concat fixed CTA clip
-6. Karaoke subtitles burned (stop at CTA start — CTA slide stays clean)
+### Pipeline C steps
 
-**Topics for this channel** (AI/LLMs niche only, in Spanish):
+1. `src/interview_writer.py` — LLM writes 5-section narration + timing (INTRO/PROBLEMA/CÓMO FUNCIONA/RESULTADO/CTA), scores with viral-video-writing, retries 3×
+2. `src/tts.py` — GCP Neural2 TTS → MP3 (falls back to edge-tts if GCP returns 400/403)
+3. Renderer writes animation file, Claude Code generates content via **stdin+Popen** (see critical note below)
+4. Playwright records WebM / manim renders MP4 / remotion renders MP4
+5. FFmpeg: trim at `cta_start_s` → concat fixed CTA clip
+6. Subtitles burned from **narration text** (exact words, proportional timing — no Whisper)
+
+### Diagram styles
+
+| `--style` | Renderer | Aesthetic | Requires |
+|-----------|----------|-----------|----------|
+| `html` (default) | Claude Code → HTML/SVG → Playwright | ByteByteGo / KodeKloud | Playwright (installed) |
+| `manim` | Claude Code → Manim Python → `manim -qh` | 3Blue1Brown math | `pip install manim` ✅ |
+| `remotion` | Claude Code → React/TSX → `npx remotion render` | Whiteboard / Rough.js | Node.js ✅ |
+
+**Manim rules Claude must follow:**
+- Single file, single `ExplainerScene` class; canvas `9×16` portrait
+- Opacity discipline: `FadeOut` before each new section
+- Monospace font for code/labels (prevents Pango kerning bugs)
+- Pure Manim primitives; no external images
+- Run as: `manim -qh --media_dir media scene.py ExplainerScene` (cwd = work_dir; use relative paths)
+
+**Remotion rules Claude must follow:**
+- Export `default ExplainerComp` + `compositionConfig` object
+- Register with `<Composition component={Comp} {...compositionConfig} />` in `index.tsx` (NOT spread props, NOT index.ts)
+- `useCurrentFrame()` + `interpolate()` for all motion (no CSS transitions)
+- Spring physics for entrances: `spring({ fps, frame, config: { damping: 12 } })`
+- Each section = `<Sequence from={...} durationInFrames={...}>` block
+
+### ⚠️ Critical: Claude CLI invocation in renderers
+
+**Always use stdin + Popen**, never `subprocess.run([..., prompt])`:
+
+```python
+# ✅ CORRECT — matches animation_renderer.py pattern
+brief_file.write_text(prompt)
+with open(brief_file) as stdin_f:
+    proc = subprocess.Popen(
+        [claude, "--print", "--dangerously-skip-permissions", "--allowedTools", "Write"],
+        stdin=stdin_f, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
+    )
+    threading.Thread(target=lambda: [_ for _ in proc.stdout], daemon=True).start()
+    # poll for output file...
+
+# ❌ WRONG — deadlocks on large output, prompt not recognized
+subprocess.run([claude, "--print", "--allowedTools", "Write", prompt])
+subprocess.run([claude, "--print", "--allowedTools=Write", prompt])
+```
+
+### Subtitle pipeline (Pipeline C)
+
+Subtitles come from the **narration script text** — not from Whisper re-transcription:
+
+```
+narration text + audio_duration → tts.text_to_word_events() → karaoke subtitles
+```
+
+Priority in `compose()`: `narration` (always pass it) > `word_events` > Whisper (last resort).
+
+`interview_gen.py` already passes `narration` to all renderers. If adding a new renderer, always include `narration=narration` in the `compose()` call.
+
+### Topics for this channel (AI/LLMs niche, in Spanish)
+
 RAG, embeddings, fine-tuning, ventana de contexto, tokens, MCP, agentes IA,
-transformers/atención, prompt caching, vector databases, LangChain, quantización, LoRA
+transformers/atención, prompt caching, vector databases, LangChain, quantización, LoRA,
+Claude Suite, agentes autónomos, subagentes, servicios IA a precio fijo
 
-**Known intermittent issue**: Claude sometimes fails to write the HTML (exits without writing).
-Simple retry: rerun the same command. Second attempt almost always succeeds.
+---
+
+## Pipeline D — Reel from talking-head clip
+
+Raw vertical MP4 → 9:16 reel: face in bottom half, animated green cards in top half, karaoke one-word subtitles, background music. Style: Ambra/green-glass.
+
+```bash
+python reel_gen.py --clip path/to/raw.mp4 [--name myname] [--transcriber groq|local|elevenlabs]
+```
+
+**Flags:** `--clip` (required), `--name` (default: clip stem), `--transcriber` (default: elevenlabs), `--step N` (resume), `--upload`, `--privacy`
+
+Steps: transcribe → build EDL (review!) → silence-trim → cut+join → animated cards → karaoke captions → compose → upload
+
+**Output:** `temp/reels/<name>/<name>-FINAL.mp4`
+
+---
+
+## Upload + Schedule (Pipelines B & C)
+
+Pipelines B and C do NOT auto-upload. After generating:
+
+```bash
+cd /home/developer/proyectos/tlc/yt-clipper && export PATH="$HOME/.local/bin:$PATH"
+
+# 1. Upload MP4s (titles from --titles or inferred from filename)
+python upload_videos.py temp/interview_*.mp4
+python upload_videos.py temp/interview_*.mp4 \
+  --titles "Título 1" "Título 2" \
+  --privacy private
+
+# 2a. Preferred-slot algorithm (Tue/Thu/Fri/Sun 14:00, 2-day gap — best for algo)
+python schedule_clips.py --from-file temp/uploaded.json --dry-run
+python schedule_clips.py --from-file temp/uploaded.json
+
+# 2b. Blitz mode — every N hours from now
+python schedule_clips.py --from-file temp/uploaded.json --interval-hours 2
+```
+
+**Pipeline A** has `--auto-upload` built in; `upload_videos.py` is not needed for it.
+
+---
+
+## TTS — Google Cloud Neural2
+
+**Primary**: `es-ES-Neural2-B` (Neural2, male, Spain). OAuth2 Desktop flow.
+**Token**: `config/tts_token.json`. **Project**: `gen-lang-client-0480118193`. **API**: `v1beta1`.
+**Fallback**: `es-ES-AlvaroNeural` via edge-tts (auto, no config needed).
+
+> **GCP TTS HTTP 400**: Delete `config/tts_token.json` and rerun — it re-auths automatically.
+> GCP returning 400 on all runs means the token is expired. edge-tts fallback works fine in the meantime.
+
+Word timestamps: SSML `<mark name="wN"/>` → `enableTimePointing: ["SSML_MARK"]` → exact per-word timing.
+Pipeline C does NOT need TTS timestamps for subtitles — it uses `text_to_word_events(narration, duration)` instead.
 
 ---
 
@@ -148,104 +221,34 @@ Simple retry: rerun the same command. Second attempt almost always succeeds.
 
 ```json
 {
-  "channel_handle":    "@TheLearningCurveAI",
-  "channel_niche":     "IA · LLMs · Agentes",
-  "accent_color":      "#FF6719",
-  "bg_color":          "#FAFAF9",
-  "grid_color":        "#E8E4DC",
-  "grid_size":         54,
-  "text_color":        "#1C1B1F",
-  "card_text_color":   "#FFFFFF",
-  "font_bold":         "assets/fonts/InterDisplay-Bold.ttf",
-  "font_regular":      "assets/fonts/Inter-Medium.ttf",
-  "tts_voice":         "es-ES-Neural2-B",
-  "tts_rate":          "+0%",
-  "default_privacy":   "unlisted",
-  "tiktok_enabled":    false,
-  "youtube_channel_url": "https://www.youtube.com/@TheLearningCurveAI",
-  "logo_path":         "assets/logos/tlc_logo.png"
+  "channel_handle": "@TheLearningCurveAI",
+  "channel_niche":  "IA · LLMs · Agentes",
+  "accent_color":   "#FF6719",
+  "bg_color":       "#FAFAF9",
+  "grid_color":     "#E8E4DC",
+  "text_color":     "#1C1B1F",
+  "tts_voice":      "es-ES-Neural2-B",
+  "tts_rate":       "+0%",
+  "default_privacy":"unlisted",
+  "logo_path":      "assets/logos/tlc_logo.png"
 }
-```
-
-| Field | What it does |
-|-------|-------------|
-| `channel_handle` | `@TheLearningCurveAI` — top-right watermark |
-| `channel_niche` | Top-left label (e.g. "IA · LLMs · Agentes") |
-| `accent_color` | Substack orange `#FF6719` |
-| `bg_color` / `grid_color` | Warm white / warm gray — NOT dark mode |
-| `tts_voice` | `es-ES-Neural2-B` (GCP Neural2 male Spain). Fallback: `es-ES-AlvaroNeural` |
-| `tts_rate` | `+0%` — do not speed up, sounds robotic |
-| `logo_path` | TLC wordmark PNG injected via Playwright on every frame |
-
----
-
-## TTS — Google Cloud Neural2
-
-Primary voice: `es-ES-Neural2-B` (Neural2, male, Spain). Much more natural than edge-tts.
-
-**Auth**: OAuth2 Desktop flow using existing `config/client_secrets.json`.
-Token saved to `config/tts_token.json` after first authorization.
-Project: `gen-lang-client-0480118193`.
-API: `v1beta1` (NOT v1 — v1 lacks `enableTimePointing`).
-
-**Word timestamps**: SSML `<mark name="wN"/>` per word → `enableTimePointing: ["SSML_MARK"]`
-→ exact timestamps returned in response → no Whisper needed for TTS audio.
-
-**Fallback**: if GCP fails, auto-switches to `es-ES-AlvaroNeural` via edge-tts.
-
-```python
-# In src/tts.py
-from src.tts import generate_with_timestamps, to_whisper_segments
-
-path, word_events = generate_with_timestamps(text, output_path, voice="es-ES-Neural2-B")
-segments = to_whisper_segments(word_events)  # → subtitle_generator compatible
 ```
 
 ---
 
 ## Fixed CTA — `src/cta_slide.py`
 
-**Always identical** — not generated by Claude. Rendered once (Playwright), cached.
+Always identical, rendered once and cached. Orange bg, TLC logo, tagline, Substack screenshot, "Suscríbete gratis →", `iamdgarcia.substack.com`.
 
-Content:
-- Orange `#FF6719` full background
-- "The Learning Curve" logo (white, from `assets/logos/tlc_logo.png`)
-- Tagline: "Aprende IA como un ingeniero, no como un gurú de YouTube."
-- Rounded card with Substack page screenshot (`assets/substack_screenshot.png`)
-- White button: "Suscríbete gratis →"
-- URL: `iamdgarcia.substack.com`
-
-**Interview**: animation trimmed at `sections[-1]["start_s"]`, CTA clip appended.
-**Faceless**: last slide PNG (`section_04.png`) replaced with CTA PNG.
-
-To update the screenshot: replace `assets/substack_screenshot.png` and delete `temp/*/cta*.png`.
+To update: replace `assets/substack_screenshot.png` → delete `temp/*/cta*.png`.
 
 ---
 
-## Logo injection — `src/brand_assets.py`
+## Cinematic scenes (roadmap)
 
-```python
-from src.brand_assets import inject_logo
-inject_logo(page)  # call after page.goto(), before screenshot/record
-```
+Pipeline C generates animated diagram explainers. The original reference videos also use cinematic B-roll (product shots, ambient lighting). Roadmap: after `render_animation()`, call **Higgsfield MCP** to generate 1-2 cinematic clips intercut with diagram sections — same as Pipeline D already does via `famous-reel-editor`.
 
-Injects `assets/logos/tlc_logo.png` as `position:fixed; bottom:28px; right:32px; width:260px`
-via `file://` URI. Works for both static PNGs (faceless) and recorded video (interview).
-
----
-
-## Scheduling
-
-```bash
-# After upload (any pipeline):
-python schedule_clips.py --from-file temp/uploaded.json --dry-run
-python schedule_clips.py --from-file temp/uploaded.json
-
-# Default slots (Spain, Thu/Mon 14:00, 2-day gap):
-# Clips sorted by virality score. Videos set to private + publishAt.
-```
-
-**Token scope error on schedule**: `rm config/token.json` then rerun.
+> **Status**: planned. Pipeline D already supports Higgsfield B-roll.
 
 ---
 
@@ -255,54 +258,15 @@ python schedule_clips.py --from-file temp/uploaded.json
 |-------|-----|
 | Pipeline A: `403 Forbidden` | Firefox must be open and logged into YouTube |
 | Pipeline A: `Clip contains XX% silence` | Expected — silence filter working, other clips continue |
-| Pipeline B/C: Claude HTML timeout | Retry — second attempt almost always succeeds |
-| Pipeline C: `GCP TTS 403` | Check `config/tts_token.json` exists, reauth if expired |
-| Pipeline C: animation blank | Claude wrote HTML but Playwright didn't render — check HTML file size |
-| Both: `YouTube quota exceeded` | ~6 uploads/day limit. Retry next day. |
+| Pipeline B/C: Claude HTML/scene timeout | Retry — second attempt almost always succeeds (Claude Code is intermittent) |
+| Pipeline C: `GCP TTS 400/403` | `rm config/tts_token.json` → rerun to re-auth; edge-tts works as fallback |
+| Pipeline C: animation blank | Claude wrote file but Playwright didn't render — check file size, retry |
+| Pipeline C `--style manim`: `ExplainerScene.mp4` not found | Check `work_dir.resolve()/media` — relative path double-nesting bug; use `scene_path.name` and `--media_dir media` |
+| Pipeline C `--style remotion`: esbuild JSX error | Ensure entry point is `index.tsx` not `index.ts`; ensure `tsconfig.json` exists in scaffold |
+| Pipeline C `--style remotion`: composition not found | Use `<Composition component={Comp} {...compositionConfig} />` pattern in registerRoot |
+| Parallel runs clobbering temp files | Each run uses `timestamp_PID` prefix — PIDs prevent collision |
+| YouTube quota exceeded | ~6 uploads/day limit. Retry next day |
 | Schedule: `insufficientPermissions` | `rm config/token.json` → rerun for full-scope reauth |
-
----
-
----
-
-## Pipeline D — Reel from talking-head clip (famous-reel-editor style)
-
-Raw vertical MP4 → 9:16 reel: face in bottom half, animated green cards in top half,
-karaoke one-word subtitles, background music. Style: Ambra/green-glass (jesserurka, emilsystems).
-
-```bash
-python reel_gen.py --clip path/to/raw.mp4 [--name myname] [--transcriber groq|local|elevenlabs]
-```
-
-**Flags:** `--clip` (required), `--name` (default: clip stem), `--transcriber` (default: elevenlabs),
-`--step N` (resume from step N), `--upload`, `--privacy`
-
-**Pipeline steps:**
-1. Transcribe raw clip (ElevenLabs Scribe, Groq whisper-large-v3, or local Whisper)
-2. Build EDL — auto-removes pauses ≥0.20s → **review `edl.json`** before continuing
-3. Silence-trim EDL
-4. Cut & join → `cutF.mp4` → **review/patch `cutF_cap.json`** (fix transcriber errors)
-5. Generate animated cards HTML (`gen.py`) + render (`npx hyperframes render`)
-6. Burn karaoke captions (`captions.py`, Montserrat weight 900)
-7. Compose final reel (`compose.sh`: face + cards + captions + music)
-8. Upload to YouTube (optional, `--upload`)
-
-**Skills used:** `skills/famous-reel-editor/` (scripts, assets, style reference)
-
-**Transcriber API keys:**
-- ElevenLabs: `ELEVENLABS_API_KEY` env var (best timing)
-- Groq: `GROQ_API_KEY` env var (near-free, fast)
-- Local: no key needed (`pip install faster-whisper`, ~1.5 GB model on first run)
-
-**Output:** `temp/reels/<name>/<name>-FINAL.mp4`
-
-**Troubleshooting:**
-| Error | Fix |
-|-------|-----|
-| `npx hyperframes` not found | Needs Node.js — `sudo apt install nodejs npm` |
-| Captions out of sync | Patch `cutF_cap.json` and rerun from `--step 6` |
-| Wrong crop_y | Re-run from `--step 7` and enter a different value |
-| Upload fails | Check `config/token.json` and YouTube quota |
 
 ---
 
@@ -310,28 +274,29 @@ python reel_gen.py --clip path/to/raw.mp4 [--name myname] [--transcriber groq|lo
 
 | File | Purpose |
 |------|---------|
-| `faceless_gen.py` | Pipeline B entry point |
-| `interview_gen.py` | Pipeline C entry point |
 | `main.py` | Pipeline A entry point |
-| `schedule_clips.py` | Schedule uploaded videos |
+| `faceless_gen.py` | Pipeline B entry point |
+| `interview_gen.py` | Pipeline C entry point (`--style html|manim|remotion`) |
+| `reel_gen.py` | Pipeline D entry point |
+| `upload_videos.py` | Generic uploader — any MP4 list → `temp/uploaded.json` |
+| `schedule_clips.py` | Schedule uploaded videos (preferred slots or `--interval-hours N`) |
 | `config/faceless_brand.json` | Brand identity (colors, voice, handle) |
 | `config/client_secrets.json` | OAuth2 Desktop credentials (YouTube + GCP TTS) |
 | `config/token.json` | YouTube OAuth token |
-| `config/tts_token.json` | GCP TTS OAuth token |
-| `assets/logos/tlc_logo.png` | "The Learning Curve" wordmark (transparent bg) |
-| `assets/substack_screenshot.png` | Substack homepage screenshot for CTA |
-| `assets/fonts/InterDisplay-Bold.ttf` | Title font |
-| `assets/fonts/Inter-Medium.ttf` | UI font |
-| `src/tts.py` | TTS: GCP Neural2 primary, edge-tts fallback, word timestamps |
-| `src/cta_slide.py` | Fixed CTA slide (HTML → PNG/MP4) |
+| `config/tts_token.json` | GCP TTS OAuth token (delete to re-auth) |
+| `src/tts.py` | TTS: GCP Neural2 primary, edge-tts fallback, `text_to_word_events()` |
+| `src/animation_renderer.py` | Style `html`: Claude Code → HTML → Playwright → FFmpeg |
+| `src/manim_renderer.py` | Style `manim`: Claude Code → Manim Python → `manim -qh` → FFmpeg |
+| `src/remotion_renderer.py` | Style `remotion`: Claude Code → React/TSX → `npx remotion render` → FFmpeg |
+| `src/interview_writer.py` | Script writer: 5-section narration, viral score, 3 retries |
+| `src/faceless_composer.py` | Pipeline B assembly: sections → bg → audio → subtitles |
+| `src/cta_slide.py` | Fixed CTA slide (HTML → PNG/MP4, cached) |
 | `src/brand_assets.py` | Logo injection for Playwright pages |
-| `src/animation_renderer.py` | Claude Code → HTML → Playwright record → FFmpeg |
-| `src/slide_agent.py` | Claude Code → HTML → Playwright PNG (faceless) |
-| `src/visual_planner.py` | LLM visual plan (tabs, card types, logos) |
+| `src/visual_planner.py` | LLM visual plan (card types, logos per slide) |
 | `src/slide_reviewer.py` | Batch slide review + pixel sanity check |
-| `src/logo_agent.py` | Brand logo resolver (simple-icons + LLM fallback) |
-| `src/interview_writer.py` | Animated explainer script writer (scores narration, retries 3×) |
-| `src/faceless_composer.py` | Faceless video assembly (sections → bg → audio → subs) |
-| `reel_gen.py` | Pipeline D entry point (famous-reel-editor) |
-| `skills/viral-video-writing/` | Hook rules + score.py checker (used by B+C writers) |
-| `skills/famous-reel-editor/` | Reel scripts + style reference (used by Pipeline D) |
+| `src/logo_agent.py` | Brand logo resolver (simple-icons SVG → PNG) |
+| `src/brand_config.py` | `load()` → BrandConfig — always call at start of `write()` functions |
+| `assets/logos/tlc_logo.png` | TLC wordmark (transparent bg) |
+| `assets/substack_screenshot.png` | Substack page screenshot for CTA |
+| `skills/viral-video-writing/` | Hook rules + score.py (used by B+C writers) |
+| `skills/famous-reel-editor/` | Reel scripts + style reference (Pipeline D) |

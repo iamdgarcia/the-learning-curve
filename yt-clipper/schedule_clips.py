@@ -15,6 +15,7 @@ Usage:
     python schedule_clips.py --video-ids ID1 ID2 ID3 ID4 ID5
     python schedule_clips.py --from-file temp/uploaded.json
     python schedule_clips.py --from-file temp/uploaded.json --start 2026-10-27
+    python schedule_clips.py --from-file temp/uploaded.json --interval-hours 2
 """
 import argparse
 import json
@@ -136,6 +137,8 @@ def main():
     g.add_argument("--video-ids", nargs="+", help="YouTube video IDs to schedule")
     g.add_argument("--from-file", help="JSON file with [{video_id, title, url}, ...]")
     p.add_argument("--start", help="Start scheduling from this date (YYYY-MM-DD), default: tomorrow")
+    p.add_argument("--interval-hours", type=float, default=0,
+                   help="Publish every N hours from now (bypasses preferred-slot algorithm)")
     p.add_argument("--dry-run", action="store_true", help="Show schedule without applying")
     args = p.parse_args()
 
@@ -151,12 +154,18 @@ def main():
         sys.exit(1)
 
     # Build schedule
-    start_after = None
-    if args.start:
-        d = datetime.strptime(args.start, "%Y-%m-%d")
-        start_after = datetime(d.year, d.month, d.day, tzinfo=MADRID) - timedelta(days=1)
-
-    slots = build_schedule(len(videos), start_after)
+    if args.interval_hours:
+        # Simple every-N-hours mode: start from next round hour
+        base = datetime.now(MADRID).replace(minute=0, second=0, microsecond=0) + timedelta(hours=1)
+        if (base - datetime.now(MADRID)).total_seconds() < 600:
+            base += timedelta(hours=1)
+        slots = [base + timedelta(hours=args.interval_hours * i) for i in range(len(videos))]
+    else:
+        start_after = None
+        if args.start:
+            d = datetime.strptime(args.start, "%Y-%m-%d")
+            start_after = datetime(d.year, d.month, d.day, tzinfo=MADRID) - timedelta(days=1)
+        slots = build_schedule(len(videos), start_after)
 
     # Print plan
     print("\n📅 PUBLISHING SCHEDULE")

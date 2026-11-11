@@ -259,16 +259,19 @@ def compose(
     for f in [anim_mp4, cta_audio, cta_with_audio, concat_list]:
         f.unlink(missing_ok=True)
 
-    # ── Subtitles: use TTS word events (exact) or fall back to Whisper ──
-    from src.tts import to_whisper_segments
+    # ── Subtitles: script text > TTS word events > Whisper (last resort) ──
+    from src.tts import to_whisper_segments, text_to_word_events
     sub_dur = cta_start_s if cta_start_s else audio_duration
     ass     = output_path.with_suffix(".ass")
 
-    if word_events:
+    if narration:
+        log.info(f"[Anim] Subtitles from script text ({len(narration.split())} words, proportional timing)")
+        segments = to_whisper_segments(text_to_word_events(narration, sub_dur))
+    elif word_events:
         log.info(f"[Anim] Subtitles from TTS word events ({len(word_events)} words)")
         segments = to_whisper_segments(word_events)
     else:
-        log.info("[Anim] Transcribing for subtitles (Whisper fallback)...")
+        log.info("[Anim] Transcribing for subtitles (Whisper fallback — pass narration to avoid this)...")
         import whisper as _whisper
         model    = _whisper.load_model("small")
         result   = model.transcribe(str(audio_path), language="es", word_timestamps=True, verbose=False)
@@ -310,6 +313,7 @@ def render(
     work_dir: Path | None = None,
     cta_start_s: float | None = None,
     word_events: list[dict] | None = None,
+    narration: str = "",
 ) -> Path:
     """End-to-end: generate HTML → record → merge audio → MP4."""
     work = work_dir or output_path.parent / "anim_work"
@@ -325,4 +329,4 @@ def render(
 
     webm = record_animation(html_path, (cta_start_s or audio_duration) + 1, work)
     return compose(webm, audio_path, output_path, audio_duration,
-                   cta_start_s=cta_start_s, word_events=word_events)
+                   cta_start_s=cta_start_s, word_events=word_events, narration=narration)

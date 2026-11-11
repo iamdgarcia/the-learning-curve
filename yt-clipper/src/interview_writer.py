@@ -9,6 +9,7 @@ import logging
 import pathlib
 from openai import OpenAI
 from src.config import settings
+from src import brand_config
 
 _SKILL_DIR = pathlib.Path(__file__).parent.parent / "skills" / "viral-video-writing"
 _SCORE_PY  = _SKILL_DIR / "scripts" / "score.py"
@@ -35,6 +36,7 @@ def write(topic: str, duration_s: int = 55) -> dict:
       description — YouTube description
       tags        — list[str]
     """
+    brand = brand_config.load()
     word_target = int(duration_s * _WPM / 60)
     client = OpenAI(api_key=settings.novita_api_key, base_url=settings.novita_base_url)
     _base = (

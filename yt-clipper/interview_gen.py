@@ -61,6 +61,8 @@ def main():
     ap.add_argument("--voice",   default=None)
     ap.add_argument("--upload",  action="store_true")
     ap.add_argument("--privacy", default="unlisted")
+    ap.add_argument("--style",   default="html", choices=["html", "manim", "remotion"],
+                    help="Animation renderer: html (default, Playwright), manim (3Blue1Brown), remotion (whiteboard/Rough.js)")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--brand",   default="config/faceless_brand.json")
     args = ap.parse_args()
@@ -68,7 +70,7 @@ def main():
     brand = load_brand(args.brand)
     voice = args.voice or brand.tts_voice
     out_dir = Path("temp"); out_dir.mkdir(exist_ok=True)
-    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+    ts = datetime.now().strftime("%Y%m%d_%H%M%S") + f"_{os.getpid()}"
 
     # ── 1. Topic ──────────────────────────────────────────────────────────────
     if args.topic:
@@ -123,7 +125,8 @@ def main():
         s["end_s"]   = round(s["end_s"]   * scale, 1)
 
     # ── 4. Render animation ───────────────────────────────────────────────────
-    log.info("[4/4] Generating animation (Claude → Playwright)...")
+    style = args.style
+    log.info(f"[4/4] Generating animation (style={style})...")
     video_path = out_dir / f"interview_{ts}.mp4"
     work_dir   = out_dir / f"interview_{ts}_work"
 
@@ -131,7 +134,7 @@ def main():
     cta_start_s = sections[-1]["start_s"] if sections else None
     log.info(f"  CTA starts at {cta_start_s:.1f}s (fixed slide replaces Claude's CTA)")
 
-    render_animation(
+    _renderer_kwargs = dict(
         topic          = topic,
         sections       = sections,
         audio_path     = audio_path,
@@ -141,7 +144,15 @@ def main():
         work_dir       = work_dir,
         cta_start_s    = cta_start_s,
         word_events    = word_events,
+        narration      = narration,   # script text → exact subtitle words, no Whisper needed
     )
+    if style == "manim":
+        from src.manim_renderer import render as _render
+    elif style == "remotion":
+        from src.remotion_renderer import render as _render
+    else:
+        _render = render_animation
+    _render(**_renderer_kwargs)
 
     # audio kept alive through render (Whisper needs it); delete after
     audio_path.unlink(missing_ok=True)

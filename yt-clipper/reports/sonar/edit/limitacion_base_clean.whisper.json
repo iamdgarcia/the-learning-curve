@@ -1,0 +1,424 @@
+{
+  "text": " como conclusión también, es que la limitación ya no es técnica, el DSTT funciona, el TT se funciona, el LN funciona, todo eso ya está resuelto, pero lo que no está resuelto todavía es, ¿quién va a ser el primero en su sector? En darse cuenta de que se puede usar esto.",
+  "segments": [
+    {
+      "id": 0,
+      "seek": 0,
+      "start": 0.0,
+      "end": 10.36,
+      "text": " como conclusión también, es que la limitación ya no es técnica, el DSTT funciona, el TT se funciona, el LN funciona, todo eso ya está resuelto,",
+      "tokens": [
+        50364,
+        2617,
+        18646,
+        2560,
+        6407,
+        11,
+        785,
+        631,
+        635,
+        4948,
+        3482,
+        2478,
+        572,
+        785,
+        45411,
+        11,
+        806,
+        413,
+        6840,
+        51,
+        26210,
+        11,
+        806,
+        32576,
+        369,
+        26210,
+        11,
+        806,
+        441,
+        45,
+        26210,
+        11,
+        5149,
+        7287,
+        2478,
+        3192,
+        725,
+        3483,
+        1353,
+        11,
+        50864
+      ],
+      "temperature": 0,
+      "avg_logprob": -0.21349760202261117,
+      "compression_ratio": 1.489247311827957,
+      "no_speech_prob": 0.29676806926727295,
+      "words": [
+        {
+          "word": " como",
+          "start": 0.0,
+          "end": 0.62,
+          "probability": 0.5312555432319641
+        },
+        {
+          "word": " conclusión",
+          "start": 0.62,
+          "end": 1.26,
+          "probability": 0.9841568171977997
+        },
+        {
+          "word": " también,",
+          "start": 1.26,
+          "end": 1.64,
+          "probability": 0.8911189436912537
+        },
+        {
+          "word": " es",
+          "start": 2.08,
+          "end": 2.2,
+          "probability": 0.953400731086731
+        },
+        {
+          "word": " que",
+          "start": 2.2,
+          "end": 2.3,
+          "probability": 0.9976910352706909
+        },
+        {
+          "word": " la",
+          "start": 2.3,
+          "end": 2.4,
+          "probability": 0.9923047423362732
+        },
+        {
+          "word": " limitación",
+          "start": 2.4,
+          "end": 2.96,
+          "probability": 0.9836063981056213
+        },
+        {
+          "word": " ya",
+          "start": 2.96,
+          "end": 3.14,
+          "probability": 0.9651572108268738
+        },
+        {
+          "word": " no",
+          "start": 3.14,
+          "end": 3.32,
+          "probability": 0.9935546517372131
+        },
+        {
+          "word": " es",
+          "start": 3.32,
+          "end": 3.52,
+          "probability": 0.9835347533226013
+        },
+        {
+          "word": " técnica,",
+          "start": 3.52,
+          "end": 4.3,
+          "probability": 0.8259333968162537
+        },
+        {
+          "word": " el",
+          "start": 4.92,
+          "end": 5.0,
+          "probability": 0.9774649143218994
+        },
+        {
+          "word": " DSTT",
+          "start": 5.0,
+          "end": 5.52,
+          "probability": 0.6111684044202169
+        },
+        {
+          "word": " funciona,",
+          "start": 5.52,
+          "end": 5.92,
+          "probability": 0.9779474139213562
+        },
+        {
+          "word": " el",
+          "start": 6.5,
+          "end": 6.6,
+          "probability": 0.9726224541664124
+        },
+        {
+          "word": " TT",
+          "start": 6.6,
+          "end": 6.76,
+          "probability": 0.7372808456420898
+        },
+        {
+          "word": " se",
+          "start": 6.76,
+          "end": 7.0,
+          "probability": 0.964107871055603
+        },
+        {
+          "word": " funciona,",
+          "start": 7.0,
+          "end": 7.48,
+          "probability": 0.9935070276260376
+        },
+        {
+          "word": " el",
+          "start": 8.0,
+          "end": 8.12,
+          "probability": 0.9655099511146545
+        },
+        {
+          "word": " LN",
+          "start": 8.12,
+          "end": 8.34,
+          "probability": 0.2956389784812927
+        },
+        {
+          "word": " funciona,",
+          "start": 8.34,
+          "end": 8.72,
+          "probability": 0.9886821508407593
+        },
+        {
+          "word": " todo",
+          "start": 9.22,
+          "end": 9.34,
+          "probability": 0.9941641688346863
+        },
+        {
+          "word": " eso",
+          "start": 9.34,
+          "end": 9.52,
+          "probability": 0.9901090860366821
+        },
+        {
+          "word": " ya",
+          "start": 9.52,
+          "end": 9.68,
+          "probability": 0.9693873524665833
+        },
+        {
+          "word": " está",
+          "start": 9.68,
+          "end": 9.82,
+          "probability": 0.9668688178062439
+        },
+        {
+          "word": " resuelto,",
+          "start": 9.82,
+          "end": 10.36,
+          "probability": 0.9918558398882548
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "seek": 0,
+      "start": 10.86,
+      "end": 18.92,
+      "text": " pero lo que no está resuelto todavía es, ¿quién va a ser el primero en su sector? En darse cuenta de que se puede usar esto.",
+      "tokens": [
+        50914,
+        4768,
+        450,
+        631,
+        572,
+        3192,
+        725,
+        3483,
+        1353,
+        28388,
+        785,
+        11,
+        3841,
+        358,
+        5770,
+        2773,
+        257,
+        816,
+        806,
+        21289,
+        465,
+        459,
+        6977,
+        30,
+        2193,
+        4072,
+        405,
+        17868,
+        368,
+        631,
+        369,
+        8919,
+        14745,
+        7433,
+        13,
+        51314
+      ],
+      "temperature": 0,
+      "avg_logprob": -0.21349760202261117,
+      "compression_ratio": 1.489247311827957,
+      "no_speech_prob": 0.29676806926727295,
+      "words": [
+        {
+          "word": " pero",
+          "start": 10.86,
+          "end": 11.34,
+          "probability": 0.9937703013420105
+        },
+        {
+          "word": " lo",
+          "start": 11.34,
+          "end": 11.5,
+          "probability": 0.9915960431098938
+        },
+        {
+          "word": " que",
+          "start": 11.5,
+          "end": 11.62,
+          "probability": 0.9973931312561035
+        },
+        {
+          "word": " no",
+          "start": 11.62,
+          "end": 11.76,
+          "probability": 0.9925538897514343
+        },
+        {
+          "word": " está",
+          "start": 11.76,
+          "end": 11.88,
+          "probability": 0.9849360585212708
+        },
+        {
+          "word": " resuelto",
+          "start": 11.88,
+          "end": 12.2,
+          "probability": 0.9831463297208151
+        },
+        {
+          "word": " todavía",
+          "start": 12.2,
+          "end": 12.56,
+          "probability": 0.9895092248916626
+        },
+        {
+          "word": " es,",
+          "start": 12.56,
+          "end": 13.42,
+          "probability": 0.8000266551971436
+        },
+        {
+          "word": " ¿quién",
+          "start": 13.9,
+          "end": 14.36,
+          "probability": 0.7977427045504252
+        },
+        {
+          "word": " va",
+          "start": 14.36,
+          "end": 14.54,
+          "probability": 0.9907163381576538
+        },
+        {
+          "word": " a",
+          "start": 14.54,
+          "end": 14.64,
+          "probability": 0.9834398031234741
+        },
+        {
+          "word": " ser",
+          "start": 14.64,
+          "end": 14.76,
+          "probability": 0.9837557077407837
+        },
+        {
+          "word": " el",
+          "start": 14.76,
+          "end": 14.92,
+          "probability": 0.9915162324905396
+        },
+        {
+          "word": " primero",
+          "start": 14.92,
+          "end": 15.3,
+          "probability": 0.9933815002441406
+        },
+        {
+          "word": " en",
+          "start": 15.3,
+          "end": 15.42,
+          "probability": 0.9932739734649658
+        },
+        {
+          "word": " su",
+          "start": 15.42,
+          "end": 15.54,
+          "probability": 0.9859588742256165
+        },
+        {
+          "word": " sector?",
+          "start": 15.54,
+          "end": 16.04,
+          "probability": 0.9914523363113403
+        },
+        {
+          "word": " En",
+          "start": 16.9,
+          "end": 17.06,
+          "probability": 0.4688825011253357
+        },
+        {
+          "word": " darse",
+          "start": 17.06,
+          "end": 17.4,
+          "probability": 0.9717437624931335
+        },
+        {
+          "word": " cuenta",
+          "start": 17.4,
+          "end": 17.66,
+          "probability": 0.9995107650756836
+        },
+        {
+          "word": " de",
+          "start": 17.66,
+          "end": 17.86,
+          "probability": 0.9766204357147217
+        },
+        {
+          "word": " que",
+          "start": 17.86,
+          "end": 17.96,
+          "probability": 0.9691969752311707
+        },
+        {
+          "word": " se",
+          "start": 17.96,
+          "end": 18.1,
+          "probability": 0.9926899075508118
+        },
+        {
+          "word": " puede",
+          "start": 18.1,
+          "end": 18.32,
+          "probability": 0.9825074076652527
+        },
+        {
+          "word": " usar",
+          "start": 18.32,
+          "end": 18.62,
+          "probability": 0.993228018283844
+        },
+        {
+          "word": " esto.",
+          "start": 18.62,
+          "end": 18.92,
+          "probability": 0.9835247993469238
+        }
+      ]
+    }
+  ]
+}

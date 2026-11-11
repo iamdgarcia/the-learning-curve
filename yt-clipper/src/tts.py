@@ -248,6 +248,27 @@ def generate(text: str, output_path: str, voice: str | None = None, rate: str = 
 
 # ── Word events → Whisper segment format ─────────────────────────────────────
 
+def text_to_word_events(narration: str, audio_duration: float) -> list[dict]:
+    """Generate word events from known script text + audio duration.
+
+    Uses character-proportional timing: longer words get more time.
+    Always matches the script exactly — no Whisper re-transcription needed.
+    Use this whenever we know the narration text (Pipelines B and C).
+    """
+    import re
+    words = [w for w in re.split(r'\s+', narration.strip()) if w]
+    if not words or audio_duration <= 0:
+        return []
+    lengths = [max(len(w), 1) for w in words]
+    total   = sum(lengths)
+    t, events = 0.0, []
+    for word, length in zip(words, lengths):
+        dur = (length / total) * audio_duration
+        events.append({"word": word, "start": round(t, 3), "end": round(t + dur, 3)})
+        t += dur
+    return events
+
+
 def to_whisper_segments(word_events: list[dict], pause_s: float = 0.45) -> list[dict]:
     """Group word_events into sentence-like segments. Returns Whisper-compatible dicts."""
     if not word_events:

@@ -1,0 +1,652 @@
+{
+  "text": " antes la latencia se nos está quedando en torno a un segundo, un segundo, un segundo y medio. No es perfecto pero realmente más allá de ese efecto wow que tenemos en estos casos en los que la respuesta viene prácticamente instantánea, nos resuelve el problema que en este caso y por eso he cogido un poco este ejemplo del contact center de llamar para pedir citas porque en el fondo nos quita mucho tiempo, no aporta mucho valor en los negros.",
+  "segments": [
+    {
+      "id": 0,
+      "seek": 0,
+      "start": 0.0,
+      "end": 8.62,
+      "text": " antes la latencia se nos está quedando en torno a un segundo, un segundo, un segundo y medio. No es perfecto pero realmente más allá de ese efecto",
+      "tokens": [
+        50364,
+        11014,
+        635,
+        4465,
+        10974,
+        369,
+        3269,
+        3192,
+        13617,
+        1806,
+        465,
+        3930,
+        1771,
+        257,
+        517,
+        17954,
+        11,
+        517,
+        17954,
+        11,
+        517,
+        17954,
+        288,
+        22123,
+        13,
+        883,
+        785,
+        2176,
+        78,
+        4768,
+        14446,
+        3573,
+        30642,
+        368,
+        10167,
+        46783,
+        50764
+      ],
+      "temperature": 0,
+      "avg_logprob": -0.17031858633230398,
+      "compression_ratio": 1.75,
+      "no_speech_prob": 0.20308084785938263,
+      "words": [
+        {
+          "word": " antes",
+          "start": 0.0,
+          "end": 0.42,
+          "probability": 0.29554128646850586
+        },
+        {
+          "word": " la",
+          "start": 0.42,
+          "end": 0.58,
+          "probability": 0.7969072461128235
+        },
+        {
+          "word": " latencia",
+          "start": 0.58,
+          "end": 0.98,
+          "probability": 0.9827890992164612
+        },
+        {
+          "word": " se",
+          "start": 0.98,
+          "end": 1.12,
+          "probability": 0.9414690732955933
+        },
+        {
+          "word": " nos",
+          "start": 1.12,
+          "end": 1.22,
+          "probability": 0.9722223877906799
+        },
+        {
+          "word": " está",
+          "start": 1.22,
+          "end": 1.42,
+          "probability": 0.7788872718811035
+        },
+        {
+          "word": " quedando",
+          "start": 1.42,
+          "end": 1.64,
+          "probability": 0.9724364280700684
+        },
+        {
+          "word": " en",
+          "start": 1.64,
+          "end": 1.74,
+          "probability": 0.8567355871200562
+        },
+        {
+          "word": " torno",
+          "start": 1.74,
+          "end": 1.92,
+          "probability": 0.9558380544185638
+        },
+        {
+          "word": " a",
+          "start": 1.92,
+          "end": 1.98,
+          "probability": 0.90283203125
+        },
+        {
+          "word": " un",
+          "start": 1.98,
+          "end": 2.06,
+          "probability": 0.945980966091156
+        },
+        {
+          "word": " segundo,",
+          "start": 2.06,
+          "end": 2.32,
+          "probability": 0.9924558401107788
+        },
+        {
+          "word": " un",
+          "start": 2.64,
+          "end": 2.82,
+          "probability": 0.8306993246078491
+        },
+        {
+          "word": " segundo,",
+          "start": 2.82,
+          "end": 3.2,
+          "probability": 0.994572103023529
+        },
+        {
+          "word": " un",
+          "start": 3.38,
+          "end": 3.56,
+          "probability": 0.9677361845970154
+        },
+        {
+          "word": " segundo",
+          "start": 3.56,
+          "end": 3.8,
+          "probability": 0.9969789981842041
+        },
+        {
+          "word": " y",
+          "start": 3.8,
+          "end": 3.96,
+          "probability": 0.9784488677978516
+        },
+        {
+          "word": " medio.",
+          "start": 3.96,
+          "end": 4.18,
+          "probability": 0.9620686769485474
+        },
+        {
+          "word": " No",
+          "start": 4.6,
+          "end": 4.74,
+          "probability": 0.9679676294326782
+        },
+        {
+          "word": " es",
+          "start": 4.74,
+          "end": 4.84,
+          "probability": 0.9970627427101135
+        },
+        {
+          "word": " perfecto",
+          "start": 4.84,
+          "end": 5.56,
+          "probability": 0.9949036836624146
+        },
+        {
+          "word": " pero",
+          "start": 5.56,
+          "end": 5.74,
+          "probability": 0.534188985824585
+        },
+        {
+          "word": " realmente",
+          "start": 5.74,
+          "end": 6.34,
+          "probability": 0.9800626635551453
+        },
+        {
+          "word": " más",
+          "start": 6.34,
+          "end": 7.36,
+          "probability": 0.8535066246986389
+        },
+        {
+          "word": " allá",
+          "start": 7.36,
+          "end": 7.6,
+          "probability": 0.995870053768158
+        },
+        {
+          "word": " de",
+          "start": 7.6,
+          "end": 7.88,
+          "probability": 0.9891156554222107
+        },
+        {
+          "word": " ese",
+          "start": 7.88,
+          "end": 8.3,
+          "probability": 0.949525773525238
+        },
+        {
+          "word": " efecto",
+          "start": 8.3,
+          "end": 8.62,
+          "probability": 0.9800185561180115
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "seek": 0,
+      "start": 8.62,
+      "end": 19.5,
+      "text": " wow que tenemos en estos casos en los que la respuesta viene prácticamente instantánea, nos resuelve el problema que en este caso y por eso he cogido un poco este ejemplo del contact center",
+      "tokens": [
+        50764,
+        6076,
+        631,
+        9914,
+        465,
+        12585,
+        25135,
+        465,
+        1750,
+        631,
+        635,
+        40585,
+        19561,
+        27300,
+        50250,
+        9836,
+        842,
+        22160,
+        11,
+        3269,
+        725,
+        3483,
+        303,
+        806,
+        12395,
+        631,
+        465,
+        4065,
+        9666,
+        288,
+        1515,
+        7287,
+        415,
+        46521,
+        2925,
+        517,
+        10639,
+        4065,
+        13358,
+        1103,
+        3385,
+        3056,
+        51314
+      ],
+      "temperature": 0,
+      "avg_logprob": -0.17031858633230398,
+      "compression_ratio": 1.75,
+      "no_speech_prob": 0.20308084785938263,
+      "words": [
+        {
+          "word": " wow",
+          "start": 8.62,
+          "end": 8.94,
+          "probability": 0.22279894351959229
+        },
+        {
+          "word": " que",
+          "start": 8.94,
+          "end": 9.12,
+          "probability": 0.9524835348129272
+        },
+        {
+          "word": " tenemos",
+          "start": 9.12,
+          "end": 9.46,
+          "probability": 0.9983980059623718
+        },
+        {
+          "word": " en",
+          "start": 9.46,
+          "end": 9.66,
+          "probability": 0.9896690249443054
+        },
+        {
+          "word": " estos",
+          "start": 9.66,
+          "end": 9.84,
+          "probability": 0.9915615916252136
+        },
+        {
+          "word": " casos",
+          "start": 9.84,
+          "end": 10.16,
+          "probability": 0.996783971786499
+        },
+        {
+          "word": " en",
+          "start": 10.16,
+          "end": 10.34,
+          "probability": 0.8457631468772888
+        },
+        {
+          "word": " los",
+          "start": 10.34,
+          "end": 10.42,
+          "probability": 0.9880843758583069
+        },
+        {
+          "word": " que",
+          "start": 10.42,
+          "end": 10.6,
+          "probability": 0.996070146560669
+        },
+        {
+          "word": " la",
+          "start": 10.6,
+          "end": 10.78,
+          "probability": 0.9947389960289001
+        },
+        {
+          "word": " respuesta",
+          "start": 10.78,
+          "end": 11.18,
+          "probability": 0.9969428181648254
+        },
+        {
+          "word": " viene",
+          "start": 11.18,
+          "end": 11.6,
+          "probability": 0.994967520236969
+        },
+        {
+          "word": " prácticamente",
+          "start": 11.6,
+          "end": 12.64,
+          "probability": 0.9860933721065521
+        },
+        {
+          "word": " instantánea,",
+          "start": 12.64,
+          "end": 13.5,
+          "probability": 0.9780697822570801
+        },
+        {
+          "word": " nos",
+          "start": 13.86,
+          "end": 14.04,
+          "probability": 0.9885438084602356
+        },
+        {
+          "word": " resuelve",
+          "start": 14.04,
+          "end": 14.5,
+          "probability": 0.9696098566055298
+        },
+        {
+          "word": " el",
+          "start": 14.5,
+          "end": 14.6,
+          "probability": 0.9962420463562012
+        },
+        {
+          "word": " problema",
+          "start": 14.6,
+          "end": 15.06,
+          "probability": 0.999387264251709
+        },
+        {
+          "word": " que",
+          "start": 15.06,
+          "end": 15.76,
+          "probability": 0.8320409059524536
+        },
+        {
+          "word": " en",
+          "start": 15.76,
+          "end": 16.02,
+          "probability": 0.9553009271621704
+        },
+        {
+          "word": " este",
+          "start": 16.02,
+          "end": 16.2,
+          "probability": 0.991746187210083
+        },
+        {
+          "word": " caso",
+          "start": 16.2,
+          "end": 16.5,
+          "probability": 0.9988983869552612
+        },
+        {
+          "word": " y",
+          "start": 16.5,
+          "end": 16.76,
+          "probability": 0.751781165599823
+        },
+        {
+          "word": " por",
+          "start": 16.76,
+          "end": 16.9,
+          "probability": 0.9909511804580688
+        },
+        {
+          "word": " eso",
+          "start": 16.9,
+          "end": 17.02,
+          "probability": 0.9851723909378052
+        },
+        {
+          "word": " he",
+          "start": 17.02,
+          "end": 17.12,
+          "probability": 0.7596619129180908
+        },
+        {
+          "word": " cogido",
+          "start": 17.12,
+          "end": 17.3,
+          "probability": 0.9950023889541626
+        },
+        {
+          "word": " un",
+          "start": 17.3,
+          "end": 17.4,
+          "probability": 0.9785766005516052
+        },
+        {
+          "word": " poco",
+          "start": 17.4,
+          "end": 17.52,
+          "probability": 0.9971600770950317
+        },
+        {
+          "word": " este",
+          "start": 17.52,
+          "end": 17.7,
+          "probability": 0.9831953644752502
+        },
+        {
+          "word": " ejemplo",
+          "start": 17.7,
+          "end": 18.0,
+          "probability": 0.9968531727790833
+        },
+        {
+          "word": " del",
+          "start": 18.0,
+          "end": 18.3,
+          "probability": 0.8906531929969788
+        },
+        {
+          "word": " contact",
+          "start": 18.3,
+          "end": 19.06,
+          "probability": 0.767863929271698
+        },
+        {
+          "word": " center",
+          "start": 19.06,
+          "end": 19.5,
+          "probability": 0.87059086561203
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "seek": 0,
+      "start": 19.5,
+      "end": 25.98,
+      "text": " de llamar para pedir citas porque en el fondo nos quita mucho tiempo, no aporta mucho valor en los negros.",
+      "tokens": [
+        51314,
+        368,
+        16848,
+        289,
+        1690,
+        33533,
+        4814,
+        296,
+        4021,
+        465,
+        806,
+        38101,
+        3269,
+        421,
+        2786,
+        9824,
+        11772,
+        11,
+        572,
+        1882,
+        36403,
+        9824,
+        15367,
+        465,
+        1750,
+        408,
+        861,
+        329,
+        13,
+        51664
+      ],
+      "temperature": 0,
+      "avg_logprob": -0.17031858633230398,
+      "compression_ratio": 1.75,
+      "no_speech_prob": 0.20308084785938263,
+      "words": [
+        {
+          "word": " de",
+          "start": 19.5,
+          "end": 19.74,
+          "probability": 0.8633249998092651
+        },
+        {
+          "word": " llamar",
+          "start": 19.74,
+          "end": 20.16,
+          "probability": 0.9598843157291412
+        },
+        {
+          "word": " para",
+          "start": 20.16,
+          "end": 20.3,
+          "probability": 0.9849099516868591
+        },
+        {
+          "word": " pedir",
+          "start": 20.3,
+          "end": 20.56,
+          "probability": 0.9609367847442627
+        },
+        {
+          "word": " citas",
+          "start": 20.56,
+          "end": 20.98,
+          "probability": 0.965709775686264
+        },
+        {
+          "word": " porque",
+          "start": 20.98,
+          "end": 21.22,
+          "probability": 0.8592113256454468
+        },
+        {
+          "word": " en",
+          "start": 21.22,
+          "end": 21.34,
+          "probability": 0.9564735889434814
+        },
+        {
+          "word": " el",
+          "start": 21.34,
+          "end": 21.4,
+          "probability": 0.9868078827857971
+        },
+        {
+          "word": " fondo",
+          "start": 21.4,
+          "end": 21.62,
+          "probability": 0.9933931231498718
+        },
+        {
+          "word": " nos",
+          "start": 21.62,
+          "end": 22.12,
+          "probability": 0.988884449005127
+        },
+        {
+          "word": " quita",
+          "start": 22.12,
+          "end": 22.4,
+          "probability": 0.9423538148403168
+        },
+        {
+          "word": " mucho",
+          "start": 22.4,
+          "end": 22.64,
+          "probability": 0.9991174340248108
+        },
+        {
+          "word": " tiempo,",
+          "start": 22.64,
+          "end": 23.1,
+          "probability": 0.9994547963142395
+        },
+        {
+          "word": " no",
+          "start": 23.3,
+          "end": 23.38,
+          "probability": 0.926089346408844
+        },
+        {
+          "word": " aporta",
+          "start": 23.38,
+          "end": 23.68,
+          "probability": 0.9746281802654266
+        },
+        {
+          "word": " mucho",
+          "start": 23.68,
+          "end": 24.02,
+          "probability": 0.9834783673286438
+        },
+        {
+          "word": " valor",
+          "start": 24.02,
+          "end": 24.8,
+          "probability": 0.8341909050941467
+        },
+        {
+          "word": " en",
+          "start": 24.8,
+          "end": 25.32,
+          "probability": 0.9897502064704895
+        },
+        {
+          "word": " los",
+          "start": 25.32,
+          "end": 25.82,
+          "probability": 0.9282076358795166
+        },
+        {
+          "word": " negros.",
+          "start": 25.82,
+          "end": 25.98,
+          "probability": 0.6436588565508524
+        }
+      ]
+    }
+  ]
+}
