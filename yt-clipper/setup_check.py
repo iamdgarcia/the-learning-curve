@@ -88,7 +88,7 @@ def check_system() -> list[dict]:
     ok, out = _cmd(["node", "--version"])
     results.append(_check(
         "Node.js (Pipeline D only)", True if ok else None,
-        detail=out.strip() if ok else "not found — only needed for reel_gen.py",
+        detail=out.strip() if ok else "not found — only needed for Pipeline D (reel)",
         fix="sudo apt install nodejs npm",
     ))
 
@@ -224,7 +224,7 @@ def check_gcp_tts() -> list[dict]:
         return [_check(
             "GCP TTS", None,
             detail="not yet authenticated",
-            fix="Run any pipeline (faceless_gen.py or interview_gen.py) — browser auth opens automatically",
+            fix="Run any pipeline — browser auth opens automatically (e.g. python skills/yt-clipper/scripts/faceless.py --upload)",
         )]
 
     try:
@@ -252,7 +252,7 @@ def check_youtube() -> list[dict]:
         return [_check(
             "YouTube OAuth", None,
             detail="not yet authenticated",
-            fix="Run any pipeline with --upload  (e.g. python faceless_gen.py --upload --privacy unlisted)",
+            fix="Run any pipeline with --upload  (e.g. python skills/yt-clipper/scripts/faceless.py --upload --privacy unlisted)",
         )]
 
     try:

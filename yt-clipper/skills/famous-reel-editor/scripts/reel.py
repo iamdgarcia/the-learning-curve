@@ -19,6 +19,9 @@ Steps (run in order; script pauses at review points):
   7  Compose final reel (face + cards + captions + music)
   8  Upload to YouTube  (only if --upload)
 """
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent.parent))
 import argparse
 import os
 import pathlib

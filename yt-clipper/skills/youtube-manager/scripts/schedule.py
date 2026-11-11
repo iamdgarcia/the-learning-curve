@@ -17,6 +17,9 @@ Usage:
     python schedule_clips.py --from-file temp/uploaded.json --start 2026-10-27
     python schedule_clips.py --from-file temp/uploaded.json --interval-hours 2
 """
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent.parent))
 import argparse
 import json
 import sys

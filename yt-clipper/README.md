@@ -19,10 +19,10 @@ Everything that makes a video yours (channel name, colors, voice, language, CTA)
 | **D** | **Reel** | A raw clip you recorded | Edited 9:16 reel with animated cards and music |
 
 ```bash
-python main.py         --url "https://youtu.be/..."          # A
-python faceless_gen.py --topic "Prompt caching in OpenAI"    # B
-python interview_gen.py --topic "What is RAG?"               # C
-python reel_gen.py     --clip path/to/raw.mp4                # D
+python skills/yt-clipper/scripts/clip.py         --url "https://youtu.be/..."          # A
+python skills/yt-clipper/scripts/faceless.py --topic "Prompt caching in OpenAI"    # B
+python skills/yt-clipper/scripts/interview.py --topic "What is RAG?"               # C
+python skills/famous-reel-editor/scripts/reel.py     --clip path/to/raw.mp4                # D
 ```
 
 ---
@@ -141,35 +141,35 @@ One GCP project, one OAuth client, covers both TTS and YouTube upload.
 ### A — Clip an existing YouTube video
 ```bash
 export PATH="$HOME/.local/bin:$PATH"
-python main.py --url "https://youtu.be/VIDEO_ID" --max-clips 5 --mode shorts \
+python skills/yt-clipper/scripts/clip.py --url "https://youtu.be/VIDEO_ID" --max-clips 5 --mode shorts \
                --auto-upload --privacy unlisted
 
 # Schedule the uploaded clips
-python schedule_clips.py --from-file temp/uploaded.json
+python skills/youtube-manager/scripts/schedule.py --from-file temp/uploaded.json
 ```
 Modes: `shorts` (60s) · `standard` (90s) · `emotion` (peak moments) · `topic "keyword"`
 
 ### B — Faceless branded Short
 ```bash
-python faceless_gen.py --topic "Prompt caching in OpenAI"
-python faceless_gen.py              # LLM picks trending topic
-python faceless_gen.py --dry-run    # preview script only
-python faceless_gen.py --upload --privacy unlisted
+python skills/yt-clipper/scripts/faceless.py --topic "Prompt caching in OpenAI"
+python skills/yt-clipper/scripts/faceless.py              # LLM picks trending topic
+python skills/yt-clipper/scripts/faceless.py --dry-run    # preview script only
+python skills/yt-clipper/scripts/faceless.py --upload --privacy unlisted
 ```
 
 ### C — Animated explainer
 ```bash
-python interview_gen.py --topic "What is RAG?"
-python interview_gen.py --topic "What is RAG?" --style html      # ByteByteGo/KodeKloud (default)
-python interview_gen.py --topic "What is RAG?" --style manim     # 3Blue1Brown math diagrams
-python interview_gen.py --topic "What is RAG?" --style remotion  # Rough.js hand-drawn whiteboard
-python interview_gen.py --upload --privacy unlisted
-python interview_gen.py --dry-run
+python skills/yt-clipper/scripts/interview.py --topic "What is RAG?"
+python skills/yt-clipper/scripts/interview.py --topic "What is RAG?" --style html      # ByteByteGo/KodeKloud (default)
+python skills/yt-clipper/scripts/interview.py --topic "What is RAG?" --style manim     # 3Blue1Brown math diagrams
+python skills/yt-clipper/scripts/interview.py --topic "What is RAG?" --style remotion  # Rough.js hand-drawn whiteboard
+python skills/yt-clipper/scripts/interview.py --upload --privacy unlisted
+python skills/yt-clipper/scripts/interview.py --dry-run
 
 # Upload + schedule after generation (Pipelines B and C don't auto-upload):
-python upload_videos.py temp/interview_*.mp4 --titles "Title 1" "Title 2"
-python schedule_clips.py --from-file temp/uploaded.json              # preferred slots (best for algo)
-python schedule_clips.py --from-file temp/uploaded.json --interval-hours 2  # blitz: every 2h
+python skills/youtube-manager/scripts/upload.py temp/interview_*.mp4 --titles "Title 1" "Title 2"
+python skills/youtube-manager/scripts/schedule.py --from-file temp/uploaded.json              # preferred slots (best for algo)
+python skills/youtube-manager/scripts/schedule.py --from-file temp/uploaded.json --interval-hours 2  # blitz: every 2h
 ```
 
 | `--style` | Aesthetic | Requires |
@@ -180,7 +180,7 @@ python schedule_clips.py --from-file temp/uploaded.json --interval-hours 2  # bl
 
 ### D — Reel from your raw clip
 ```bash
-python reel_gen.py --clip path/to/raw.mp4 --name myname --transcriber groq
+python skills/famous-reel-editor/scripts/reel.py --clip path/to/raw.mp4 --name myname --transcriber groq
 # Pauses for EDL review and crop_y tuning
 ```
 Transcribers: `elevenlabs` · `groq` · `local` (offline, no key)
@@ -224,12 +224,7 @@ python -m src.youtube_analytics --report video --id VIDEO_ID
 
 ```
 yt-clipper/
-├── main.py                Pipeline A
-├── faceless_gen.py        Pipeline B
-├── interview_gen.py       Pipeline C
-├── reel_gen.py            Pipeline D
 ├── setup_check.py         Health check + onboarding
-├── schedule_clips.py      Schedule uploaded videos
 ├── src/
 │   ├── brand_config.py    Loads config/faceless_brand.json
 │   ├── tts.py             GCP Chirp3/Studio/Neural2 + edge-tts fallback

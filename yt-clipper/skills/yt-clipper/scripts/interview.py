@@ -17,8 +17,9 @@ from pathlib import Path
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s", datefmt="%H:%M:%S")
 log = logging.getLogger(__name__)
 
-os.chdir(Path(__file__).parent)
-sys.path.insert(0, str(Path(__file__).parent))
+# chdir to project root so src/ and config/ are reachable
+os.chdir(Path(__file__).resolve().parent.parent.parent)
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent.parent))
 
 from src.interview_writer import write as write_script
 from src.animation_renderer import render as render_animation

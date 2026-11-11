@@ -34,7 +34,7 @@ Four pipelines, one brand. All videos share:
 ```bash
 cd /home/developer/proyectos/tlc/yt-clipper && export PATH="$HOME/.local/bin:$PATH"
 
-python main.py \
+python skills/yt-clipper/scripts/clip.py \
   --url "YOUTUBE_URL" \
   --max-clips 5 \
   --mode shorts \
@@ -43,8 +43,8 @@ python main.py \
   --privacy unlisted
 
 # Schedule after upload:
-python schedule_clips.py --from-file temp/uploaded.json --dry-run
-python schedule_clips.py --from-file temp/uploaded.json
+python skills/youtube-manager/scripts/schedule.py --from-file temp/uploaded.json --dry-run
+python skills/youtube-manager/scripts/schedule.py --from-file temp/uploaded.json
 ```
 
 **Flags:** `--url` (required), `--max-clips` (5), `--mode` (shorts|standard), `--auto-upload`, `--privacy`, `--caption-style` (use `none` when source captions already burned in), `--caption-replace OLD=NEW`
@@ -58,10 +58,10 @@ python schedule_clips.py --from-file temp/uploaded.json
 Trending AI topic → visual plan → Claude Code slides → TTS → upload.
 
 ```bash
-python faceless_gen.py                                      # LLM picks topic
-python faceless_gen.py --topic "Prompt Caching en OpenAI"  # custom topic
-python faceless_gen.py --dry-run                            # script preview
-python faceless_gen.py --upload --privacy unlisted
+python skills/yt-clipper/scripts/faceless.py                                      # LLM picks topic
+python skills/yt-clipper/scripts/faceless.py --topic "Prompt Caching en OpenAI"  # custom topic
+python skills/yt-clipper/scripts/faceless.py --dry-run                            # script preview
+python skills/yt-clipper/scripts/faceless.py --upload --privacy unlisted
 ```
 
 Steps: `trend_finder` → `script_writer` → `visual_planner` → `slide_reviewer` → `slide_agent` (Claude Code HTML→PNG) → `cta_slide` → `tts` → `faceless_composer`
@@ -78,17 +78,17 @@ Animated diagrams recorded by Playwright. KodeKloud/ByteByteGo aesthetic. Warm w
 cd /home/developer/proyectos/tlc/yt-clipper && export PATH="$HOME/.local/bin:$PATH"
 
 # Default HTML style (ByteByteGo / KodeKloud):
-python interview_gen.py --topic "¿Qué es RAG en LLMs?"
+python skills/yt-clipper/scripts/interview.py --topic "¿Qué es RAG en LLMs?"
 
 # 3Blue1Brown math/CS style (requires: pip install manim):
-python interview_gen.py --topic "Cómo funciona la atención en Transformers" --style manim
+python skills/yt-clipper/scripts/interview.py --topic "Cómo funciona la atención en Transformers" --style manim
 
 # React whiteboard / Rough.js hand-drawn (requires: Node.js):
-python interview_gen.py --topic "Arquitectura de agentes IA" --style remotion
+python skills/yt-clipper/scripts/interview.py --topic "Arquitectura de agentes IA" --style remotion
 
 # Other flags:
-python interview_gen.py --topic "..." --upload --privacy unlisted
-python interview_gen.py --dry-run   # script only, no render
+python skills/yt-clipper/scripts/interview.py --topic "..." --upload --privacy unlisted
+python skills/yt-clipper/scripts/interview.py --dry-run   # script only, no render
 ```
 
 ### Pipeline C steps
@@ -167,7 +167,7 @@ Claude Suite, agentes autónomos, subagentes, servicios IA a precio fijo
 Raw vertical MP4 → 9:16 reel: face in bottom half, animated green cards in top half, karaoke one-word subtitles, background music. Style: Ambra/green-glass.
 
 ```bash
-python reel_gen.py --clip path/to/raw.mp4 [--name myname] [--transcriber groq|local|elevenlabs]
+python skills/famous-reel-editor/scripts/reel.py --clip path/to/raw.mp4 [--name myname] [--transcriber groq|local|elevenlabs]
 ```
 
 **Flags:** `--clip` (required), `--name` (default: clip stem), `--transcriber` (default: elevenlabs), `--step N` (resume), `--upload`, `--privacy`
@@ -186,17 +186,17 @@ Pipelines B and C do NOT auto-upload. After generating:
 cd /home/developer/proyectos/tlc/yt-clipper && export PATH="$HOME/.local/bin:$PATH"
 
 # 1. Upload MP4s (titles from --titles or inferred from filename)
-python upload_videos.py temp/interview_*.mp4
-python upload_videos.py temp/interview_*.mp4 \
+python skills/youtube-manager/scripts/upload.py temp/interview_*.mp4
+python skills/youtube-manager/scripts/upload.py temp/interview_*.mp4 \
   --titles "Título 1" "Título 2" \
   --privacy private
 
 # 2a. Preferred-slot algorithm (Tue/Thu/Fri/Sun 14:00, 2-day gap — best for algo)
-python schedule_clips.py --from-file temp/uploaded.json --dry-run
-python schedule_clips.py --from-file temp/uploaded.json
+python skills/youtube-manager/scripts/schedule.py --from-file temp/uploaded.json --dry-run
+python skills/youtube-manager/scripts/schedule.py --from-file temp/uploaded.json
 
 # 2b. Blitz mode — every N hours from now
-python schedule_clips.py --from-file temp/uploaded.json --interval-hours 2
+python skills/youtube-manager/scripts/schedule.py --from-file temp/uploaded.json --interval-hours 2
 ```
 
 **Pipeline A** has `--auto-upload` built in; `upload_videos.py` is not needed for it.

@@ -56,13 +56,13 @@ Use when clips are already in `temp/` and metadata in `temp/clips_metadata.json`
 cd __PROJECT_PATH__
 
 # Upload as unlisted (review before publishing)
-python upload_ready_clips.py --privacy unlisted
+python skills/youtube-manager/scripts/upload.py --privacy unlisted
 
 # Upload as private
-python upload_ready_clips.py --privacy private
+python skills/youtube-manager/scripts/upload.py --privacy private
 
 # Upload specific clips dir and metadata
-python upload_ready_clips.py --metadata temp/clips_metadata.json --clips-dir temp
+python skills/youtube-manager/scripts/upload.py --metadata temp/clips_metadata.json --clips-dir temp
 ```
 
 **Expected output:**
@@ -81,16 +81,16 @@ Calculates optimal slots based on best practices + adjustable to real channel da
 
 ```bash
 # Schedule from uploaded.json (auto-detects optimal days/times)
-python schedule_clips.py --from-file temp/uploaded.json
+python skills/youtube-manager/scripts/schedule.py --from-file temp/uploaded.json
 
 # Preview schedule without applying
-python schedule_clips.py --from-file temp/uploaded.json --dry-run
+python skills/youtube-manager/scripts/schedule.py --from-file temp/uploaded.json --dry-run
 
 # Pass video IDs directly
-python schedule_clips.py --video-ids ID1 ID2 ID3 --dry-run
+python skills/youtube-manager/scripts/schedule.py --video-ids ID1 ID2 ID3 --dry-run
 
 # Schedule starting from a specific date
-python schedule_clips.py --from-file temp/uploaded.json --start 2026-11-01
+python skills/youtube-manager/scripts/schedule.py --from-file temp/uploaded.json --start 2026-11-01
 ```
 
 **Scheduling strategy (Spain audience):**
@@ -173,14 +173,14 @@ python -m src.youtube_analytics --report channel --days 30
 python -m src.youtube_analytics --report top-videos --days 90
 
 # 3. Upload generated clips
-python upload_ready_clips.py --privacy unlisted
+python skills/youtube-manager/scripts/upload.py --privacy unlisted
 
 # 4. Get real best-day data
 python -m src.youtube_analytics --report schedule-insights --days 30
 
 # 5. Schedule
-python schedule_clips.py --from-file temp/uploaded.json --dry-run
-python schedule_clips.py --from-file temp/uploaded.json
+python skills/youtube-manager/scripts/schedule.py --from-file temp/uploaded.json --dry-run
+python skills/youtube-manager/scripts/schedule.py --from-file temp/uploaded.json
 
 # 6. Verify scheduled clips
 python -m src.youtube_analytics --report video --id VIDEO_ID
@@ -205,7 +205,7 @@ python -m src.youtube_analytics --report video --id VIDEO_ID
 **Solution:**
 ```bash
 rm __PROJECT_PATH__/config/token.json
-python schedule_clips.py --from-file temp/uploaded.json
+python skills/youtube-manager/scripts/schedule.py --from-file temp/uploaded.json
 # Browser opens → authorize again with full scopes
 ```
 
