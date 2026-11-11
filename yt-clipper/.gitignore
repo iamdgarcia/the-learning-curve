@@ -26,6 +26,13 @@ __pycache__/
 ~/.cache/yt-clipper/
 ~/.cache/whisper/
 
+# Local run reports and temp outputs
+reports/
+temp/
+
+# Node
+node_modules/
+
 # OS
 .DS_Store
-yt-clipper/reports/
+Thumb.db

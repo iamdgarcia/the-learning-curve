@@ -160,9 +160,23 @@ python faceless_gen.py --upload --privacy unlisted
 ### C — Animated explainer
 ```bash
 python interview_gen.py --topic "What is RAG?"
+python interview_gen.py --topic "What is RAG?" --style html      # ByteByteGo/KodeKloud (default)
+python interview_gen.py --topic "What is RAG?" --style manim     # 3Blue1Brown math diagrams
+python interview_gen.py --topic "What is RAG?" --style remotion  # Rough.js hand-drawn whiteboard
 python interview_gen.py --upload --privacy unlisted
 python interview_gen.py --dry-run
+
+# Upload + schedule after generation (Pipelines B and C don't auto-upload):
+python upload_videos.py temp/interview_*.mp4 --titles "Title 1" "Title 2"
+python schedule_clips.py --from-file temp/uploaded.json              # preferred slots (best for algo)
+python schedule_clips.py --from-file temp/uploaded.json --interval-hours 2  # blitz: every 2h
 ```
+
+| `--style` | Aesthetic | Requires |
+|-----------|-----------|----------|
+| `html` | ByteByteGo / KodeKloud (default) | Playwright (included) |
+| `manim` | 3Blue1Brown math/CS | `pip install manim` |
+| `remotion` | Rough.js hand-drawn whiteboard | Node.js |
 
 ### D — Reel from your raw clip
 ```bash
