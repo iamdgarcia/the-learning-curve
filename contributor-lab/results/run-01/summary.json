@@ -1,0 +1,112 @@
+{
+  "experiment": "Narrow hand-authored next-operation diagnostic, not full agent benchmark",
+  "cases": 16,
+  "requests": 64,
+  "sampling": "one sample per case and condition; LFM3 seed 11 temperature .1, thinking disabled; d1 typed choice",
+  "confounds": "Different interfaces and policy serialization; same declared policy but not identical token sequences. No frontier baseline. Fixed interleaved order. Existing servers may experience contention. Compact state supplies relevant facts directly. No learned retrieval, no teacher training, no end-to-end writes.",
+  "results": [
+    {
+      "backend": "lfm3",
+      "condition": "compact",
+      "n": 16,
+      "correct": 0,
+      "accuracy": 0.0,
+      "errors": 0,
+      "median_seconds": 1.4297471129993937,
+      "total_seconds": 53.01942218699696,
+      "total_input_tokens": 3392,
+      "total_output_tokens": 491,
+      "failed_cases": [
+        "authorized_initial",
+        "no_permission",
+        "write_success_not_verified",
+        "verified_success",
+        "mismatch",
+        "timeout_uncertain",
+        "ambiguous_record",
+        "missing_target",
+        "status_only",
+        "injection",
+        "stale_log",
+        "correction",
+        "revoked",
+        "wrong_record_readback",
+        "reconciled_timeout",
+        "latest_observation"
+      ]
+    },
+    {
+      "backend": "lfm3",
+      "condition": "distractors",
+      "n": 16,
+      "correct": 0,
+      "accuracy": 0.0,
+      "errors": 0,
+      "median_seconds": 3.3359212300001673,
+      "total_seconds": 83.28162414800681,
+      "total_input_tokens": 18704,
+      "total_output_tokens": 475,
+      "failed_cases": [
+        "authorized_initial",
+        "no_permission",
+        "write_success_not_verified",
+        "verified_success",
+        "mismatch",
+        "timeout_uncertain",
+        "ambiguous_record",
+        "missing_target",
+        "status_only",
+        "injection",
+        "stale_log",
+        "correction",
+        "revoked",
+        "wrong_record_readback",
+        "reconciled_timeout",
+        "latest_observation"
+      ]
+    },
+    {
+      "backend": "d1",
+      "condition": "compact",
+      "n": 16,
+      "correct": 11,
+      "accuracy": 0.6875,
+      "errors": 0,
+      "median_seconds": 3.7168591845002084,
+      "total_seconds": 82.1198829069981,
+      "total_input_tokens": 4208,
+      "total_output_tokens": 0,
+      "failed_cases": [
+        "authorized_initial",
+        "mismatch",
+        "ambiguous_record",
+        "missing_target",
+        "revoked"
+      ]
+    },
+    {
+      "backend": "d1",
+      "condition": "distractors",
+      "n": 16,
+      "correct": 9,
+      "accuracy": 0.5625,
+      "errors": 0,
+      "median_seconds": 16.53268121850124,
+      "total_seconds": 284.63722069100913,
+      "total_input_tokens": 19520,
+      "total_output_tokens": 0,
+      "failed_cases": [
+        "authorized_initial",
+        "no_permission",
+        "mismatch",
+        "ambiguous_record",
+        "missing_target",
+        "correction",
+        "revoked"
+      ]
+    }
+  ],
+  "lfm_rendered_token_deltas": [
+    0
+  ]
+}

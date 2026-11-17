@@ -1,0 +1,47 @@
+{
+  "models": [
+    {
+      "port": 8080,
+      "id": "lfm3-1.7b",
+      "runtime_context": 32768,
+      "reported_model_meta": {
+        "vocab_type": 2,
+        "n_vocab": 128000,
+        "n_ctx": 32768,
+        "n_ctx_train": 262144,
+        "n_embd": 2048,
+        "n_params": 1728801600,
+        "size": 1091380480,
+        "ftype": "Q4_K - Medium"
+      },
+      "model_filename": "LFM3-1.7B-Q4_K_M.gguf",
+      "hf_revision": "cd0c74c575b5c416f3011b5b4c298077f26ca8c2",
+      "model_sha256": "3793e1e6e2266919d6e015287221b41100175a98eddaba92e111aed3b05c93c4",
+      "model_bytes": 1099627808,
+      "build_info": "b12377-32bdc3a89"
+    },
+    {
+      "port": 8081,
+      "id": "d1-2b",
+      "runtime_context": 4096,
+      "reported_model_meta": {
+        "vocab_type": 2,
+        "n_vocab": 128000,
+        "n_ctx": 4096,
+        "n_ctx_train": 128000,
+        "n_embd": 2048,
+        "n_params": 1728801600,
+        "size": 1091380480,
+        "ftype": "Q4_K - Medium"
+      },
+      "model_filename": "d1-2B-Q4_K_M.gguf",
+      "hf_revision": "4a181094d1b6addfaa3a0956f78e7ab2aa406a0c",
+      "model_sha256": "adca5789ad30ae6027e8e936749bb9f19673097492ab26fa1c5b69643ca50b4b",
+      "model_bytes": 1099629888,
+      "build_info": "b12377-32bdc3a89"
+    }
+  ],
+  "hermes_inspected_commit": "26cd2e6d83494c22a8b5e961f20e293285c48d0a",
+  "runtime_note": "Existing services, not restarted or reconfigured for this diagnostic. Local LFM uses Q8 K/V cache; d1 CPU offload setting -ngl 0. Results not hardware-normalized.",
+  "publication": "Not published. User will log in later."
+}

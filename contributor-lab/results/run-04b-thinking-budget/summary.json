@@ -1,0 +1,18 @@
+{
+  "experiment": "Exploratory thinking-enabled compact control",
+  "n": 16,
+  "correct": 10,
+  "schema_valid": 16,
+  "total_input_tokens": 3488,
+  "total_output_tokens": 2248,
+  "failed_cases": [
+    "ambiguous_record",
+    "missing_target",
+    "injection",
+    "stale_log",
+    "revoked",
+    "latest_observation"
+  ],
+  "reasoning_present_responses": 16,
+  "confounds": "One sample; explored after original failures; thinking enabled with explicit 128-token reasoning budget and 512 total output cap; not maximum-capability test; constrained generation can interact with reasoning. No noisy thinking condition."
+}

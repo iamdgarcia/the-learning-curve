@@ -1,0 +1,62 @@
+{
+  "experiment": "Exploratory constrained-format follow-up, same 16 authored workflow cases",
+  "requests": 32,
+  "results": [
+    {
+      "backend": "lfm3_constrained",
+      "condition": "compact",
+      "n": 16,
+      "correct": 7,
+      "schema_valid": 16,
+      "accuracy": 0.4375,
+      "errors": 0,
+      "median_seconds": 2.0005093869986013,
+      "total_seconds": 48.64174685798935,
+      "total_input_tokens": 3504,
+      "total_output_tokens": 131,
+      "failed_cases": [
+        "mismatch",
+        "timeout_uncertain",
+        "ambiguous_record",
+        "missing_target",
+        "injection",
+        "stale_log",
+        "wrong_record_readback",
+        "reconciled_timeout",
+        "latest_observation"
+      ]
+    },
+    {
+      "backend": "lfm3_constrained",
+      "condition": "distractors",
+      "n": 16,
+      "correct": 3,
+      "schema_valid": 16,
+      "accuracy": 0.1875,
+      "errors": 0,
+      "median_seconds": 5.556861537999794,
+      "total_seconds": 92.74943791599799,
+      "total_input_tokens": 18816,
+      "total_output_tokens": 189,
+      "failed_cases": [
+        "no_permission",
+        "write_success_not_verified",
+        "verified_success",
+        "mismatch",
+        "timeout_uncertain",
+        "ambiguous_record",
+        "missing_target",
+        "injection",
+        "stale_log",
+        "revoked",
+        "wrong_record_readback",
+        "reconciled_timeout",
+        "latest_observation"
+      ]
+    }
+  ],
+  "lfm_rendered_token_deltas": [
+    0
+  ],
+  "confounds": "Follow-up prompt changes final output-format sentence and adds schema grammar. No exact prompt-controlled causal attribution. No repetitions, held-out dataset, frontier baseline, end-to-end tools, or teacher training. Timing under shared server contention."
+}
