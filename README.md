@@ -153,7 +153,7 @@ Standalone real-world implementations organized by category. Each folder has its
 | [system_one_models_tutorial](./llm/system_one_models_tutorial) | Working with System One model endpoints and fast inference |
 | [tokenpilot](https://github.com/iamdgarcia/tokenpilot) | Cache-efficient context management for LLM agents — zero-dependency Python (arxiv paper) |
 | [digitalocean-kimi-k3-python](https://github.com/iamdgarcia/digitalocean-kimi-k3-python) | Minimal Python examples for Kimi K3 on DigitalOcean Serverless Inference |
-| [contributor-lab](./contributor-lab) | Typed worker contract (, , ) with explicit evidence & failure states for small local models |
+| [contributor-lab](./contributor-lab) | Typed worker contract (`ContextCompiler`, `ArtifactStore`, `VerifiedState`) with explicit evidence & failure states for small local models |
 
 
 

@@ -1,6 +1,6 @@
 # A typed worker contract with explicit evidence and failure states
 
-Status: local research prototype (`contributor-lab`), prepared for review before publishing to `iamdgarcia/the-learning-curve`. It is not an installed Hermes plugin, not a production safety controller, and not a benchmark against frontier models.
+Status: standalone research prototype (`contributor-lab`) in [`iamdgarcia/the-learning-curve`](https://github.com/iamdgarcia/the-learning-curve). It is not an installed Hermes plugin, not a production safety controller, and not a benchmark against frontier models.
 
 ## Why this package exists
 
