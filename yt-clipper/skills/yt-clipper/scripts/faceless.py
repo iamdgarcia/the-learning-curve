@@ -28,10 +28,10 @@ logging.basicConfig(
 )
 log = logging.getLogger(__name__)
 
-# Run from project root
-# chdir to project root so src/ and config/ are reachable
-os.chdir(Path(__file__).resolve().parent.parent.parent)
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent.parent))
+# chdir to project root so src/, config/, and .env are reachable
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
+os.chdir(_PROJECT_ROOT)
+sys.path.insert(0, str(_PROJECT_ROOT))
 
 from src import brand_config as bc
 from src.trend_finder import get_trending_topics

@@ -47,11 +47,16 @@ def upload(
     description: str,
     tags: list[str],
     privacy: str = "unlisted",
+    publish_at: str | None = None,   # RFC3339 UTC e.g. "2026-11-20T17:00:00Z"
 ) -> dict:
     """Upload a clip to YouTube. Returns {"video_id": ..., "url": ...}."""
     log.info(f"Uploading: {title}")
     creds = _get_credentials()
     youtube = build("youtube", "v3", credentials=creds)
+
+    status: dict = {"privacyStatus": privacy}
+    if publish_at:
+        status["publishAt"] = publish_at   # schedules when privacy=private
 
     body = {
         "snippet": {
@@ -60,7 +65,7 @@ def upload(
             "tags": tags,
             "categoryId": "22",  # People & Blogs
         },
-        "status": {"privacyStatus": privacy},
+        "status": status,
     }
 
     media = MediaFileUpload(file_path, mimetype="video/mp4", resumable=True)

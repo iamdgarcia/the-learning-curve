@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
+import os
 import sys
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent.parent))
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
+os.chdir(_PROJECT_ROOT)
+sys.path.insert(0, str(_PROJECT_ROOT))
 import argparse
 import json
 import logging
@@ -90,7 +93,9 @@ def main():
     log.info(f"Found {len(clips)} clips.")
 
     # Build channel handle from URL for the footer
-    _channel = brand.channel_handle if hasattr(brand, "channel_handle") else ""
+    from src import brand_config as _bc
+    _brand = _bc.load("config/faceless_brand.json")
+    _channel = _brand.channel_handle if hasattr(_brand, "channel_handle") else ""
 
     def _description(clip) -> str:
         footer = (
