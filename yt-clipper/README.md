@@ -198,6 +198,32 @@ Every script is auto-scored by the `viral-video-writing` skill (hook rules, re-h
 
 ---
 
+## Automation (unattended daily job)
+
+Pipelines **B** and **C** run headless — no browser session needed. Pipeline A requires Firefox logged into YouTube.
+
+The `token.json` has a `refresh_token` so YouTube upload works unattended after first auth.
+
+```bash
+# Add to crontab (runs at 09:00 every day):
+crontab -e
+# → add:
+# 0 9 * * * /home/developer/proyectos/tlc/yt-clipper/run_daily.sh
+
+# Logs go to /tmp/yt-clipper-daily.log
+tail -f /tmp/yt-clipper-daily.log
+```
+
+The script `run_daily.sh` picks a trending topic via LLM, generates the Short, and uploads it as `unlisted`. Schedule it afterwards:
+
+```bash
+python skills/youtube-manager/scripts/schedule.py --from-file temp/uploaded.json
+```
+
+> **GitHub Actions**: Pipelines B/C can run in CI — store `.env`, `config/token.json`, `config/tts_token.json`, `config/client_secrets.json`, and `config/faceless_brand.json` as base64 GH secrets and decode them in the workflow step before running.
+
+---
+
 ## Analytics
 ```bash
 python -m src.youtube_analytics --report channel --days 90
